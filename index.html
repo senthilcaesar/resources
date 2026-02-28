@@ -1,0 +1,1038 @@
+<!DOCTYPE html>
+<html lang="en" class="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Resources</title>
+  <meta name="description" content="A curated, searchable collection of personal resources, tools, and references — all in one place." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+  <style>
+    /* ─── CSS Custom Properties ─────────────────────────────────────── */
+    :root {
+      --bg-base:        #f0f4ff;
+      --bg-card:        rgba(255,255,255,0.72);
+      --bg-card-hover:  rgba(255,255,255,0.92);
+      --bg-glass:       rgba(255,255,255,0.55);
+      --border:         rgba(99,102,241,0.13);
+      --border-strong:  rgba(99,102,241,0.28);
+      --text-primary:   #1e1b4b;
+      --text-secondary: #6366f1;
+      --text-muted:     #7c7c9a;
+      --shadow-sm:      0 2px 12px rgba(99,102,241,0.07);
+      --shadow-md:      0 8px 32px rgba(99,102,241,0.13);
+      --shadow-lg:      0 20px 60px rgba(99,102,241,0.18);
+      --accent:         #6366f1;
+      --accent-glow:    rgba(99,102,241,0.25);
+      --pill-bg:        rgba(99,102,241,0.08);
+      --pill-border:    rgba(99,102,241,0.18);
+      --input-bg:       rgba(255,255,255,0.8);
+      --header-bg:      rgba(255,255,255,0.6);
+      --transition:     0.22s cubic-bezier(.4,0,.2,1);
+    }
+    html.dark {
+      --bg-base:        #0f0e1a;
+      --bg-card:        rgba(30,27,74,0.65);
+      --bg-card-hover:  rgba(40,36,90,0.88);
+      --bg-glass:       rgba(30,27,74,0.50);
+      --border:         rgba(99,102,241,0.18);
+      --border-strong:  rgba(99,102,241,0.38);
+      --text-primary:   #e0e0ff;
+      --text-secondary: #a5b4fc;
+      --text-muted:     #7c7aaa;
+      --shadow-sm:      0 2px 12px rgba(0,0,0,0.35);
+      --shadow-md:      0 8px 32px rgba(0,0,0,0.40);
+      --shadow-lg:      0 20px 60px rgba(0,0,0,0.55);
+      --accent:         #818cf8;
+      --accent-glow:    rgba(129,140,248,0.25);
+      --pill-bg:        rgba(99,102,241,0.15);
+      --pill-border:    rgba(99,102,241,0.28);
+      --input-bg:       rgba(30,27,74,0.75);
+      --header-bg:      rgba(15,14,26,0.75);
+    }
+
+    /* ─── Reset & Base ──────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background: var(--bg-base);
+      color: var(--text-primary);
+      min-height: 100vh;
+      transition: background var(--transition), color var(--transition);
+      overflow-x: hidden;
+    }
+
+    /* Animated gradient orbs */
+    body::before, body::after {
+      content: '';
+      position: fixed;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 0;
+      animation: floatOrb 14s ease-in-out infinite alternate;
+    }
+    body::before {
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(99,102,241,0.15), transparent 70%);
+      top: -150px; left: -150px;
+    }
+    body::after {
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba(139,92,246,0.12), transparent 70%);
+      bottom: -150px; right: -100px;
+      animation-delay: -7s;
+    }
+    @keyframes floatOrb {
+      from { transform: translate(0,0) scale(1); }
+      to   { transform: translate(40px, 30px) scale(1.08); }
+    }
+
+    /* ─── Layout ────────────────────────────────────────────────────── */
+    .app-wrapper {
+      position: relative;
+      z-index: 1;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px 60px;
+    }
+
+    /* ─── Header ────────────────────────────────────────────────────── */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(18px) saturate(160%);
+      -webkit-backdrop-filter: blur(18px) saturate(160%);
+      background: var(--header-bg);
+      border-bottom: 1px solid var(--border);
+      padding: 0 24px;
+      transition: background var(--transition);
+    }
+    .header-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .header-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .brand-icon {
+      width: 40px; height: 40px;
+      background: linear-gradient(135deg, #6366f1, #8b5cf6);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 16px var(--accent-glow);
+      flex-shrink: 0;
+    }
+    .brand-icon svg { color: #fff; }
+    .brand-title {
+      font-size: 1.4rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, var(--text-primary), var(--accent));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      letter-spacing: -0.02em;
+    }
+    .brand-subtitle {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      font-weight: 400;
+      margin-top: 1px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+    
+    /* Dark Mode Toggle */
+    #darkToggle {
+      position: relative;
+      width: 52px; height: 28px;
+      background: var(--pill-bg);
+      border: 1.5px solid var(--border-strong);
+      border-radius: 999px;
+      cursor: pointer;
+      transition: background var(--transition), border-color var(--transition);
+      outline: none;
+      display: flex;
+      align-items: center;
+      padding: 3px;
+    }
+    #darkToggle:hover { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-glow); }
+    .toggle-thumb {
+      width: 20px; height: 20px;
+      background: linear-gradient(135deg, #fbbf24, #f59e0b);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform var(--transition), background var(--transition);
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    }
+    .toggle-thumb svg { width: 12px; height: 12px; color: #fff; }
+    html.dark .toggle-thumb {
+      transform: translateX(24px);
+      background: linear-gradient(135deg, #6366f1, #8b5cf6);
+    }
+
+    /* ─── Main Content ──────────────────────────────────────────────── */
+    main { padding-top: 16px; }
+
+    /* ─── Hero Section ──────────────────────────────────────────────── */
+    .hero {
+      text-align: center;
+      padding: 8px 0 28px;
+    }
+    .hero h1 {
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.2;
+      background: linear-gradient(135deg, var(--text-primary) 30%, var(--accent));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 10px;
+    }
+    .hero p {
+      color: var(--text-muted);
+      font-size: 1rem;
+      font-weight: 400;
+    }
+    .stats-row {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 20px;
+    }
+    .stat-chip {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      background: var(--pill-bg);
+      border: 1px solid var(--pill-border);
+      border-radius: 999px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+      backdrop-filter: blur(8px);
+    }
+    .stat-chip svg { width: 14px; height: 14px; }
+
+    /* ─── Search & Filter ───────────────────────────────────────────── */
+    .controls {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 20px 22px;
+      box-shadow: var(--shadow-md);
+      backdrop-filter: blur(16px) saturate(140%);
+      -webkit-backdrop-filter: blur(16px) saturate(140%);
+      margin-bottom: 24px;
+      transition: background var(--transition);
+    }
+    .search-wrap {
+      position: relative;
+      margin-bottom: 16px;
+    }
+    .search-icon {
+      position: absolute;
+      left: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-muted);
+      pointer-events: none;
+    }
+    #searchInput {
+      width: 100%;
+      padding: 13px 16px 13px 46px;
+      background: var(--input-bg);
+      border: 1.5px solid var(--border);
+      border-radius: 12px;
+      font-size: 0.95rem;
+      font-family: inherit;
+      color: var(--text-primary);
+      outline: none;
+      transition: border-color var(--transition), box-shadow var(--transition), background var(--transition);
+    }
+    #searchInput::placeholder { color: var(--text-muted); }
+    #searchInput:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 4px var(--accent-glow);
+    }
+    .clear-btn {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 24px; height: 24px;
+      border: none;
+      background: var(--pill-bg);
+      border-radius: 50%;
+      cursor: pointer;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-muted);
+      transition: background var(--transition);
+    }
+    .clear-btn:hover { background: var(--border-strong); color: var(--text-primary); }
+    .clear-btn.visible { display: flex; }
+
+    /* Category Filter Pills */
+    .filter-label {
+      font-size: 0.72rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+      margin-bottom: 10px;
+    }
+    .filter-pills {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .pill-btn {
+      padding: 6px 14px;
+      border-radius: 999px;
+      border: 1.5px solid var(--border-strong);
+      background: transparent;
+      font-family: inherit;
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: all var(--transition);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .pill-btn svg { width: 13px; height: 13px; }
+    .pill-btn:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      background: var(--pill-bg);
+    }
+    .pill-btn.active {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+      box-shadow: 0 4px 14px var(--accent-glow);
+    }
+    html.dark .pill-btn.active { color: #fff; }
+
+    /* ─── Table Card ────────────────────────────────────────────────── */
+    .table-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      box-shadow: var(--shadow-md);
+      backdrop-filter: blur(16px) saturate(140%);
+      -webkit-backdrop-filter: blur(16px) saturate(140%);
+      overflow: hidden;
+      transition: background var(--transition);
+    }
+    .table-header-row {
+      display: grid;
+      grid-template-columns: 2fr 1.2fr 1fr 1.4fr 1.2fr;
+      gap: 0;
+      padding: 16px 28px;
+      background: linear-gradient(90deg, var(--pill-bg), transparent);
+      border-bottom: 1px solid var(--border);
+    }
+    .th {
+      font-size: 0.76rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .th svg { width: 13px; height: 13px; }
+
+    /* Table Body */
+    #tableBody { display: flex; flex-direction: column; }
+
+    .resource-row {
+      display: grid;
+      grid-template-columns: 2fr 1.2fr 1fr 1.4fr 1.2fr;
+      gap: 0;
+      padding: 22px 28px;
+      border-bottom: 1px solid var(--border);
+      align-items: center;
+      transition: background var(--transition), transform 0.15s ease;
+      cursor: default;
+    }
+    .resource-row:last-child { border-bottom: none; }
+    .resource-row:hover {
+      background: var(--bg-card-hover);
+      transform: translateX(2px);
+    }
+
+    /* Name Column */
+    .res-name {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+    .res-title {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      line-height: 1.3;
+    }
+    .res-desc {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      line-height: 1.4;
+    }
+
+    /* Category */
+    .res-category {
+      font-size: 0.88rem;
+      color: var(--text-secondary);
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .res-category svg { width: 15px; height: 15px; opacity: 0.7; }
+
+    /* Importance Badge */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      width: fit-content;
+    }
+    .badge svg { width: 11px; height: 11px; }
+    .badge-high {
+      background: rgba(239,68,68,0.1);
+      color: #b91c1c;
+      border: 1px solid rgba(239,68,68,0.2);
+    }
+    html.dark .badge-high {
+      background: rgba(239,68,68,0.15);
+      color: #fca5a5;
+      border-color: rgba(239,68,68,0.3);
+    }
+    .badge-medium {
+      background: rgba(245,158,11,0.1);
+      color: #92400e;
+      border: 1px solid rgba(245,158,11,0.2);
+    }
+    html.dark .badge-medium {
+      background: rgba(245,158,11,0.15);
+      color: #fcd34d;
+      border-color: rgba(245,158,11,0.3);
+    }
+    .badge-low {
+      background: rgba(16,185,129,0.1);
+      color: #065f46;
+      border: 1px solid rgba(16,185,129,0.2);
+    }
+    html.dark .badge-low {
+      background: rgba(16,185,129,0.15);
+      color: #6ee7b7;
+      border-color: rgba(16,185,129,0.3);
+    }
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+    .pulse { animation: pulse-dot 1.8s ease-in-out infinite; }
+
+    /* Tags */
+    .tags-cell { display: flex; flex-wrap: wrap; gap: 5px; }
+    .tag-pill {
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 0.76rem;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+    }
+
+    /* Tag color palette (low-saturation) */
+    .tag-0 { background: rgba(99,102,241,0.12);  color: #4338ca; }
+    .tag-1 { background: rgba(16,185,129,0.12);  color: #065f46; }
+    .tag-2 { background: rgba(245,158,11,0.12);  color: #92400e; }
+    .tag-3 { background: rgba(239,68,68,0.12);   color: #991b1b; }
+    .tag-4 { background: rgba(139,92,246,0.12);  color: #5b21b6; }
+    .tag-5 { background: rgba(14,165,233,0.12);  color: #075985; }
+    .tag-6 { background: rgba(236,72,153,0.12);  color: #9d174d; }
+    .tag-7 { background: rgba(251,146,60,0.12);  color: #9a3412; }
+    html.dark .tag-0 { background: rgba(99,102,241,0.2);  color: #a5b4fc; }
+    html.dark .tag-1 { background: rgba(16,185,129,0.2);  color: #6ee7b7; }
+    html.dark .tag-2 { background: rgba(245,158,11,0.2);  color: #fcd34d; }
+    html.dark .tag-3 { background: rgba(239,68,68,0.2);   color: #fca5a5; }
+    html.dark .tag-4 { background: rgba(139,92,246,0.2);  color: #c4b5fd; }
+    html.dark .tag-5 { background: rgba(14,165,233,0.2);  color: #7dd3fc; }
+    html.dark .tag-6 { background: rgba(236,72,153,0.2);  color: #f9a8d4; }
+    html.dark .tag-7 { background: rgba(251,146,60,0.2);  color: #fdba74; }
+
+    /* URL Actions */
+    .url-actions { display: flex; align-items: center; gap: 8px; }
+    .url-display {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      max-width: 100px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .icon-btn {
+      width: 30px; height: 30px;
+      border: 1.5px solid var(--border-strong);
+      background: var(--pill-bg);
+      border-radius: 8px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-muted);
+      transition: all var(--transition);
+      flex-shrink: 0;
+    }
+    .icon-btn svg { width: 13px; height: 13px; }
+    .icon-btn:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      background: var(--accent-glow);
+      transform: scale(1.1);
+    }
+    .icon-btn.copied {
+      border-color: #10b981;
+      color: #10b981;
+      background: rgba(16,185,129,0.12);
+    }
+
+    /* ─── Empty State ───────────────────────────────────────────────── */
+    #emptyState {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 64px 24px;
+      color: var(--text-muted);
+      gap: 12px;
+    }
+    #emptyState svg { width: 48px; height: 48px; opacity: 0.3; }
+    #emptyState p { font-size: 0.9rem; }
+
+    /* ─── Footer ────────────────────────────────────────────────────── */
+    footer {
+      text-align: center;
+      padding: 28px 0 0;
+      font-size: 0.77rem;
+      color: var(--text-muted);
+    }
+    footer span { color: var(--text-secondary); font-weight: 500; }
+
+    /* ─── Responsive ────────────────────────────────────────────────── */
+    @media (max-width: 768px) {
+      .table-header-row,
+      .resource-row {
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+      }
+      .th:nth-child(n+3),
+      .resource-row > *:nth-child(n+3) { display: none; }
+      .hero h1 { font-size: 1.6rem; }
+    }
+    @media (max-width: 480px) {
+      .app-wrapper { padding: 0 12px 48px; }
+      header { padding: 0 12px; }
+    }
+
+    /* ─── Transition Fade-in ────────────────────────────────────────── */
+    .resource-row { animation: rowIn 0.3s ease both; }
+    @keyframes rowIn {
+      from { opacity: 0; transform: translateY(6px) translateX(0); }
+      to   { opacity: 1; transform: translateY(0) translateX(0); }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════════
+     HEADER
+════════════════════════════════════════════════════════ -->
+<header>
+  <div class="header-inner">
+    <div class="header-brand">
+      <div class="brand-icon">
+        <i data-lucide="layers" style="width:20px;height:20px;"></i>
+      </div>
+      <div>
+        <div class="brand-title">My Resources</div>
+        <div class="brand-subtitle">Curated Knowledge Hub</div>
+      </div>
+    </div>
+    <button id="darkToggle" aria-label="Toggle dark mode">
+      <div class="toggle-thumb" id="toggleThumb">
+        <i data-lucide="sun" id="toggleIcon"></i>
+      </div>
+    </button>
+  </div>
+</header>
+
+<!-- ═══════════════════════════════════════════════════════
+     MAIN
+════════════════════════════════════════════════════════ -->
+<div class="app-wrapper">
+<main>
+
+  <!-- Hero -->
+  <section class="hero">
+    <h1>My Curated Resource Library</h1>
+    <p>Search, filter, and explore your saved tools, articles, and references.</p>
+    <div class="stats-row">
+      <div class="stat-chip">
+        <i data-lucide="database" style="width:13px;height:13px;"></i>
+        <span id="totalCount">0</span> Resources
+      </div>
+      <div class="stat-chip">
+        <i data-lucide="tag" style="width:13px;height:13px;"></i>
+        <span id="catCount">0</span> Categories
+      </div>
+      <div class="stat-chip">
+        <i data-lucide="zap" style="width:13px;height:13px;"></i>
+        Always Up-to-date
+      </div>
+    </div>
+  </section>
+
+  <!-- Controls -->
+  <div class="controls">
+    <div class="search-wrap">
+      <span class="search-icon">
+        <i data-lucide="search" style="width:17px;height:17px;"></i>
+      </span>
+      <input
+        type="text"
+        id="searchInput"
+        placeholder="Search by name, tags, description…"
+        autocomplete="off"
+        spellcheck="false"
+      />
+      <button class="clear-btn" id="clearBtn" aria-label="Clear search">
+        <i data-lucide="x" style="width:12px;height:12px;"></i>
+      </button>
+    </div>
+    <div class="filter-label">Filter by Category</div>
+    <div class="filter-pills" id="filterPills"></div>
+  </div>
+
+  <!-- Table -->
+  <div class="table-card">
+    <div class="table-header-row">
+      <div class="th"><i data-lucide="file-text"></i> Resource</div>
+      <div class="th"><i data-lucide="folder"></i> Category</div>
+      <div class="th"><i data-lucide="bar-chart-2"></i> Priority</div>
+      <div class="th"><i data-lucide="hash"></i> Tags</div>
+      <div class="th"><i data-lucide="link"></i> URL</div>
+    </div>
+    <div id="tableBody"></div>
+    <div id="emptyState">
+      <i data-lucide="search-x"></i>
+      <p>No resources match your search. Try a different query.</p>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  <p>Built with ♥ · <span id="footerCount">0</span> resources curated · <span>My Resources</span></p>
+</footer>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     DATA & LOGIC
+════════════════════════════════════════════════════════ -->
+<script>
+// ──────────────────────────────────────────────────────────────
+//  RESOURCES ARRAY — Edit this to update your resource library.
+//
+//  Fields:
+//    name        {string}  — Display title of the resource
+//    description {string}  — Short description (1 sentence)
+//    category    {string}  — Category for filtering
+//    importance  {string}  — "High" | "Medium" | "Low"
+//    tags        {Array}   — Array of tag strings
+//    url         {string}  — Full URL (https://...)
+// ──────────────────────────────────────────────────────────────
+const RESOURCES = [
+  {
+    name: "Signal Awards",
+    description: "Recognize the best podcast being made today.",
+    category: "Podcasts",
+    importance: "Medium",
+    tags: ["podcasts", "awards"],
+    url: "https://signalaward.com/"
+  },
+  {
+    name: "React Documentation",
+    description: "Official React docs with guides, API references, and examples.",
+    category: "Documentation",
+    importance: "High",
+    tags: ["react", "frontend", "javascript", "ui"],
+    url: "https://react.dev"
+  },
+  {
+    name: "Tailwind CSS",
+    description: "Utility-first CSS framework for rapidly building custom UIs.",
+    category: "Styling",
+    importance: "High",
+    tags: ["css", "design", "utility", "framework"],
+    url: "https://tailwindcss.com"
+  },
+  {
+    name: "Lucide Icons",
+    description: "Beautiful & consistent open-source icon set for the web.",
+    category: "Design",
+    importance: "Medium",
+    tags: ["icons", "svg", "design", "ui"],
+    url: "https://lucide.dev"
+  },
+  {
+    name: "Supabase",
+    description: "Open-source Firebase alternative with Postgres, auth, and storage.",
+    category: "Backend",
+    importance: "High",
+    tags: ["database", "backend", "postgres", "auth"],
+    url: "https://supabase.com"
+  },
+  {
+    name: "Vercel",
+    description: "Deploy frontend projects instantly with zero configuration.",
+    category: "Deployment",
+    importance: "High",
+    tags: ["hosting", "deployment", "frontend", "ci/cd"],
+    url: "https://vercel.com"
+  },
+  {
+    name: "GitHub Copilot Docs",
+    description: "Official documentation and prompt engineering tips for Copilot.",
+    category: "AI Tools",
+    importance: "Medium",
+    tags: ["ai", "copilot", "productivity", "coding"],
+    url: "https://docs.github.com/en/copilot"
+  },
+  {
+    name: "Excalidraw",
+    description: "Virtual whiteboard for sketching hand-drawn-like diagrams.",
+    category: "Productivity",
+    importance: "Low",
+    tags: ["design", "diagrams", "collaboration", "whiteboard"],
+    url: "https://excalidraw.com"
+  },
+  {
+    name: "CSS Tricks — Flexbox Guide",
+    description: "Complete visual guide to CSS Flexbox layout.",
+    category: "Styling",
+    importance: "Medium",
+    tags: ["css", "flexbox", "layout", "reference"],
+    url: "https://css-tricks.com/snippets/css/a-guide-to-flexbox"
+  },
+  {
+    name: "Notion",
+    description: "All-in-one workspace for notes, docs, and project management.",
+    category: "Productivity",
+    importance: "Medium",
+    tags: ["notes", "productivity", "collaboration", "docs"],
+    url: "https://notion.so"
+  },
+  {
+    name: "Figma",
+    description: "Collaborative UI design tool for creating wireframes and prototypes.",
+    category: "Design",
+    importance: "High",
+    tags: ["design", "ui", "prototyping", "collaboration"],
+    url: "https://figma.com"
+  },
+  {
+    name: "Can I Use",
+    description: "Check browser support tables for frontend web technologies.",
+    category: "Documentation",
+    importance: "Low",
+    tags: ["css", "html", "browser", "compatibility"],
+    url: "https://caniuse.com"
+  },
+  {
+    name: "Roadmap.sh",
+    description: "Community-driven interactive roadmaps for developers.",
+    category: "Learning",
+    importance: "Medium",
+    tags: ["learning", "career", "roadmap", "guide"],
+    url: "https://roadmap.sh"
+  },
+  {
+    name: "Ray.so",
+    description: "Create beautiful images of your code snippets for sharing.",
+    category: "Productivity",
+    importance: "Low",
+    tags: ["design", "screenshots", "code", "sharing"],
+    url: "https://ray.so"
+  },
+  {
+    name: "Firebase",
+    description: "Google's platform for building web and mobile apps with cloud services.",
+    category: "Backend",
+    importance: "High",
+    tags: ["backend", "auth", "database", "google"],
+    url: "https://firebase.google.com"
+  }
+];
+
+// ──────────────────────────────────────────────────────────────
+//  CATEGORY ICON MAP — Maps category names to Lucide icon names
+// ──────────────────────────────────────────────────────────────
+const CATEGORY_ICONS = {
+  "Documentation": "book-open",
+  "Styling":       "paintbrush",
+  "Design":        "pen-tool",
+  "Backend":       "server",
+  "Deployment":    "cloud-upload",
+  "AI Tools":      "cpu",
+  "Productivity":  "zap",
+  "Learning":      "graduation-cap",
+  "Default":       "folder"
+};
+
+// ──────────────────────────────────────────────────────────────
+//  APP STATE
+// ──────────────────────────────────────────────────────────────
+let activeCategory = "All";
+let searchQuery    = "";
+
+// ──────────────────────────────────────────────────────────────
+//  DARK MODE
+// ──────────────────────────────────────────────────────────────
+const html       = document.documentElement;
+const darkToggle = document.getElementById("darkToggle");
+const toggleIcon = document.getElementById("toggleIcon");
+
+function applyDark(isDark) {
+  html.classList.toggle("dark", isDark);
+  // Swap icon
+  toggleIcon.setAttribute("data-lucide", isDark ? "moon" : "sun");
+  lucide.createIcons();
+  localStorage.setItem("theme", isDark ? "dark" : "light");
+}
+
+darkToggle.addEventListener("click", () => {
+  applyDark(!html.classList.contains("dark"));
+});
+
+// Init from saved preference
+const saved = localStorage.getItem("theme");
+const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+applyDark(saved ? saved === "dark" : prefersDark);
+
+// ──────────────────────────────────────────────────────────────
+//  BUILD CATEGORY PILLS
+// ──────────────────────────────────────────────────────────────
+function buildPills() {
+  const container  = document.getElementById("filterPills");
+  const categories = ["All", ...new Set(RESOURCES.map(r => r.category))].sort((a,b) => a === "All" ? -1 : a.localeCompare(b));
+
+  container.innerHTML = "";
+  categories.forEach(cat => {
+    const icon = CATEGORY_ICONS[cat] || CATEGORY_ICONS["Default"];
+    const btn  = document.createElement("button");
+    btn.className = "pill-btn" + (cat === activeCategory ? " active" : "");
+    btn.setAttribute("data-cat", cat);
+    btn.innerHTML = `<i data-lucide="${icon}"></i>${cat}`;
+    btn.addEventListener("click", () => {
+      activeCategory = cat;
+      document.querySelectorAll(".pill-btn").forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+      renderTable();
+      lucide.createIcons();
+    });
+    container.appendChild(btn);
+  });
+
+  document.getElementById("catCount").textContent =
+    new Set(RESOURCES.map(r => r.category)).size;
+  document.getElementById("totalCount").textContent = RESOURCES.length;
+  document.getElementById("footerCount").textContent = RESOURCES.length;
+}
+
+// ──────────────────────────────────────────────────────────────
+//  FUZZY SEARCH — simple contains-based with multi-word support
+// ──────────────────────────────────────────────────────────────
+function fuzzyMatch(resource, query) {
+  if (!query) return true;
+  const haystack = [
+    resource.name,
+    resource.description,
+    resource.category,
+    ...resource.tags
+  ].join(" ").toLowerCase();
+  return query.toLowerCase().split(/\s+/).every(word => haystack.includes(word));
+}
+
+// ──────────────────────────────────────────────────────────────
+//  RENDER TABLE
+// ──────────────────────────────────────────────────────────────
+const tagColorCount = 8; // cycles through tag-0…tag-7
+const tagColorMap   = {}; // tag → consistent color index
+
+function getTagClass(tag) {
+  if (!(tag in tagColorMap)) {
+    tagColorMap[tag] = Object.keys(tagColorMap).length % tagColorCount;
+  }
+  return `tag-${tagColorMap[tag]}`;
+}
+
+function badgeHTML(importance) {
+  switch (importance) {
+    case "High":
+      return `<span class="badge badge-high"><i data-lucide="circle" class="pulse"></i>High</span>`;
+    case "Medium":
+      return `<span class="badge badge-medium"><i data-lucide="minus-circle"></i>Medium</span>`;
+    case "Low":
+      return `<span class="badge badge-low"><i data-lucide="check-circle"></i>Low</span>`;
+    default:
+      return `<span class="badge badge-low">${importance}</span>`;
+  }
+}
+
+function domainOf(url) {
+  try {
+    return new URL(url).hostname.replace("www.", "");
+  } catch { return url; }
+}
+
+function renderTable() {
+  const body       = document.getElementById("tableBody");
+  const emptyState = document.getElementById("emptyState");
+
+  const filtered = RESOURCES.filter(r => {
+    const catMatch  = activeCategory === "All" || r.category === activeCategory;
+    const queryMatch = fuzzyMatch(r, searchQuery);
+    return catMatch && queryMatch;
+  });
+
+  body.innerHTML = "";
+
+  if (filtered.length === 0) {
+    emptyState.style.display = "flex";
+    return;
+  }
+  emptyState.style.display = "none";
+
+  filtered.forEach((res, idx) => {
+    const row = document.createElement("div");
+    row.className = "resource-row";
+    row.style.animationDelay = `${idx * 35}ms`;
+
+    const tagsHTML = res.tags.map(t =>
+      `<span class="tag-pill ${getTagClass(t)}">${t}</span>`
+    ).join("");
+
+    const catIcon = CATEGORY_ICONS[res.category] || CATEGORY_ICONS["Default"];
+
+    row.innerHTML = `
+      <div class="res-name">
+        <div class="res-title">${res.name}</div>
+        <div class="res-desc">${res.description}</div>
+      </div>
+      <div class="res-category">
+        <i data-lucide="${catIcon}"></i>
+        ${res.category}
+      </div>
+      <div>${badgeHTML(res.importance)}</div>
+      <div class="tags-cell">${tagsHTML}</div>
+      <div class="url-actions">
+        <span class="url-display" title="${res.url}">${domainOf(res.url)}</span>
+        <button class="icon-btn copy-btn" data-url="${res.url}" title="Copy link" aria-label="Copy link">
+          <i data-lucide="copy"></i>
+        </button>
+        <a class="icon-btn" href="${res.url}" target="_blank" rel="noopener noreferrer" title="Open in new tab" aria-label="Open resource">
+          <i data-lucide="external-link"></i>
+        </a>
+      </div>
+    `;
+
+    body.appendChild(row);
+  });
+
+  // Copy buttons
+  document.querySelectorAll(".copy-btn").forEach(btn => {
+    btn.addEventListener("click", async () => {
+      const url = btn.getAttribute("data-url");
+      try {
+        await navigator.clipboard.writeText(url);
+        btn.classList.add("copied");
+        btn.innerHTML = `<i data-lucide="check"></i>`;
+        lucide.createIcons();
+        setTimeout(() => {
+          btn.classList.remove("copied");
+          btn.innerHTML = `<i data-lucide="copy"></i>`;
+          lucide.createIcons();
+        }, 1800);
+      } catch {
+        // Fallback
+        const el = document.createElement("textarea");
+        el.value = url;
+        document.body.appendChild(el);
+        el.select();
+        document.execCommand("copy");
+        document.body.removeChild(el);
+      }
+    });
+  });
+
+  lucide.createIcons();
+}
+
+// ──────────────────────────────────────────────────────────────
+//  SEARCH
+// ──────────────────────────────────────────────────────────────
+const searchInput = document.getElementById("searchInput");
+const clearBtn    = document.getElementById("clearBtn");
+
+searchInput.addEventListener("input", () => {
+  searchQuery = searchInput.value.trim();
+  clearBtn.classList.toggle("visible", searchQuery.length > 0);
+  renderTable();
+});
+
+clearBtn.addEventListener("click", () => {
+  searchInput.value = "";
+  searchQuery = "";
+  clearBtn.classList.remove("visible");
+  searchInput.focus();
+  renderTable();
+});
+
+// ──────────────────────────────────────────────────────────────
+//  INIT
+// ──────────────────────────────────────────────────────────────
+buildPills();
+renderTable();
+lucide.createIcons();
+</script>
+</body>
+</html>
