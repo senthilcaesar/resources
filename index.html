@@ -12,7 +12,8 @@
   <style>
     /* ─── CSS Custom Properties ─────────────────────────────────────── */
     :root {
-      --bg-base:        #e8f5ed;
+      --accent-desk: #4a7c59;
+      --bg-base:        #4a7c59;
       --bg-card:        rgba(255,255,255,0.72);
       --bg-card-hover:  rgba(255,255,255,0.92);
       --bg-glass:       rgba(255,255,255,0.55);
@@ -33,24 +34,24 @@
       --transition:     0.22s cubic-bezier(.4,0,.2,1);
     }
     html.dark {
-      --bg-base:        #24273a;
-      --bg-card:        rgba(42,45,62,0.80);
-      --bg-card-hover:  rgba(54,57,76,0.95);
-      --bg-glass:       rgba(36,39,58,0.65);
-      --border:         rgba(138,145,200,0.16);
-      --border-strong:  rgba(138,145,200,0.28);
-      --text-primary:   #cad3f5;
-      --text-secondary: #8aadf4;
-      --text-muted:     #6e738d;
-      --shadow-sm:      0 2px 12px rgba(0,0,0,0.20);
-      --shadow-md:      0 8px 32px rgba(0,0,0,0.28);
-      --shadow-lg:      0 20px 60px rgba(0,0,0,0.38);
-      --accent:         #8aadf4;
-      --accent-glow:    rgba(138,173,244,0.22);
-      --pill-bg:        rgba(138,173,244,0.10);
-      --pill-border:    rgba(138,173,244,0.22);
-      --input-bg:       rgba(30,33,48,0.85);
-      --header-bg:      #1e2030;
+      --bg-base:        #1a2e21;
+      --bg-card:        rgba(26,50,33,0.85);
+      --bg-card-hover:  rgba(36,62,44,0.95);
+      --bg-glass:       rgba(22,42,28,0.70);
+      --border:         rgba(74,124,89,0.22);
+      --border-strong:  rgba(74,124,89,0.38);
+      --text-primary:   #d4ead9;
+      --text-secondary: #7cba96;
+      --text-muted:     #5a8a6a;
+      --shadow-sm:      0 2px 12px rgba(0,0,0,0.28);
+      --shadow-md:      0 8px 32px rgba(0,0,0,0.38);
+      --shadow-lg:      0 20px 60px rgba(0,0,0,0.50);
+      --accent:         #5db87a;
+      --accent-glow:    rgba(93,184,122,0.22);
+      --pill-bg:        rgba(93,184,122,0.10);
+      --pill-border:    rgba(93,184,122,0.24);
+      --input-bg:       rgba(18,35,23,0.88);
+      --header-bg:      #162318;
     }
 
     /* ─── Reset & Base ──────────────────────────────────────────────── */
@@ -58,11 +59,20 @@
     html { scroll-behavior: smooth; }
     body {
       font-family: 'Inter', system-ui, -apple-system, sans-serif;
-      background: var(--bg-base);
+      background: var(--accent-desk);
+      background-image:
+        radial-gradient(ellipse at 20% 50%, #3a6b4a 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 20%, #2d5c3d 0%, transparent 50%);
       color: var(--text-primary);
       min-height: 100vh;
       transition: background var(--transition), color var(--transition);
       overflow-x: hidden;
+    }
+    html.dark body {
+      background: var(--bg-base);
+      background-image:
+        radial-gradient(ellipse at 20% 50%, #1f3d28 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 20%, #162318 0%, transparent 50%);
     }
 
     /* Animated gradient orbs */
@@ -602,21 +612,7 @@
 
   <!-- Hero -->
   <section class="hero">
-    <p>Search, filter, and explore your saved tools, articles, and references.</p>
-    <div class="stats-row">
-      <div class="stat-chip">
-        <i data-lucide="database" style="width:13px;height:13px;"></i>
-        <span id="totalCount">0</span> Resources
-      </div>
-      <div class="stat-chip">
-        <i data-lucide="tag" style="width:13px;height:13px;"></i>
-        <span id="catCount">0</span> Categories
-      </div>
-      <div class="stat-chip">
-        <i data-lucide="zap" style="width:13px;height:13px;"></i>
-        Always Up-to-date
-      </div>
-    </div>
+
   </section>
 
   <!-- Controls -->
@@ -870,9 +866,10 @@ function buildPills() {
     container.appendChild(btn);
   });
 
-  document.getElementById("catCount").textContent =
-    new Set(RESOURCES.map(r => r.category)).size;
-  document.getElementById("totalCount").textContent = RESOURCES.length;
+  const catEl   = document.getElementById("catCount");
+  const totalEl = document.getElementById("totalCount");
+  if (catEl)   catEl.textContent   = new Set(RESOURCES.map(r => r.category)).size;
+  if (totalEl) totalEl.textContent = RESOURCES.length;
   document.getElementById("footerCount").textContent = RESOURCES.length;
 }
 
