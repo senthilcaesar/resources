@@ -681,13 +681,15 @@
 
     /* ─── Responsive ────────────────────────────────────────────────── */
     @media (max-width: 768px) {
+      .table-card {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+      }
       .table-header-row,
       .resource-row {
-        grid-template-columns: 1fr 1fr;
-        gap: 8px;
+        grid-template-columns: minmax(160px, 2fr) minmax(110px, 1.2fr) minmax(90px, 1fr) minmax(130px, 1.4fr) minmax(110px, 1.2fr);
+        min-width: 640px;
       }
-      .th:nth-child(n+3),
-      .resource-row > *:nth-child(n+3) { display: none; }
       .hero h1 { font-size: 1.6rem; }
       .aurora-bg .orb { filter: blur(80px); opacity: 0.35; }
     }
