@@ -10,9 +10,16 @@ import {
   InputLeftElement,
   Input,
   InputRightElement,
-  Button
+  Button,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalBody,
+  ModalCloseButton,
+  useDisclosure
 } from '@chakra-ui/react';
-import { Sun, Moon, Layers, Search, X } from 'lucide-react';
+import { Sun, Moon, Layers, Search, X, Code, Zap, Cloud } from 'lucide-react';
 import TableCard from './components/TableCard';
 import { RESOURCES, CATEGORY_ICONS } from './data/resources';
 import * as LucideIcons from 'lucide-react';
@@ -29,6 +36,7 @@ const AuroraBackground = () => (
 // --- Header Component ---
 const Header = () => {
   const { colorMode, toggleColorMode } = useColorMode();
+  const { isOpen, onOpen, onClose } = useDisclosure();
   
   return (
     <Box
@@ -86,8 +94,23 @@ const Header = () => {
           </Box>
         </Flex>
 
-        <Box
-          position="relative"
+        <Flex align="center" gap="16px">
+          <Button
+            size="sm"
+            variant="ghost"
+            leftIcon={<Icon as={Code} boxSize="15px" />}
+            color={colorMode === 'dark' ? '#a5b4fc' : '#6b7db3'}
+            onClick={onOpen}
+            _hover={{
+              bg: colorMode === 'dark' ? 'rgba(255,255,255,0.06)' : 'rgba(139,92,246,0.1)',
+              color: colorMode === 'dark' ? '#c4b5fd' : '#8b5cf6'
+            }}
+          >
+            Tech Stack
+          </Button>
+
+          <Box
+            position="relative"
           w="52px"
           h="28px"
           bg={colorMode === 'dark' ? 'rgba(255,255,255,0.04)' : 'rgba(255,255,255,0.06)'}
@@ -119,7 +142,67 @@ const Header = () => {
             <Icon as={colorMode === 'dark' ? Moon : Sun} color="#fff" boxSize="12px" />
           </Flex>
         </Box>
+        </Flex>
       </Flex>
+
+      <Modal isOpen={isOpen} onClose={onClose} size="lg" isCentered motionPreset="slideInBottom">
+        <ModalOverlay backdropFilter="blur(10px)" bg="blackAlpha.300" />
+        <ModalContent
+          bg={colorMode === 'dark' ? '#0f0f1a' : '#ffffff'}
+          borderColor={colorMode === 'dark' ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)'}
+          borderWidth="1px"
+          borderRadius="2xl"
+          boxShadow="2xl"
+        >
+          <ModalHeader color={colorMode === 'dark' ? '#f1f5f9' : '#1e1e24'}>Project Tech Stack</ModalHeader>
+          <ModalCloseButton color={colorMode === 'dark' ? '#a5b4fc' : '#6b7db3'} />
+          <ModalBody pb={8} color={colorMode === 'dark' ? '#e2e8f0' : '#4a5568'}>
+            <Text mb={6}>This app is built using the following technologies:</Text>
+            
+            <Flex flexDir="column" gap={4}>
+              <Flex align="center" gap={4}>
+                <Box p={3} borderRadius="lg" bg={colorMode === 'dark' ? 'rgba(56,189,248,0.1)' : 'rgba(56,189,248,0.15)'} color="#38bdf8">
+                  <Icon as={Code} boxSize="22px" />
+                </Box>
+                <Box>
+                  <Text fontWeight="700" color={colorMode === 'dark' ? '#f8fafc' : '#1e293b'}>React 18 & Vite</Text>
+                  <Text fontSize="0.85rem">Fast, modern, component-driven UI framework built for performance.</Text>
+                </Box>
+              </Flex>
+              
+              <Flex align="center" gap={4}>
+                <Box p={3} borderRadius="lg" bg={colorMode === 'dark' ? 'rgba(52,211,153,0.1)' : 'rgba(6,214,160,0.15)'} color="#34d399">
+                   <Icon as={Layers} boxSize="22px" />
+                </Box>
+                <Box>
+                  <Text fontWeight="700" color={colorMode === 'dark' ? '#f8fafc' : '#1e293b'}>Chakra UI Component Library</Text>
+                  <Text fontSize="0.85rem">A simple, modular, and accessible frontend component library.</Text>
+                </Box>
+              </Flex>
+              
+              <Flex align="center" gap={4}>
+                <Box p={3} borderRadius="lg" bg={colorMode === 'dark' ? 'rgba(244,114,182,0.1)' : 'rgba(244,114,182,0.15)'} color="#f472b6">
+                   <Icon as={Zap} boxSize="22px" />
+                </Box>
+                <Box>
+                  <Text fontWeight="700" color={colorMode === 'dark' ? '#f8fafc' : '#1e293b'}>Framer Motion & Vanilla CSS</Text>
+                  <Text fontSize="0.85rem">Production-ready animation libraries for smooth UI transitions and backgrounds.</Text>
+                </Box>
+              </Flex>
+
+              <Flex align="center" gap={4}>
+                <Box p={3} borderRadius="lg" bg={colorMode === 'dark' ? 'rgba(167,139,250,0.1)' : 'rgba(139,92,246,0.15)'} color={colorMode === 'dark' ? '#c4b5fd' : '#8b5cf6'}>
+                   <Icon as={Cloud} boxSize="22px" />
+                </Box>
+                <Box>
+                  <Text fontWeight="700" color={colorMode === 'dark' ? '#f8fafc' : '#1e293b'}>GitHub Pages & Actions</Text>
+                  <Text fontSize="0.85rem">Automated CI/CD pipeline building and deploying the Vite application directly to GitHub Pages.</Text>
+                </Box>
+              </Flex>
+            </Flex>
+          </ModalBody>
+        </ModalContent>
+      </Modal>
     </Box>
   );
 };
