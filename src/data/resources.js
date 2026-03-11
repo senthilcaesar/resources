@@ -91,7 +91,7 @@ export const RESOURCES = [
   {
     name: "GitHub Copilot Docs",
     description: "Official documentation and prompt engineering tips for Copilot.",
-    category: "AI Tools",
+    category: "AI Education",
     importance: "Medium",
     tags: ["ai", "copilot", "productivity", "coding"],
     url: "https://docs.github.com/en/copilot"
