@@ -1,6 +1,6 @@
 export const RESOURCES = [
     {
-    name: "AI Agents Blog",
+    name: "DEV Community",
     description: "Making AI helpful for everyone",
     category: "AI Education",
     importance: "High",
