@@ -1,4 +1,12 @@
 export const RESOURCES = [
+    {
+    name: "AI Agents Blog",
+    description: "Making AI helpful for everyone",
+    category: "AI Education",
+    importance: "High",
+    tags: ["ai", "google", "gemini", "claudecode"],
+    url: "https://dev.to/"
+  },
   {
     name: "Massachusetts AI Hub",
     description: "Resources for AI training and workforce development in Massachusetts.",
