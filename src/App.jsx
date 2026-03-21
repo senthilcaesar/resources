@@ -64,7 +64,7 @@ const Header = () => {
           </Flex>
           <Box>
             <Text
-              fontSize="1.4rem"
+              fontSize={{ base: '1.15rem', md: '1.4rem' }}
               fontWeight="700"
               color={colorMode === 'dark' ? '#d8dee9' : '#2e2218'}
               letterSpacing="-0.02em"
@@ -72,7 +72,7 @@ const Header = () => {
               My URL Library
             </Text>
             <Text
-              fontSize="0.7rem"
+              fontSize={{ base: '0.65rem', md: '0.7rem' }}
               color={colorMode === 'dark' ? '#818cf8' : '#6b7db3'}
               fontWeight="500"
               mt="1px"
