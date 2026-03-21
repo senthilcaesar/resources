@@ -13,7 +13,7 @@ const theme = extendTheme({
     global: (props) => ({
       body: {
         bg: props.colorMode === 'dark' ? '#06060f' : '#f3eadc',
-        color: props.colorMode === 'dark' ? '#f1f5f9' : '#2e2218',
+        color: props.colorMode === 'dark' ? '#eceff4' : '#2e2218',
         fontFamily: "'Inter', system-ui, -apple-system, sans-serif",
       },
     }),

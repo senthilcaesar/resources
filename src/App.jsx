@@ -38,7 +38,7 @@ const Header = () => {
       backdropFilter="blur(24px) saturate(180%)"
       bg={colorMode === 'dark' ? 'rgba(6,6,15,0.85)' : 'rgba(255, 250, 242, 0.76)'}
       borderBottom="1px solid"
-      borderColor={colorMode === 'dark' ? 'rgba(255,255,255,0.06)' : 'rgba(93, 61, 36, 0.12)'}
+      borderColor={colorMode === 'dark' ? '#3b4252' : 'rgba(93, 61, 36, 0.12)'}
       px="24px"
       transition="background 0.35s, border-color 0.35s"
     >
@@ -47,26 +47,26 @@ const Header = () => {
           <Flex
             w="40px"
             h="40px"
-            bg={colorMode === 'dark' ? 'rgba(255,255,255,0.05)' : 'rgba(93, 61, 36, 0.05)'}
+            bg={colorMode === 'dark' ? '#3b4252' : 'rgba(93, 61, 36, 0.05)'}
             border="1.5px solid"
-            borderColor={colorMode === 'dark' ? 'rgba(255,255,255,0.22)' : 'rgba(93, 61, 36, 0.25)'}
+            borderColor={colorMode === 'dark' ? '#4c566a' : 'rgba(93, 61, 36, 0.25)'}
             borderRadius="12px"
             align="center"
             justify="center"
-            boxShadow={`0 0 20px ${colorMode === 'dark' ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)'}`}
+            boxShadow={`0 0 20px ${colorMode === 'dark' ? '#3b4252' : 'rgba(0,0,0,0.05)'}`}
             flexShrink={0}
             transition="all 0.35s"
             _hover={{
-               boxShadow: `0 0 30px ${colorMode === 'dark' ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)'}`
+               boxShadow: `0 0 30px ${colorMode === 'dark' ? 'rgba(136, 192, 208, 0.15)' : 'rgba(0,0,0,0.1)'}`
             }}
           >
-            <Icon as={Layers} color={colorMode === 'dark' ? '#e2e8f0' : '#8c5430'} boxSize="20px" />
+            <Icon as={Layers} color={colorMode === 'dark' ? '#88c0d0' : '#8c5430'} boxSize="20px" />
           </Flex>
           <Box>
             <Text
               fontSize="1.4rem"
               fontWeight="700"
-              color={colorMode === 'dark' ? '#f1f5f9' : '#2e2218'}
+              color={colorMode === 'dark' ? '#d8dee9' : '#2e2218'}
               letterSpacing="-0.02em"
             >
               My URL Library
@@ -92,7 +92,7 @@ const Header = () => {
             color={colorMode === 'dark' ? '#a5b4fc' : '#6b7db3'}
             onClick={onOpen}
             _hover={{
-              bg: colorMode === 'dark' ? 'rgba(255,255,255,0.06)' : 'rgba(139,92,246,0.1)',
+              bg: colorMode === 'dark' ? '#3b4252' : 'rgba(139,92,246,0.1)',
               color: colorMode === 'dark' ? '#c4b5fd' : '#8b5cf6'
             }}
           >
@@ -103,9 +103,9 @@ const Header = () => {
             position="relative"
           w="52px"
           h="28px"
-          bg={colorMode === 'dark' ? 'rgba(255,255,255,0.04)' : 'rgba(93, 61, 36, 0.08)'}
+          bg={colorMode === 'dark' ? '#3b4252' : 'rgba(93, 61, 36, 0.08)'}
           border="1.5px solid"
-          borderColor={colorMode === 'dark' ? 'rgba(255,255,255,0.12)' : 'rgba(93, 61, 36, 0.2)'}
+          borderColor={colorMode === 'dark' ? '#4c566a' : 'rgba(93, 61, 36, 0.2)'}
           borderRadius="999px"
           cursor="pointer"
           transition="all 0.35s"
@@ -114,14 +114,14 @@ const Header = () => {
           p="3px"
           onClick={toggleColorMode}
           _hover={{
-            borderColor: colorMode === 'dark' ? '#ffffff' : '#8c5430',
-            boxShadow: `0 0 0 3px ${colorMode === 'dark' ? 'rgba(255,255,255,0.1)' : 'rgba(140, 84, 48, 0.15)'}, 0 0 20px ${colorMode === 'dark' ? 'rgba(255,255,255,0.1)' : 'rgba(140, 84, 48, 0.15)'}`
+            borderColor: colorMode === 'dark' ? '#81a1c1' : '#8c5430',
+            boxShadow: `0 0 0 3px ${colorMode === 'dark' ? 'rgba(136, 192, 208, 0.15)' : 'rgba(140, 84, 48, 0.15)'}, 0 0 20px ${colorMode === 'dark' ? 'rgba(136, 192, 208, 0.15)' : 'rgba(140, 84, 48, 0.15)'}`
           }}
         >
           <Flex
             w="20px"
             h="20px"
-            bg={colorMode === 'dark' ? '#e2e8f0' : '#8c5430'}
+            bg={colorMode === 'dark' ? '#88c0d0' : '#8c5430'}
             borderRadius="50%"
             align="center"
             justify="center"
@@ -139,19 +139,19 @@ const Header = () => {
         <ModalOverlay backdropFilter="blur(10px)" bg="blackAlpha.300" />
         <ModalContent
           bg={colorMode === 'dark' ? '#0f0f1a' : '#ffffff'}
-          borderColor={colorMode === 'dark' ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)'}
+          borderColor={colorMode === 'dark' ? 'rgba(136, 192, 208, 0.15)' : 'rgba(0,0,0,0.1)'}
           borderWidth="1px"
           borderRadius="2xl"
           boxShadow="2xl"
         >
-          <ModalHeader color={colorMode === 'dark' ? '#f1f5f9' : '#1e1e24'}>Project Tech Stack</ModalHeader>
+          <ModalHeader color={colorMode === 'dark' ? '#d8dee9' : '#1e1e24'}>Project Tech Stack</ModalHeader>
           <ModalCloseButton color={colorMode === 'dark' ? '#a5b4fc' : '#6b7db3'} />
-          <ModalBody pb={8} color={colorMode === 'dark' ? '#e2e8f0' : '#4a5568'}>
+          <ModalBody pb={8} color={colorMode === 'dark' ? '#88c0d0' : '#4a5568'}>
             <Text mb={6}>This app is built using the following technologies:</Text>
             
             <Flex flexDir="column" gap={4}>
               <Flex align="center" gap={4}>
-                <Box p={3} borderRadius="lg" bg={colorMode === 'dark' ? 'rgba(255,255,255,0.05)' : 'rgba(93, 61, 36, 0.08)'} color={colorMode === 'dark' ? '#cbd5e1' : '#6f5a4a'}>
+                <Box p={3} borderRadius="lg" bg={colorMode === 'dark' ? '#3b4252' : 'rgba(93, 61, 36, 0.08)'} color={colorMode === 'dark' ? '#eceff4' : '#6f5a4a'}>
                   <Icon as={Code} boxSize="22px" />
                 </Box>
                 <Box>
@@ -161,7 +161,7 @@ const Header = () => {
               </Flex>
               
               <Flex align="center" gap={4}>
-                <Box p={3} borderRadius="lg" bg={colorMode === 'dark' ? 'rgba(255,255,255,0.05)' : 'rgba(93, 61, 36, 0.08)'} color={colorMode === 'dark' ? '#cbd5e1' : '#6f5a4a'}>
+                <Box p={3} borderRadius="lg" bg={colorMode === 'dark' ? '#3b4252' : 'rgba(93, 61, 36, 0.08)'} color={colorMode === 'dark' ? '#eceff4' : '#6f5a4a'}>
                    <Icon as={Layers} boxSize="22px" />
                 </Box>
                 <Box>
@@ -171,7 +171,7 @@ const Header = () => {
               </Flex>
               
               <Flex align="center" gap={4}>
-                <Box p={3} borderRadius="lg" bg={colorMode === 'dark' ? 'rgba(255,255,255,0.05)' : 'rgba(93, 61, 36, 0.08)'} color={colorMode === 'dark' ? '#cbd5e1' : '#6f5a4a'}>
+                <Box p={3} borderRadius="lg" bg={colorMode === 'dark' ? '#3b4252' : 'rgba(93, 61, 36, 0.08)'} color={colorMode === 'dark' ? '#eceff4' : '#6f5a4a'}>
                    <Icon as={Zap} boxSize="22px" />
                 </Box>
                 <Box>
@@ -181,7 +181,7 @@ const Header = () => {
               </Flex>
 
               <Flex align="center" gap={4}>
-                <Box p={3} borderRadius="lg" bg={colorMode === 'dark' ? 'rgba(255,255,255,0.05)' : 'rgba(93, 61, 36, 0.08)'} color={colorMode === 'dark' ? '#cbd5e1' : '#6f5a4a'}>
+                <Box p={3} borderRadius="lg" bg={colorMode === 'dark' ? '#3b4252' : 'rgba(93, 61, 36, 0.08)'} color={colorMode === 'dark' ? '#eceff4' : '#6f5a4a'}>
                    <Icon as={Cloud} boxSize="22px" />
                 </Box>
                 <Box>
@@ -220,7 +220,7 @@ const HeroSection = () => {
                 fontWeight="700"
                 letterSpacing="-0.03em"
                 lineHeight="1.2"
-                color={colorMode === 'dark' ? '#f1f5f9' : '#2e2218'}
+                color={colorMode === 'dark' ? '#d8dee9' : '#2e2218'}
                 mb="10px"
                 animation="shimmerText 6s linear infinite"
                 sx={{
@@ -270,16 +270,16 @@ function Controls({ searchQuery, setSearchQuery, activeCategory, setActiveCatego
 
     return (
         <Box
-           bg={colorMode === 'dark' ? 'rgba(255,255,255,0.04)' : 'rgba(255, 250, 242, 0.76)'}
+           bg={colorMode === 'dark' ? '#3b4252' : 'rgba(255, 250, 242, 0.76)'}
            border="1px solid"
-           borderColor={colorMode === 'dark' ? 'rgba(255,255,255,0.06)' : 'rgba(93, 61, 36, 0.12)'}
+           borderColor={colorMode === 'dark' ? '#3b4252' : 'rgba(93, 61, 36, 0.12)'}
            borderRadius="20px"
            p="20px 22px"
            boxShadow={colorMode === 'dark' ? '0 12px 40px rgba(0,0,0,0.6)' : '0 8px 32px rgba(0,0,0,0.05)'}
            backdropFilter="blur(20px) saturate(150%)"
            mb="24px"
            transition="all 0.35s"
-           _hover={{ borderColor: colorMode === 'dark' ? 'rgba(255,255,255,0.12)' : 'rgba(93, 61, 36, 0.2)' }}
+           _hover={{ borderColor: colorMode === 'dark' ? '#4c566a' : 'rgba(93, 61, 36, 0.2)' }}
         >
              <InputGroup mb="16px">
                 <InputLeftElement pointerEvents="none" h="100%">
@@ -289,17 +289,17 @@ function Controls({ searchQuery, setSearchQuery, activeCategory, setActiveCatego
                    value={searchQuery}
                    onChange={(e) => setSearchQuery(e.target.value)}
                    placeholder="Search by name, tags, description…"
-                   bg={colorMode === 'dark' ? 'rgba(255,255,255,0.04)' : 'rgba(255, 250, 242, 0.5)'}
+                   bg={colorMode === 'dark' ? '#3b4252' : 'rgba(255, 250, 242, 0.5)'}
                    border="1.5px solid"
-                   borderColor={colorMode === 'dark' ? 'rgba(255,255,255,0.06)' : 'rgba(93, 61, 36, 0.12)'}
+                   borderColor={colorMode === 'dark' ? '#3b4252' : 'rgba(93, 61, 36, 0.12)'}
                    borderRadius="12px"
                    fontSize="0.95rem"
-                   color={colorMode === 'dark' ? '#f1f5f9' : '#2e2218'}
+                   color={colorMode === 'dark' ? '#d8dee9' : '#2e2218'}
                    py="24px"
                    _placeholder={{ color: colorMode === 'dark' ? '#818cf8' : '#6f5a4a' }}
                    _focus={{
-                       borderColor: colorMode === 'dark' ? '#ffffff' : '#8c5430',
-                       boxShadow: `0 0 0 4px ${colorMode === 'dark' ? 'rgba(255,255,255,0.1)' : 'rgba(140, 84, 48, 0.15)'}`
+                       borderColor: colorMode === 'dark' ? '#81a1c1' : '#8c5430',
+                       boxShadow: `0 0 0 4px ${colorMode === 'dark' ? 'rgba(136, 192, 208, 0.15)' : 'rgba(140, 84, 48, 0.15)'}`
                    }}
                 />
                 {searchQuery && (
@@ -308,12 +308,12 @@ function Controls({ searchQuery, setSearchQuery, activeCategory, setActiveCatego
                             icon={<Icon as={X} boxSize="12px" />}
                             size="sm"
                             rounded="full"
-                            bg={colorMode === 'dark' ? 'rgba(255,255,255,0.05)' : 'rgba(93, 61, 36, 0.05)'}
+                            bg={colorMode === 'dark' ? '#3b4252' : 'rgba(93, 61, 36, 0.05)'}
                             color={colorMode === 'dark' ? '#818cf8' : '#6f5a4a'}
                             onClick={() => setSearchQuery("")}
                             _hover={{
-                                bg: colorMode === 'dark' ? 'rgba(255,255,255,0.12)' : 'rgba(93, 61, 36, 0.08)',
-                                color: colorMode === 'dark' ? '#f1f5f9' : '#2e2218'
+                                bg: colorMode === 'dark' ? '#4c566a' : 'rgba(93, 61, 36, 0.08)',
+                                color: colorMode === 'dark' ? '#d8dee9' : '#2e2218'
                             }}
                             aria-label="Clear search"
                         />
@@ -339,18 +339,18 @@ function Controls({ searchQuery, setSearchQuery, activeCategory, setActiveCatego
                            h="auto"
                            borderRadius="999px"
                            border="1.5px solid"
-                           borderColor={isActive ? 'transparent' : (colorMode === 'dark' ? 'rgba(255,255,255,0.12)' : 'rgba(93, 61, 36, 0.2)')}
-                           bg={isActive ? (colorMode === 'dark' ? '#e2e8f0' : '#8c5430') : 'transparent'}
-                           color={isActive ? (colorMode === 'dark' ? '#0f172a' : '#fff') : (colorMode === 'dark' ? '#818cf8' : '#6f5a4a')}
+                           borderColor={isActive ? 'transparent' : (colorMode === 'dark' ? '#4c566a' : 'rgba(93, 61, 36, 0.2)')}
+                           bg={isActive ? (colorMode === 'dark' ? '#88c0d0' : '#8c5430') : 'transparent'}
+                           color={isActive ? (colorMode === 'dark' ? '#3b4252' : '#fff') : (colorMode === 'dark' ? '#818cf8' : '#6f5a4a')}
                            fontSize="0.82rem"
                            fontWeight="500"
                            transition="all 0.35s"
-                           boxShadow={isActive ? `0 4px 12px ${colorMode === 'dark' ? 'rgba(255,255,255,0.1)' : 'rgba(140, 84, 48, 0.3)'}` : 'none'}
+                           boxShadow={isActive ? `0 4px 12px ${colorMode === 'dark' ? 'rgba(136, 192, 208, 0.15)' : 'rgba(140, 84, 48, 0.3)'}` : 'none'}
                            _hover={!isActive ? {
-                               borderColor: colorMode === 'dark' ? '#ffffff' : '#8c5430',
-                               color: colorMode === 'dark' ? '#ffffff' : '#8c5430',
-                               bg: colorMode === 'dark' ? 'rgba(255,255,255,0.05)' : 'rgba(140, 84, 48, 0.08)',
-                               boxShadow: `0 0 16px ${colorMode === 'dark' ? 'rgba(255,255,255,0.05)' : 'rgba(140, 84, 48, 0.15)'}`
+                               borderColor: colorMode === 'dark' ? '#81a1c1' : '#8c5430',
+                               color: colorMode === 'dark' ? '#81a1c1' : '#8c5430',
+                               bg: colorMode === 'dark' ? '#3b4252' : 'rgba(140, 84, 48, 0.08)',
+                               boxShadow: `0 0 16px ${colorMode === 'dark' ? '#3b4252' : 'rgba(140, 84, 48, 0.15)'}`
                            } : {}}
                        >
                            {getIconPrefix(iconName)}
@@ -390,7 +390,7 @@ function App() {
         </Box>
         
         <Box as="footer" textAlign="center" pt="28px" fontSize="0.77rem" color={colorMode === 'dark' ? '#818cf8' : '#6b7db3'}>
-           <Text>Built with ♥ · <Text as="span" color={colorMode === 'dark' ? '#e2e8f0' : '#8c5430'} fontWeight="500">{RESOURCES.length}</Text> resources curated · <Text as="span">My Resources</Text></Text>
+           <Text>Built with ♥ · <Text as="span" color={colorMode === 'dark' ? '#88c0d0' : '#8c5430'} fontWeight="500">{RESOURCES.length}</Text> resources curated · <Text as="span">My Resources</Text></Text>
         </Box>
       </Box>
     </Box>
