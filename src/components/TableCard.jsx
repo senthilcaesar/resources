@@ -68,55 +68,23 @@ const TableCard = ({ searchQuery, activeCategory }) => {
 
     const getBadgeStyle = (importance) => {
         const isDark = colorMode === 'dark';
+        const plainBg = isDark ? 'rgba(255,255,255,0.06)' : 'rgba(93, 61, 36, 0.08)';
+        const plainColor = isDark ? '#cbd5e1' : '#6f5a4a';
+        const plainBorder = isDark ? 'rgba(255,255,255,0.12)' : 'rgba(93, 61, 36, 0.2)';
         switch (importance) {
-            case "High":
-                return {
-                    bg: isDark ? 'rgba(251,113,133,0.12)' : 'rgba(251,113,133,0.15)',
-                    color: isDark ? '#fda4af' : '#fb7185',
-                    borderColor: isDark ? 'rgba(251,113,133,0.25)' : 'rgba(251,113,133,0.3)',
-                    icon: Circle,
-                    pulse: true
-                };
-            case "Medium":
-                return {
-                    bg: isDark ? 'rgba(251,191,36,0.12)' : 'rgba(251,191,36,0.15)',
-                    color: isDark ? '#fcd34d' : '#fbbf24',
-                    borderColor: isDark ? 'rgba(251,191,36,0.25)' : 'rgba(251,191,36,0.3)',
-                    icon: MinusCircle
-                };
-            case "Low":
-                return {
-                    bg: isDark ? 'rgba(52,211,153,0.12)' : 'rgba(6,214,160,0.15)',
-                    color: isDark ? '#6ee7b7' : '#06d6a0',
-                    borderColor: isDark ? 'rgba(52,211,153,0.25)' : 'rgba(6,214,160,0.3)',
-                    icon: CheckCircle
-                };
+            case "High": return { bg: plainBg, color: plainColor, borderColor: plainBorder, icon: Circle, pulse: true };
+            case "Medium": return { bg: plainBg, color: plainColor, borderColor: plainBorder, icon: MinusCircle };
+            case "Low": return { bg: plainBg, color: plainColor, borderColor: plainBorder, icon: CheckCircle };
             default: return {};
         }
     }
 
     // Dynamic Tags
-    const tagColorCount = 8;
-    const tagColorMap = {};
     const getTagClass = (tag) => {
-        if (!(tag in tagColorMap)) {
-            tagColorMap[tag] = Object.keys(tagColorMap).length % tagColorCount;
-        }
-        const idx = tagColorMap[tag];
         const isDark = colorMode === 'dark';
-        const palettes = [
-            { bg: 'rgba(99,102,241,0.18)', color: '#a5b4fc', darkBg: 'rgba(99,102,241,0.14)' },
-            { bg: 'rgba(6,214,160,0.18)', color: '#6ee7b7', darkBg: 'rgba(6,214,160,0.14)' },
-            { bg: 'rgba(251,191,36,0.18)', color: '#fcd34d', darkBg: 'rgba(251,191,36,0.14)' },
-            { bg: 'rgba(251,113,133,0.18)', color: '#fda4af', darkBg: 'rgba(251,113,133,0.14)' },
-            { bg: 'rgba(167,139,250,0.18)', color: '#c4b5fd', darkBg: 'rgba(167,139,250,0.14)' },
-            { bg: 'rgba(56,189,248,0.18)', color: '#7dd3fc', darkBg: 'rgba(56,189,248,0.14)' },
-            { bg: 'rgba(244,114,182,0.18)', color: '#f9a8d4', darkBg: 'rgba(244,114,182,0.14)' },
-            { bg: 'rgba(251,146,60,0.18)', color: '#fdba74', darkBg: 'rgba(251,146,60,0.14)' }
-        ];
         return {
-            bg: isDark ? palettes[idx].darkBg : palettes[idx].bg,
-            color: palettes[idx].color
+            bg: isDark ? 'rgba(255,255,255,0.04)' : 'rgba(93, 61, 36, 0.05)',
+            color: isDark ? '#cbd5e1' : '#6f5a4a'
         }
     }
 
@@ -127,11 +95,11 @@ const TableCard = ({ searchQuery, activeCategory }) => {
 
     return (
         <Box
-          bg={colorMode === 'dark' ? 'rgba(255,255,255,0.04)' : 'rgba(255,255,255,0.06)'}
+          bg={colorMode === 'dark' ? 'rgba(255,255,255,0.04)' : 'rgba(255, 250, 242, 0.76)'}
           border="1px solid"
-          borderColor={colorMode === 'dark' ? 'rgba(255,255,255,0.06)' : 'rgba(255,255,255,0.08)'}
+          borderColor={colorMode === 'dark' ? 'rgba(255,255,255,0.06)' : 'rgba(93, 61, 36, 0.12)'}
           borderRadius="20px"
-          boxShadow={colorMode === 'dark' ? '0 12px 40px rgba(0,0,0,0.6)' : '0 8px 32px rgba(0,0,0,0.4)'}
+          boxShadow={colorMode === 'dark' ? '0 12px 40px rgba(0,0,0,0.6)' : '0 8px 32px rgba(0,0,0,0.05)'}
           backdropFilter="blur(20px) saturate(150%)"
           overflow={['auto', 'hidden']}
           transition="all 0.35s"
@@ -140,9 +108,9 @@ const TableCard = ({ searchQuery, activeCategory }) => {
                 <Grid
                     templateColumns={gridTemplateCols}
                     p="16px 28px"
-                    bgGradient={colorMode === 'dark' ? 'linear(to-r, rgba(52,211,153,0.08), transparent)' : 'linear(to-r, rgba(6,214,160,0.1), transparent)'}
+                    bg={colorMode === 'dark' ? 'rgba(255,255,255,0.02)' : 'rgba(93, 61, 36, 0.02)'}
                     borderBottom="1px solid"
-                    borderColor={colorMode === 'dark' ? 'rgba(255,255,255,0.06)' : 'rgba(255,255,255,0.08)'}
+                    borderColor={colorMode === 'dark' ? 'rgba(255,255,255,0.06)' : 'rgba(93, 61, 36, 0.12)'}
                     gap={0}
                 >
                      {[{icon: FileText, text: 'Resource'}, 
@@ -150,7 +118,7 @@ const TableCard = ({ searchQuery, activeCategory }) => {
                        {icon: BarChart2, text: 'Priority'}, 
                        {icon: Hash, text: 'Tags'}, 
                        {icon: LinkIcon, text: 'URL'}].map(({icon, text}) => (
-                         <Flex key={text} align="center" gap="5px" fontSize="0.76rem" fontWeight="600" textTransform="uppercase" letterSpacing="0.08em" color={colorMode === 'dark' ? '#818cf8' : '#6b7db3'}>
+                         <Flex key={text} align="center" gap="5px" fontSize="0.76rem" fontWeight="600" textTransform="uppercase" letterSpacing="0.08em" color={colorMode === 'dark' ? '#818cf8' : '#6f5a4a'}>
                              <Icon as={icon} boxSize="13px" /> {text}
                          </Flex>
                      ))}
@@ -174,25 +142,25 @@ const TableCard = ({ searchQuery, activeCategory }) => {
                                     templateColumns={gridTemplateCols}
                                     p="22px 28px"
                                     borderBottom={idx === filtered.length - 1 ? 'none' : '1px solid'}
-                                    borderColor={colorMode === 'dark' ? 'rgba(255,255,255,0.06)' : 'rgba(255,255,255,0.08)'}
+                                    borderColor={colorMode === 'dark' ? 'rgba(255,255,255,0.06)' : 'rgba(93, 61, 36, 0.12)'}
                                     alignItems="center"
                                     gap={0}
                                     cursor="default"
                                     position="relative"
                                     _hover={{
-                                        bg: colorMode === 'dark' ? 'rgba(255,255,255,0.09)' : 'rgba(255,255,255,0.12)',
+                                        bg: colorMode === 'dark' ? 'rgba(255,255,255,0.09)' : 'rgba(95, 58, 27, 0.04)',
                                         transform: 'translateX(3px) translateY(-2px)',
-                                        boxShadow: `0 6px 24px ${colorMode === 'dark' ? 'rgba(52,211,153,0.35)' : 'rgba(6,214,160,0.3)'}, inset 0 0 0 1px rgba(6,214,160,0.15)`,
+                                        boxShadow: `0 6px 24px ${colorMode === 'dark' ? 'rgba(0,0,0,0.4)' : 'rgba(0,0,0,0.05)'}, inset 0 0 0 1px ${colorMode === 'dark' ? 'rgba(255,255,255,0.1)' : 'rgba(93, 61, 36, 0.15)'}`,
                                         borderRadius: '12px',
-                                        '& .res-title': { color: colorMode === 'dark' ? '#34d399' : '#06d6a0' }
+                                        '& .res-title': { color: colorMode === 'dark' ? '#ffffff' : '#8c5430' }
                                     }}
                                 >
                                     <Flex flexDir="column" gap="3px">
-                                        <Text className="res-title" fontSize="1rem" fontWeight="600" color={colorMode === 'dark' ? '#f1f5f9' : '#eef2ff'} lineHeight="1.3" transition="color 0.35s">{res.name}</Text>
-                                        <Text fontSize="0.82rem" color={colorMode === 'dark' ? '#818cf8' : '#6b7db3'} lineHeight="1.4">{res.description}</Text>
+                                        <Text className="res-title" fontSize="1rem" fontWeight="600" color={colorMode === 'dark' ? '#f1f5f9' : '#2e2218'} lineHeight="1.3" transition="color 0.35s">{res.name}</Text>
+                                        <Text fontSize="0.82rem" color={colorMode === 'dark' ? '#818cf8' : '#6f5a4a'} lineHeight="1.4">{res.description}</Text>
                                     </Flex>
                                     
-                                    <Flex align="center" fontSize="0.88rem" color={colorMode === 'dark' ? '#c4b5fd' : '#a5b4fc'} fontWeight="500">
+                                    <Flex align="center" fontSize="0.88rem" color={colorMode === 'dark' ? '#c4b5fd' : '#6f5a4a'} fontWeight="500">
                                          {getIconPrefix(CATEGORY_ICONS[res.category] || CATEGORY_ICONS["Default"])}
                                          {res.category}
                                     </Flex>
@@ -219,7 +187,7 @@ const TableCard = ({ searchQuery, activeCategory }) => {
                                     </Flex>
 
                                     <Flex align="center" gap="8px">
-                                        <Text fontSize="0.75rem" color={colorMode === 'dark' ? '#818cf8' : '#6b7db3'} maxW="100px" overflow="hidden" textOverflow="ellipsis" whiteSpace="nowrap" title={res.url}>
+                                        <Text fontSize="0.75rem" color={colorMode === 'dark' ? '#818cf8' : '#6f5a4a'} maxW="100px" overflow="hidden" textOverflow="ellipsis" whiteSpace="nowrap" title={res.url}>
                                             {domainOf(res.url)}
                                         </Text>
                                         <IconButton
@@ -227,17 +195,16 @@ const TableCard = ({ searchQuery, activeCategory }) => {
                                             size="sm"
                                             w="30px" h="30px" minW="30px"
                                             border="1.5px solid"
-                                            borderColor={copiedUrl === res.url ? (colorMode === 'dark' ? '#34d399' : '#06d6a0') : (colorMode === 'dark' ? 'rgba(255,255,255,0.12)' : 'rgba(255,255,255,0.14)')}
-                                            bg={copiedUrl === res.url ? 'rgba(6,214,160,0.15)' : (colorMode === 'dark' ? 'rgba(52,211,153,0.08)' : 'rgba(6,214,160,0.1)')}
+                                            borderColor={copiedUrl === res.url ? (colorMode === 'dark' ? '#34d399' : '#06d6a0') : (colorMode === 'dark' ? 'rgba(255,255,255,0.12)' : 'rgba(93, 61, 36, 0.2)')}
+                                            bg={copiedUrl === res.url ? 'rgba(6,214,160,0.15)' : (colorMode === 'dark' ? 'rgba(52,211,153,0.08)' : 'rgba(95, 58, 27, 0.08)')}
                                             borderRadius="8px"
-                                            color={copiedUrl === res.url ? (colorMode === 'dark' ? '#34d399' : '#06d6a0') : (colorMode === 'dark' ? '#818cf8' : '#6b7db3')}
+                                            color={copiedUrl === res.url ? (colorMode === 'dark' ? '#34d399' : '#06d6a0') : (colorMode === 'dark' ? '#818cf8' : '#6f5a4a')}
                                             onClick={() => handleCopy(res.url)}
                                             _hover={{
-                                                borderColor: colorMode === 'dark' ? '#34d399' : '#06d6a0',
-                                                color: colorMode === 'dark' ? '#34d399' : '#06d6a0',
-                                                bg: colorMode === 'dark' ? 'rgba(52,211,153,0.35)' : 'rgba(6,214,160,0.3)',
-                                                transform: 'scale(1.15)',
-                                                boxShadow: `0 0 16px ${colorMode === 'dark' ? 'rgba(52,211,153,0.35)' : 'rgba(6,214,160,0.3)'}`
+                                                borderColor: colorMode === 'dark' ? '#ffffff' : '#8c5430',
+                                                color: colorMode === 'dark' ? '#ffffff' : '#8c5430',
+                                                bg: colorMode === 'dark' ? 'rgba(255,255,255,0.1)' : 'rgba(140, 84, 48, 0.12)',
+                                                transform: 'scale(1.15)'
                                             }}
                                             aria-label="Copy link"
                                         />
@@ -250,16 +217,15 @@ const TableCard = ({ searchQuery, activeCategory }) => {
                                             size="sm"
                                             w="30px" h="30px" minW="30px"
                                             border="1.5px solid"
-                                            borderColor={colorMode === 'dark' ? 'rgba(255,255,255,0.12)' : 'rgba(255,255,255,0.14)'}
-                                            bg={colorMode === 'dark' ? 'rgba(52,211,153,0.08)' : 'rgba(6,214,160,0.1)'}
+                                            borderColor={colorMode === 'dark' ? 'rgba(255,255,255,0.12)' : 'rgba(93, 61, 36, 0.2)'}
+                                            bg={colorMode === 'dark' ? 'rgba(52,211,153,0.08)' : 'rgba(95, 58, 27, 0.08)'}
                                             borderRadius="8px"
-                                            color={colorMode === 'dark' ? '#818cf8' : '#6b7db3'}
+                                            color={colorMode === 'dark' ? '#818cf8' : '#6f5a4a'}
                                             _hover={{
-                                                borderColor: colorMode === 'dark' ? '#34d399' : '#06d6a0',
-                                                color: colorMode === 'dark' ? '#34d399' : '#06d6a0',
-                                                bg: colorMode === 'dark' ? 'rgba(52,211,153,0.35)' : 'rgba(6,214,160,0.3)',
-                                                transform: 'scale(1.15)',
-                                                boxShadow: `0 0 16px ${colorMode === 'dark' ? 'rgba(52,211,153,0.35)' : 'rgba(6,214,160,0.3)'}`
+                                                borderColor: colorMode === 'dark' ? '#ffffff' : '#8c5430',
+                                                color: colorMode === 'dark' ? '#ffffff' : '#8c5430',
+                                                bg: colorMode === 'dark' ? 'rgba(255,255,255,0.1)' : 'rgba(140, 84, 48, 0.12)',
+                                                transform: 'scale(1.15)'
                                             }}
                                             aria-label="Open resource"
                                         />
