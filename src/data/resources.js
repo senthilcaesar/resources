@@ -1,4 +1,12 @@
 export const RESOURCES = [
+    {
+    name: "arena.ai Leaderboard",
+    description: "See how leading AI models stack up across text, image, vision, and more",
+    category: "AI Education",
+    importance: "High",
+    tags: ["ai", "leaderboard", "models"],
+    url: "https://arena.ai/leaderboard/"
+  },
   {
     name: "Massachusetts AI Hub",
     description: "Resources for AI training and workforce development in Massachusetts.",
