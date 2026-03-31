@@ -1,5 +1,13 @@
 export const RESOURCES = [
     {
+    name: "A lightweight spec-driven framework",
+    description: "A lightweight spec-driven framework by Fission AI",
+    category: "AI Workflow",
+    importance: "High",
+    tags: ["ai", "workflow", "spec"],
+    url: "https://openspec.dev/"
+  },
+    {
     name: "arena.ai Leaderboard",
     description: "See how leading AI models stack up across text, image, vision, and more",
     category: "AI Education",

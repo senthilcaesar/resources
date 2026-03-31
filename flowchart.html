@@ -1,0 +1,405 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Interactive Decision Flowchart</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #232220;
+        --panel: rgba(57, 55, 50, 0.84);
+        --panel-border: rgba(255, 255, 255, 0.12);
+        --text: #f3eee5;
+        --muted: #c7c0b4;
+        --line: rgba(255, 255, 255, 0.5);
+        --line-active: #f6e4b7;
+        --shadow: 0 22px 48px rgba(0, 0, 0, 0.28);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        font-family: "Manrope", sans-serif;
+        color: var(--text);
+        background:
+          radial-gradient(circle at top, rgba(255, 255, 255, 0.08), transparent 28%),
+          linear-gradient(180deg, #2a2926 0%, #232220 100%);
+      }
+
+      .page {
+        width: min(1480px, calc(100vw - 32px));
+        margin: 0 auto;
+        padding: 28px 0 36px;
+      }
+
+      .header {
+        display: flex;
+        justify-content: space-between;
+        gap: 16px;
+        align-items: flex-start;
+        margin-bottom: 18px;
+      }
+
+      .header h1 {
+        margin: 0;
+        font-size: clamp(1.8rem, 2.8vw, 2.8rem);
+        font-weight: 800;
+        letter-spacing: -0.04em;
+      }
+
+      .header p {
+        margin: 8px 0 0;
+        max-width: 720px;
+        color: var(--muted);
+        line-height: 1.5;
+      }
+
+      .chart-shell {
+        position: relative;
+        overflow: visible;
+      }
+
+      .chart-grid {
+        position: relative;
+        --chart-scale: 0.88;
+        min-height: calc(1120px * var(--chart-scale) + 56px);
+        padding: 8px 0 56px;
+        display: flex;
+        justify-content: center;
+      }
+
+      .chart-stage {
+        position: relative;
+        width: 1480px;
+        height: 1120px;
+        transform: scale(var(--chart-scale));
+        transform-origin: top center;
+      }
+
+      .connections {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 1;
+      }
+
+      .line {
+        fill: none;
+        stroke: var(--line);
+        stroke-width: 3;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        transition: stroke 180ms ease, stroke-width 180ms ease, opacity 180ms ease;
+        opacity: 0.9;
+        marker-end: url(#arrowhead);
+      }
+
+      .line.active {
+        stroke: var(--line-active);
+        stroke-width: 4.5;
+        opacity: 1;
+        filter: drop-shadow(0 0 14px rgba(246, 228, 183, 0.3));
+        marker-end: url(#arrowhead-active);
+      }
+
+      .node-layer {
+        position: relative;
+        min-height: 1070px;
+        z-index: 2;
+      }
+
+      .node {
+        position: absolute;
+        width: 366px;
+        padding: 18px 22px 20px;
+        border-radius: 20px;
+        border: 1.5px solid color-mix(in srgb, var(--accent) 82%, white 18%);
+        background: linear-gradient(
+          180deg,
+          color-mix(in srgb, var(--accent) 50%, #0d0c0b 50%) 0%,
+          color-mix(in srgb, var(--accent) 68%, #0d0c0b 32%) 100%
+        );
+        box-shadow:
+          inset 0 1px 0 rgba(255, 255, 255, 0.08),
+          0 18px 28px rgba(0, 0, 0, 0.16);
+        color: var(--title);
+        transition:
+          transform 180ms ease,
+          box-shadow 180ms ease,
+          border-color 180ms ease,
+          filter 180ms ease;
+      }
+
+      .node button {
+        all: unset;
+        display: block;
+        cursor: pointer;
+        width: 100%;
+      }
+
+      .node:hover,
+      .node:focus-within,
+      .node.active {
+        transform: translateY(-3px) scale(1.01);
+        border-color: color-mix(in srgb, var(--accent) 70%, white 30%);
+        box-shadow:
+          inset 0 1px 0 rgba(255, 255, 255, 0.12),
+          0 24px 34px rgba(0, 0, 0, 0.24);
+        filter: saturate(1.08);
+      }
+
+      .node-title {
+        display: block;
+        font-size: clamp(1.3rem, 1.8vw, 2rem);
+        line-height: 1.05;
+        font-weight: 800;
+        letter-spacing: -0.04em;
+      }
+
+      .node-subtitle {
+        display: block;
+        margin-top: 8px;
+        font-size: clamp(0.94rem, 1.25vw, 1.1rem);
+        font-weight: 600;
+        color: var(--subtitle);
+        line-height: 1.22;
+      }
+
+      .node-meta {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        margin-top: 14px;
+        padding: 8px 10px;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.08);
+        color: rgba(255, 255, 255, 0.88);
+        font-size: 0.82rem;
+        letter-spacing: 0.01em;
+      }
+
+      @media (max-width: 1180px) {
+        .page {
+          width: min(100vw - 18px, 1100px);
+          padding-top: 16px;
+        }
+
+        .header {
+          flex-direction: column;
+        }
+
+        .chart-grid {
+          min-height: unset;
+          padding: 18px;
+          display: block;
+        }
+
+        .chart-stage {
+          width: auto;
+          height: auto;
+          transform: none;
+        }
+
+        .connections {
+          display: none;
+        }
+
+        .node-layer {
+          min-height: unset;
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+          gap: 16px;
+        }
+
+        .node {
+          position: relative;
+          inset: auto !important;
+          width: 100%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="page">
+      <section class="header">
+        <div>
+          <h1>Decision Flowchart</h1>
+        </div>
+      </section>
+
+      <section class="chart-shell">
+        <div class="chart-grid">
+          <div class="chart-stage">
+          <svg class="connections" viewBox="0 0 1480 1120" preserveAspectRatio="none" aria-hidden="true">
+            <defs>
+              <marker id="arrowhead" markerWidth="12" markerHeight="12" refX="8.5" refY="3.5" orient="auto" markerUnits="strokeWidth">
+                <path d="M 0 0 L 7 3.5 L 0 7 z" fill="rgba(255, 255, 255, 0.6)"></path>
+              </marker>
+              <marker id="arrowhead-active" markerWidth="12" markerHeight="12" refX="8.5" refY="3.5" orient="auto" markerUnits="strokeWidth">
+                <path d="M 0 0 L 7 3.5 L 0 7 z" fill="#f6e4b7"></path>
+              </marker>
+            </defs>
+            <path class="line" data-edge="root-access" d="M 630 88 C 548 118, 468 154, 370 200" />
+            <path class="line" data-edge="root-repeat-mid" d="M 743 126 L 743 200" />
+            <path class="line" data-edge="root-rules" d="M 920 88 C 1012 118, 1104 154, 1200 200" />
+            <path class="line" data-edge="root-subtask" d="M 700 104 L 500 180 L 500 706" />
+            <path class="line" data-edge="root-parallel" d="M 880 104 L 1011 180 L 1011 706" />
+            <path class="line" data-edge="access-mcp" d="M 223 320 L 223 470" />
+            <path class="line" data-edge="repeat-skills" d="M 743 320 L 743 470" />
+            <path class="line" data-edge="rules-hooks" d="M 1273 320 L 1273 470" />
+            <path class="line" data-edge="subtask-subagents" d="M 485 812 L 485 976" />
+            <path class="line" data-edge="parallel-agent-teams" d="M 1011 812 L 1011 976" />
+          </svg>
+
+          <div class="node-layer">
+            <article class="node active" data-node="root" style="--accent:#5f5d57; --title:#f1ede6; --subtitle:#d2cbc0; top: -8px; left: 560px;">
+              <button type="button" aria-pressed="true">
+                <span class="node-title">What do you need?</span>
+                <span class="node-subtitle">Start here and choose the best path</span>
+                <span class="node-meta">Primary decision</span>
+              </button>
+            </article>
+
+            <article class="node" data-node="access" style="--accent:#16528f; --title:#b9d8ff; --subtitle:#87b5ef; top: 200px; left: 40px;">
+              <button type="button" aria-pressed="false">
+                <span class="node-title">Access external data</span>
+                <span class="node-subtitle">DB, API, GitHub, Slack</span>
+                <span class="node-meta">Integration route</span>
+              </button>
+            </article>
+
+            <article class="node" data-node="repeat" style="--accent:#0b745f; --title:#a6e5d2; --subtitle:#62cea8; top: 200px; left: 560px;">
+              <button type="button" aria-pressed="false">
+                <span class="node-title">Repeat a workflow</span>
+                <span class="node-subtitle">same steps, every time</span>
+                <span class="node-meta">Process route</span>
+              </button>
+            </article>
+
+            <article class="node" data-node="rules" style="--accent:#8a5204; --title:#ffd089; --subtitle:#ffab21; top: 200px; left: 1090px;">
+              <button type="button" aria-pressed="false">
+                <span class="node-title">Enforce rules</span>
+                <span class="node-subtitle">lint, block, notify</span>
+                <span class="node-meta">Guardrail route</span>
+              </button>
+            </article>
+
+            <article class="node" data-node="mcp" style="--accent:#18518b; --title:#b7d6ff; --subtitle:#8cb7ef; top: 470px; left: 40px;">
+              <button type="button" aria-pressed="false">
+                <span class="node-title">Use MCP</span>
+                <span class="node-subtitle">claude mcp add ...</span>
+                <span class="node-meta">Tooling choice</span>
+              </button>
+            </article>
+
+            <article class="node" data-node="skills" style="--accent:#0b6d5c; --title:#a5e3d2; --subtitle:#65cfab; top: 470px; left: 560px;">
+              <button type="button" aria-pressed="false">
+                <span class="node-title">Use Skills</span>
+                <span class="node-subtitle">SKILL.md + /command</span>
+                <span class="node-meta">Reusable guidance</span>
+              </button>
+            </article>
+
+            <article class="node" data-node="hooks" style="--accent:#8a5304; --title:#ffd191; --subtitle:#ffaf27; top: 470px; left: 1090px;">
+              <button type="button" aria-pressed="false">
+                <span class="node-title">Use Hooks</span>
+                <span class="node-subtitle">settings.json events</span>
+                <span class="node-meta">Automation events</span>
+              </button>
+            </article>
+
+            <article class="node" data-node="subtask" style="--accent:#973b16; --title:#ffc7ad; --subtitle:#eea17f; top: 700px; left: 302px;">
+              <button type="button" aria-pressed="false">
+                <span class="node-title">Delegate a subtask</span>
+                <span class="node-subtitle">heavy/isolated work</span>
+                <span class="node-meta">Focused delegation</span>
+              </button>
+            </article>
+
+            <article class="node" data-node="parallel" style="--accent:#8d2856; --title:#f7b5d1; --subtitle:#ef90ba; top: 700px; left: 828px;">
+              <button type="button" aria-pressed="false">
+                <span class="node-title">Parallel teamwork</span>
+                <span class="node-subtitle">agents cross-checking</span>
+                <span class="node-meta">Multi-agent path</span>
+              </button>
+            </article>
+
+            <article class="node" data-node="subagents" style="--accent:#963b16; --title:#ffc7ad; --subtitle:#eea17f; top: 970px; left: 302px;">
+              <button type="button" aria-pressed="false">
+                <span class="node-title">Use Subagents</span>
+                <span class="node-subtitle">~/.claude/agents/</span>
+                <span class="node-meta">Delegation output</span>
+              </button>
+            </article>
+
+            <article class="node" data-node="agentTeams" style="--accent:#8a2b56; --title:#f8b8d3; --subtitle:#ef96bf; top: 970px; left: 828px;">
+              <button type="button" aria-pressed="false">
+                <span class="node-title">Use Agent teams</span>
+                <span class="node-subtitle">Experimental flag</span>
+                <span class="node-meta">Team orchestration</span>
+              </button>
+            </article>
+
+          </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script>
+      const edgesByNode = {
+        root: ["root-access", "root-repeat-mid", "root-rules", "root-subtask", "root-parallel"],
+        access: ["root-access", "access-mcp"],
+        repeat: ["root-repeat-mid", "repeat-skills"],
+        rules: ["root-rules", "rules-hooks"],
+        mcp: ["root-access", "access-mcp"],
+        skills: ["root-repeat-mid", "repeat-skills"],
+        hooks: ["root-rules", "rules-hooks"],
+        subtask: ["root-subtask", "subtask-subagents"],
+        parallel: ["root-parallel", "parallel-agent-teams"],
+        subagents: ["root-subtask", "subtask-subagents"],
+        agentTeams: ["root-parallel", "parallel-agent-teams"]
+      };
+
+      const nodes = Array.from(document.querySelectorAll(".node"));
+      const lines = Array.from(document.querySelectorAll(".line"));
+
+      function renderDetails(key) {
+        const activeEdges = new Set(edgesByNode[key] || []);
+        nodes.forEach((node) => {
+          const isActive = node.dataset.node === key;
+          node.classList.toggle("active", isActive);
+          const button = node.querySelector("button");
+          if (button) button.setAttribute("aria-pressed", String(isActive));
+        });
+
+        lines.forEach((line) => {
+          line.classList.toggle("active", activeEdges.has(line.dataset.edge));
+        });
+      }
+
+      nodes.forEach((node) => {
+        const key = node.dataset.node;
+        const button = node.querySelector("button");
+        const activate = () => renderDetails(key);
+        node.addEventListener("mouseenter", activate);
+        button.addEventListener("focus", activate);
+        button.addEventListener("click", activate);
+      });
+
+      renderDetails("root");
+    </script>
+  </body>
+</html>
