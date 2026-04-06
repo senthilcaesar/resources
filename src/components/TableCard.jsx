@@ -71,9 +71,9 @@ const TableCard = ({ searchQuery, activeCategory }) => {
 
     const getBadgeStyle = (importance) => {
         const isDark = colorMode === 'dark';
-        const plainBg = isDark ? 'rgba(255,255,255,0.06)' : 'rgba(93, 61, 36, 0.08)';
-        const plainColor = isDark ? '#cbd5e1' : '#6f5a4a';
-        const plainBorder = isDark ? 'rgba(255,255,255,0.12)' : 'rgba(93, 61, 36, 0.2)';
+        const plainBg = isDark ? 'rgba(250, 249, 245, 0.05)' : 'rgba(20, 20, 19, 0.05)';
+        const plainColor = isDark ? '#b0aea5' : '#767676';
+        const plainBorder = isDark ? 'rgba(250, 249, 245, 0.1)' : 'rgba(20, 20, 19, 0.1)';
         switch (importance) {
             case "High": return { bg: plainBg, color: plainColor, borderColor: plainBorder, icon: Circle, pulse: true };
             case "Medium": return { bg: plainBg, color: plainColor, borderColor: plainBorder, icon: MinusCircle };
@@ -85,8 +85,8 @@ const TableCard = ({ searchQuery, activeCategory }) => {
     const getTagClass = (tag) => {
         const isDark = colorMode === 'dark';
         return {
-            bg: isDark ? 'rgba(255,255,255,0.04)' : 'rgba(93, 61, 36, 0.05)',
-            color: isDark ? '#cbd5e1' : '#6f5a4a'
+            bg: isDark ? 'rgba(250, 249, 245, 0.05)' : 'rgba(20, 20, 19, 0.05)',
+            color: isDark ? '#b0aea5' : '#767676'
         }
     }
 
@@ -94,11 +94,11 @@ const TableCard = ({ searchQuery, activeCategory }) => {
 
     return (
         <Box
-          bg={colorMode === 'dark' ? '#3b4252' : 'rgba(255, 250, 242, 0.76)'}
+          bg={colorMode === 'dark' ? '#141413' : 'rgba(250, 249, 245, 0.76)'}
           border="1px solid"
-          borderColor={colorMode === 'dark' ? '#3b4252' : 'rgba(93, 61, 36, 0.12)'}
+          borderColor={colorMode === 'dark' ? 'rgba(250, 249, 245, 0.1)' : 'rgba(20, 20, 19, 0.1)'}
           borderRadius="20px"
-          boxShadow={colorMode === 'dark' ? '0 12px 40px rgba(0,0,0,0.6)' : '0 8px 32px rgba(0,0,0,0.05)'}
+          boxShadow={colorMode === 'dark' ? '0 12px 40px rgba(0,0,0,0.4)' : '0 8px 32px rgba(0,0,0,0.05)'}
           backdropFilter="blur(20px) saturate(150%)"
           overflow="hidden"
           transition="all 0.35s"
@@ -108,9 +108,9 @@ const TableCard = ({ searchQuery, activeCategory }) => {
                 display={{ base: 'none', md: 'grid' }}
                 templateColumns={gridTemplateCols}
                 p="16px 28px"
-                bg={colorMode === 'dark' ? '#3b4252' : 'rgba(93, 61, 36, 0.02)'}
+                bg={colorMode === 'dark' ? 'rgba(250, 249, 245, 0.03)' : 'rgba(20, 20, 19, 0.03)'}
                 borderBottom="1px solid"
-                borderColor={colorMode === 'dark' ? '#3b4252' : 'rgba(93, 61, 36, 0.12)'}
+                borderColor={colorMode === 'dark' ? 'rgba(250, 249, 245, 0.1)' : 'rgba(20, 20, 19, 0.1)'}
                 gap={0}
             >
                  {[{icon: FileText, text: 'Resource'}, 
@@ -118,7 +118,7 @@ const TableCard = ({ searchQuery, activeCategory }) => {
                    {icon: BarChart2, text: 'Priority'}, 
                    {icon: Hash, text: 'Tags'}, 
                    {icon: LinkIcon, text: 'URL'}].map(({icon, text}) => (
-                     <Flex key={text} align="center" gap="5px" fontSize="0.76rem" fontWeight="600" textTransform="uppercase" letterSpacing="0.08em" color={colorMode === 'dark' ? '#818cf8' : '#6f5a4a'}>
+                     <Flex key={text} align="center" gap="5px" fontFamily="'Poppins', Arial, sans-serif" fontSize="0.76rem" fontWeight="600" textTransform="uppercase" letterSpacing="0.08em" color={colorMode === 'dark' ? '#b0aea5' : '#767676'}>
                          <Icon as={icon} boxSize="13px" /> {text}
                      </Flex>
                  ))}
@@ -126,7 +126,7 @@ const TableCard = ({ searchQuery, activeCategory }) => {
 
             <Flex flexDir="column">
                 {filtered.length === 0 ? (
-                    <Flex flexDir="column" align="center" justify="center" p="64px 24px" gap="12px" color={colorMode === 'dark' ? '#818cf8' : '#6b7db3'}>
+                    <Flex flexDir="column" align="center" justify="center" p="64px 24px" gap="12px" color={colorMode === 'dark' ? '#b0aea5' : '#767676'}>
                         <Icon as={SearchX} boxSize="48px" opacity={0.3} />
                         <Text fontSize="0.9rem">No resources match your search. Try a different query.</Text>
                     </Flex>
@@ -136,11 +136,11 @@ const TableCard = ({ searchQuery, activeCategory }) => {
                         
                         // Define interactive styles
                         const interactiveHover = {
-                            bg: colorMode === 'dark' ? 'rgba(255,255,255,0.09)' : 'rgba(95, 58, 27, 0.04)',
+                            bg: colorMode === 'dark' ? 'rgba(250, 249, 245, 0.05)' : 'rgba(20, 20, 19, 0.03)',
                             transform: 'translateX(3px) translateY(-2px)',
-                            boxShadow: `0 6px 24px ${colorMode === 'dark' ? 'rgba(46, 52, 64, 0.6)' : 'rgba(0,0,0,0.05)'}, inset 0 0 0 1px ${colorMode === 'dark' ? 'rgba(136, 192, 208, 0.15)' : 'rgba(93, 61, 36, 0.15)'}`,
+                            boxShadow: `0 6px 24px ${colorMode === 'dark' ? 'rgba(0,0,0,0.4)' : 'rgba(0,0,0,0.05)'}, inset 0 0 0 1px ${colorMode === 'dark' ? 'rgba(217, 119, 87, 0.5)' : 'rgba(217, 119, 87, 0.4)'}`,
                             borderRadius: '12px',
-                            '& .res-title': { color: colorMode === 'dark' ? '#81a1c1' : '#8c5430' }
+                            '& .res-title': { color: '#d97757' }
                         };
 
                         // Mobile Card Layout
@@ -154,7 +154,7 @@ const TableCard = ({ searchQuery, activeCategory }) => {
                                     transition={{ duration: 0.35, delay: idx * 0.035 }}
                                     p="20px"
                                     borderBottom={idx === filtered.length - 1 ? 'none' : '1px solid'}
-                                    borderColor={colorMode === 'dark' ? '#3b4252' : 'rgba(93, 61, 36, 0.12)'}
+                                    borderColor={colorMode === 'dark' ? 'rgba(250, 249, 245, 0.1)' : 'rgba(20, 20, 19, 0.1)'}
                                     gap="12px"
                                     cursor="default"
                                     position="relative"
@@ -162,8 +162,8 @@ const TableCard = ({ searchQuery, activeCategory }) => {
                                 >
                                     <Flex justify="space-between" align="flex-start" gap="12px">
                                         <Flex flexDir="column" gap="4px" flex="1">
-                                            <Text as="a" href={res.url} target="_blank" rel="noopener noreferrer" className="res-title" fontSize="1.1rem" fontWeight="600" color={colorMode === 'dark' ? '#d8dee9' : '#2e2218'} lineHeight="1.3" transition="color 0.35s" cursor="pointer" _hover={{ textDecoration: 'underline' }}>{res.name}</Text>
-                                            <Text fontSize="0.85rem" color={colorMode === 'dark' ? '#818cf8' : '#6f5a4a'} lineHeight="1.4">{res.description}</Text>
+                                            <Text as="a" href={res.url} target="_blank" rel="noopener noreferrer" className="res-title" fontFamily="'Poppins', Arial, sans-serif" fontSize="1.1rem" fontWeight="600" color={colorMode === 'dark' ? '#faf9f5' : '#141413'} lineHeight="1.3" transition="color 0.35s" cursor="pointer" _hover={{ textDecoration: 'underline' }}>{res.name}</Text>
+                                            <Text fontSize="0.85rem" color={colorMode === 'dark' ? '#b0aea5' : '#767676'} lineHeight="1.4">{res.description}</Text>
                                         </Flex>
                                         
                                         <Flex gap="6px" flexShrink={0}>
@@ -172,10 +172,10 @@ const TableCard = ({ searchQuery, activeCategory }) => {
                                                 size="sm"
                                                 w="32px" h="32px" minW="32px"
                                                 border="1.5px solid"
-                                                borderColor={copiedUrl === res.url ? (colorMode === 'dark' ? '#34d399' : '#06d6a0') : (colorMode === 'dark' ? '#4c566a' : 'rgba(93, 61, 36, 0.2)')}
-                                                bg={copiedUrl === res.url ? 'rgba(6,214,160,0.15)' : (colorMode === 'dark' ? 'rgba(52,211,153,0.08)' : 'rgba(95, 58, 27, 0.08)')}
+                                                borderColor={copiedUrl === res.url ? '#788c5d' : (colorMode === 'dark' ? 'rgba(250, 249, 245, 0.2)' : 'rgba(20, 20, 19, 0.2)')}
+                                                bg={copiedUrl === res.url ? 'rgba(120, 140, 93, 0.15)' : (colorMode === 'dark' ? 'rgba(250, 249, 245, 0.05)' : 'rgba(20, 20, 19, 0.05)')}
                                                 borderRadius="8px"
-                                                color={copiedUrl === res.url ? (colorMode === 'dark' ? '#34d399' : '#06d6a0') : (colorMode === 'dark' ? '#818cf8' : '#6f5a4a')}
+                                                color={copiedUrl === res.url ? '#788c5d' : (colorMode === 'dark' ? '#b0aea5' : '#767676')}
                                                 onClick={() => handleCopy(res.url)}
                                                 aria-label="Copy link"
                                             />
@@ -188,22 +188,22 @@ const TableCard = ({ searchQuery, activeCategory }) => {
                                                 size="sm"
                                                 w="32px" h="32px" minW="32px"
                                                 border="1.5px solid"
-                                                borderColor={colorMode === 'dark' ? '#4c566a' : 'rgba(93, 61, 36, 0.2)'}
-                                                bg={colorMode === 'dark' ? 'rgba(52,211,153,0.08)' : 'rgba(95, 58, 27, 0.08)'}
+                                                borderColor={colorMode === 'dark' ? 'rgba(250, 249, 245, 0.2)' : 'rgba(20, 20, 19, 0.2)'}
+                                                bg={colorMode === 'dark' ? 'rgba(250, 249, 245, 0.05)' : 'rgba(20, 20, 19, 0.05)'}
                                                 borderRadius="8px"
-                                                color={colorMode === 'dark' ? '#818cf8' : '#6f5a4a'}
+                                                color={colorMode === 'dark' ? '#b0aea5' : '#767676'}
                                                 aria-label="Open resource"
                                             />
                                         </Flex>
                                     </Flex>
                                     
                                     <Flex wrap="wrap" gap="10px" align="center" mt="4px">
-                                        <Flex align="center" fontSize="0.85rem" color={colorMode === 'dark' ? '#c4b5fd' : '#6f5a4a'} fontWeight="500">
+                                        <Flex align="center" fontSize="0.85rem" color={colorMode === 'dark' ? '#b0aea5' : '#767676'} fontWeight="500">
                                              {getIconPrefix(CATEGORY_ICONS[res.category] || CATEGORY_ICONS["Default"])}
                                              {res.category}
                                         </Flex>
                                         
-                                        <Box w="4px" h="4px" borderRadius="50%" bg={colorMode === 'dark' ? '#4c566a' : 'rgba(93, 61, 36, 0.3)'} />
+                                        <Box w="4px" h="4px" borderRadius="50%" bg={colorMode === 'dark' ? 'rgba(250, 249, 245, 0.3)' : 'rgba(20, 20, 19, 0.3)'} />
                                         
                                         <Flex align="center" gap="5px" p="4px 10px" borderRadius="999px" fontSize="0.75rem" fontWeight="600" letterSpacing="0.02em" bg={badge.bg} color={badge.color} border="1px solid" borderColor={badge.borderColor}>
                                             <Icon as={badge.icon} boxSize="11px" sx={badge.pulse ? {
@@ -211,7 +211,7 @@ const TableCard = ({ searchQuery, activeCategory }) => {
                                                 '@keyframes pulse-dot': { '0%, 100%': { opacity: 1 }, '50%': { opacity: 0.4 } }
                                             } : {}} />
                                             {res.importance}
-                         </Flex>
+                                        </Flex>
                                     </Flex>
 
                                     <Flex wrap="wrap" gap="6px" mt="2px">
@@ -238,7 +238,7 @@ const TableCard = ({ searchQuery, activeCategory }) => {
                                 templateColumns={gridTemplateCols}
                                 p="22px 28px"
                                 borderBottom={idx === filtered.length - 1 ? 'none' : '1px solid'}
-                                borderColor={colorMode === 'dark' ? '#3b4252' : 'rgba(93, 61, 36, 0.12)'}
+                                borderColor={colorMode === 'dark' ? 'rgba(250, 249, 245, 0.1)' : 'rgba(20, 20, 19, 0.1)'}
                                 alignItems="center"
                                 gap={0}
                                 cursor="default"
@@ -246,11 +246,11 @@ const TableCard = ({ searchQuery, activeCategory }) => {
                                 _hover={interactiveHover}
                             >
                                 <Flex flexDir="column" gap="3px" pr="16px">
-                                    <Text as="a" href={res.url} target="_blank" rel="noopener noreferrer" className="res-title" fontSize="1rem" fontWeight="600" color={colorMode === 'dark' ? '#d8dee9' : '#2e2218'} lineHeight="1.3" transition="color 0.35s" cursor="pointer" _hover={{ textDecoration: 'underline' }}>{res.name}</Text>
-                                    <Text fontSize="0.82rem" color={colorMode === 'dark' ? '#818cf8' : '#6f5a4a'} lineHeight="1.4">{res.description}</Text>
+                                    <Text as="a" href={res.url} target="_blank" rel="noopener noreferrer" className="res-title" fontFamily="'Poppins', Arial, sans-serif" fontSize="1rem" fontWeight="600" color={colorMode === 'dark' ? '#faf9f5' : '#141413'} lineHeight="1.3" transition="color 0.35s" cursor="pointer" _hover={{ textDecoration: 'underline' }}>{res.name}</Text>
+                                    <Text fontSize="0.82rem" color={colorMode === 'dark' ? '#b0aea5' : '#767676'} lineHeight="1.4">{res.description}</Text>
                                 </Flex>
                                 
-                                <Flex align="center" fontSize="0.88rem" color={colorMode === 'dark' ? '#c4b5fd' : '#6f5a4a'} fontWeight="500">
+                                <Flex align="center" fontSize="0.88rem" color={colorMode === 'dark' ? '#b0aea5' : '#767676'} fontWeight="500">
                                      {getIconPrefix(CATEGORY_ICONS[res.category] || CATEGORY_ICONS["Default"])}
                                      {res.category}
                                 </Flex>
@@ -277,7 +277,7 @@ const TableCard = ({ searchQuery, activeCategory }) => {
                                 </Flex>
 
                                 <Flex align="center" gap="8px">
-                                    <Text fontSize="0.75rem" color={colorMode === 'dark' ? '#818cf8' : '#6f5a4a'} maxW="100px" overflow="hidden" textOverflow="ellipsis" whiteSpace="nowrap" title={res.url}>
+                                    <Text fontSize="0.75rem" color={colorMode === 'dark' ? '#b0aea5' : '#767676'} maxW="100px" overflow="hidden" textOverflow="ellipsis" whiteSpace="nowrap" title={res.url}>
                                         {domainOf(res.url)}
                                     </Text>
                                     <IconButton
@@ -285,15 +285,15 @@ const TableCard = ({ searchQuery, activeCategory }) => {
                                         size="sm"
                                         w="30px" h="30px" minW="30px"
                                         border="1.5px solid"
-                                        borderColor={copiedUrl === res.url ? (colorMode === 'dark' ? '#34d399' : '#06d6a0') : (colorMode === 'dark' ? '#4c566a' : 'rgba(93, 61, 36, 0.2)')}
-                                        bg={copiedUrl === res.url ? 'rgba(6,214,160,0.15)' : (colorMode === 'dark' ? 'rgba(52,211,153,0.08)' : 'rgba(95, 58, 27, 0.08)')}
+                                        borderColor={copiedUrl === res.url ? '#788c5d' : (colorMode === 'dark' ? 'rgba(250, 249, 245, 0.2)' : 'rgba(20, 20, 19, 0.2)')}
+                                        bg={copiedUrl === res.url ? 'rgba(120, 140, 93, 0.15)' : (colorMode === 'dark' ? 'rgba(250, 249, 245, 0.05)' : 'rgba(20, 20, 19, 0.05)')}
                                         borderRadius="8px"
-                                        color={copiedUrl === res.url ? (colorMode === 'dark' ? '#34d399' : '#06d6a0') : (colorMode === 'dark' ? '#818cf8' : '#6f5a4a')}
+                                        color={copiedUrl === res.url ? '#788c5d' : (colorMode === 'dark' ? '#b0aea5' : '#767676')}
                                         onClick={() => handleCopy(res.url)}
                                         _hover={{
-                                            borderColor: colorMode === 'dark' ? '#81a1c1' : '#8c5430',
-                                            color: colorMode === 'dark' ? '#81a1c1' : '#8c5430',
-                                            bg: colorMode === 'dark' ? 'rgba(136, 192, 208, 0.15)' : 'rgba(140, 84, 48, 0.12)',
+                                            borderColor: '#d97757',
+                                            color: '#d97757',
+                                            bg: colorMode === 'dark' ? 'rgba(217, 119, 87, 0.15)' : 'rgba(217, 119, 87, 0.1)',
                                             transform: 'scale(1.15)'
                                         }}
                                         aria-label="Copy link"
@@ -307,14 +307,14 @@ const TableCard = ({ searchQuery, activeCategory }) => {
                                         size="sm"
                                         w="30px" h="30px" minW="30px"
                                         border="1.5px solid"
-                                        borderColor={colorMode === 'dark' ? '#4c566a' : 'rgba(93, 61, 36, 0.2)'}
-                                        bg={colorMode === 'dark' ? 'rgba(52,211,153,0.08)' : 'rgba(95, 58, 27, 0.08)'}
+                                        borderColor={colorMode === 'dark' ? 'rgba(250, 249, 245, 0.2)' : 'rgba(20, 20, 19, 0.2)'}
+                                        bg={colorMode === 'dark' ? 'rgba(250, 249, 245, 0.05)' : 'rgba(20, 20, 19, 0.05)'}
                                         borderRadius="8px"
-                                        color={colorMode === 'dark' ? '#818cf8' : '#6f5a4a'}
+                                        color={colorMode === 'dark' ? '#b0aea5' : '#767676'}
                                         _hover={{
-                                            borderColor: colorMode === 'dark' ? '#81a1c1' : '#8c5430',
-                                            color: colorMode === 'dark' ? '#81a1c1' : '#8c5430',
-                                            bg: colorMode === 'dark' ? 'rgba(136, 192, 208, 0.15)' : 'rgba(140, 84, 48, 0.12)',
+                                            borderColor: '#d97757',
+                                            color: '#d97757',
+                                            bg: colorMode === 'dark' ? 'rgba(217, 119, 87, 0.15)' : 'rgba(217, 119, 87, 0.1)',
                                             transform: 'scale(1.15)'
                                         }}
                                         aria-label="Open resource"

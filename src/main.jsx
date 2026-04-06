@@ -12,9 +12,9 @@ const theme = extendTheme({
   styles: {
     global: (props) => ({
       body: {
-        bg: props.colorMode === 'dark' ? '#06060f' : '#f3eadc',
-        color: props.colorMode === 'dark' ? '#eceff4' : '#2e2218',
-        fontFamily: "'Inter', system-ui, -apple-system, sans-serif",
+        bg: props.colorMode === 'dark' ? '#141413' : '#faf9f5',
+        color: props.colorMode === 'dark' ? '#faf9f5' : '#141413',
+        fontFamily: "'Lora', Georgia, serif",
       },
     }),
   },
