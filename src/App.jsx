@@ -12,7 +12,7 @@ function App() {
   const [activeCategory, setActiveCategory] = useState('All');
   const [theme, setTheme] = useState('dark');
   const [isTechStackOpen, setIsTechStackOpen] = useState(false);
-  const [viewMode, setViewMode] = useState(() => localStorage.getItem('viewMode') || 'grid');
+  const [viewMode, setViewMode] = useState('grid');
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
 
   const { setColorMode } = useColorMode();
@@ -27,16 +27,19 @@ function App() {
   }, [viewMode]);
 
   const toggleTheme = () => {
-    setTheme(prev => (prev === 'dark' ? 'light' : 'dark'));
+    setTheme((prev) => (prev === 'dark' ? 'light' : 'dark'));
   };
 
   const filteredResources = useMemo(() => {
-    return RESOURCES.filter(res => {
-      const matchesCategory = activeCategory === 'All' || res.category === activeCategory;
-      const matchesSearch = 
+    return RESOURCES.filter((res) => {
+      const matchesCategory =
+        activeCategory === 'All' || res.category === activeCategory;
+      const matchesSearch =
         res.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
         res.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        res.tags.some(t => t.toLowerCase().includes(searchQuery.toLowerCase()));
+        res.tags.some((t) =>
+          t.toLowerCase().includes(searchQuery.toLowerCase()),
+        );
       return matchesCategory && matchesSearch;
     });
   }, [activeCategory, searchQuery]);
@@ -49,11 +52,11 @@ function App() {
   }, [activeCategory]);
 
   return (
-    <div className="app-container">
+    <div className='app-container'>
       {/* Mobile Backdrop */}
       {isSidebarOpen && (
-        <div 
-          className="sidebar-backdrop" 
+        <div
+          className='sidebar-backdrop'
           onClick={() => setIsSidebarOpen(false)}
         />
       )}
@@ -66,8 +69,8 @@ function App() {
         onClose={() => setIsSidebarOpen(false)}
       />
 
-      <div className="main-content">
-        <Header 
+      <div className='main-content'>
+        <Header
           searchQuery={searchQuery}
           setSearchQuery={setSearchQuery}
           theme={theme}
@@ -80,32 +83,34 @@ function App() {
           resourceCount={filteredResources.length}
         />
 
-        <main className="content-area">
-          <div className="mb-10 animate-in fade-in slide-in-from-bottom-4 duration-700">
+        <main className='content-area'>
+          <div className='mb-10 animate-in fade-in slide-in-from-bottom-4 duration-700'>
             {activeCategory !== 'All' && (
-              <h2 className="text-3xl font-bold text-primary mb-2 tracking-tight">
+              <h2 className='text-3xl font-bold text-primary mb-2 tracking-tight'>
                 {activeCategory}
               </h2>
             )}
           </div>
 
           {filteredResources.length > 0 ? (
-            <TableCard
-              resources={filteredResources}
-              viewMode={viewMode}
-            />
+            <TableCard resources={filteredResources} viewMode={viewMode} />
           ) : (
-            <div className="flex flex-col items-center justify-center py-40 text-center glass rounded-[40px] border-dashed">
-              <div className="p-6 bg-white/5 rounded-full mb-6">
-                <Terminal size={48} className="text-dim opacity-30" />
+            <div className='flex flex-col items-center justify-center py-40 text-center glass rounded-[40px] border-dashed'>
+              <div className='p-6 bg-white/5 rounded-full mb-6'>
+                <Terminal size={48} className='text-dim opacity-30' />
               </div>
-              <h3 className="text-xl font-bold text-primary mb-2">No matches found</h3>
-              <p className="text-dim text-sm max-w-sm">
+              <h3 className='text-xl font-bold text-primary mb-2'>
+                No matches found
+              </h3>
+              <p className='text-dim text-sm max-w-sm'>
                 Try a different search term or category to find your resource.
               </p>
               <button
-                onClick={() => { setSearchQuery(''); setActiveCategory('All'); }}
-                className="mt-8 text-accent-primary font-semibold hover:underline"
+                onClick={() => {
+                  setSearchQuery('');
+                  setActiveCategory('All');
+                }}
+                className='mt-8 text-accent-primary font-semibold hover:underline'
               >
                 Reset Filters
               </button>
@@ -113,7 +118,7 @@ function App() {
           )}
         </main>
 
-        <TechStackModal 
+        <TechStackModal
           isOpen={isTechStackOpen}
           onClose={() => setIsTechStackOpen(false)}
         />
