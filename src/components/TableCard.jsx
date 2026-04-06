@@ -1,365 +1,247 @@
-import React from 'react';
-import {
-  Box,
-  Flex,
-  Text,
-  Icon,
-  useColorMode,
-  Grid,
-  IconButton,
-  useBreakpointValue
-} from '@chakra-ui/react';
-import { FileText, Folder, BarChart2, Hash, Link as LinkIcon, Circle, MinusCircle, CheckCircle, Copy, ExternalLink, Check, SearchX } from 'lucide-react';
+import React, { useState } from 'react';
 import * as LucideIcons from 'lucide-react';
-import { RESOURCES, CATEGORY_ICONS } from '../data/resources';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
+import { CATEGORY_STYLES } from '../data/resources';
 
-const MotionGrid = motion(Grid);
-const MotionFlex = motion(Flex);
-
-// Fuzzy Search
-function fuzzyMatch(resource, query) {
-  if (!query) return true;
-  const haystack = [
-    resource.name,
-    resource.description,
-    resource.category,
-    ...resource.tags
-  ].join(" ").toLowerCase();
-  return query.toLowerCase().split(/\s+/).every(word => haystack.includes(word));
-}
-
-// Domain Extractor
-function domainOf(url) {
+const formatUrlParts = (rawUrl) => {
   try {
-    return new URL(url).hostname.replace("www.", "");
-  } catch { return url; }
-}
+    const parsed = new URL(rawUrl);
+    const hostname = parsed.hostname.replace(/^www\./, '');
+    const path = `${parsed.pathname}${parsed.search}${parsed.hash}`;
 
-const TableCard = ({ searchQuery, activeCategory }) => {
-    const { colorMode } = useColorMode();
-    const [copiedUrl, setCopiedUrl] = React.useState(null);
-    const isMobile = useBreakpointValue({ base: true, md: false });
-
-    const filtered = RESOURCES.filter(r => {
-        const catMatch  = activeCategory === "All" || r.category === activeCategory;
-        const queryMatch = fuzzyMatch(r, searchQuery);
-        return catMatch && queryMatch;
-    });
-
-    const handleCopy = async (url) => {
-        try {
-            await navigator.clipboard.writeText(url);
-            setCopiedUrl(url);
-            setTimeout(() => setCopiedUrl(null), 1800);
-        } catch {
-            const el = document.createElement("textarea");
-            el.value = url;
-            document.body.appendChild(el);
-            el.select();
-            document.execCommand("copy");
-            document.body.removeChild(el);
-            setCopiedUrl(url);
-            setTimeout(() => setCopiedUrl(null), 1800);
-        }
-    }
-
-    const getIconPrefix = (iconName) => {
-        const IconComponent = LucideIcons[iconName] || LucideIcons.Folder;
-        return <Icon as={IconComponent} boxSize="15px" opacity={0.7} mr="6px" />;
+    return {
+      hostname,
+      path: path === '/' ? '' : path,
     };
+  } catch {
+    return {
+      hostname: rawUrl,
+      path: '',
+    };
+  }
+};
 
-    const getBadgeStyle = (importance) => {
-        const isDark = colorMode === 'dark';
-        if (importance === "High") {
-            return {
-                bg: isDark ? 'rgba(217, 119, 87, 0.15)' : 'rgba(217, 119, 87, 0.1)',
-                color: isDark ? '#d97757' : '#c35b3b',
-                borderColor: isDark ? 'rgba(217, 119, 87, 0.3)' : 'rgba(217, 119, 87, 0.3)',
-                icon: Circle,
-                pulse: true
-            };
-        }
-        if (importance === "Medium") {
-            return {
-                bg: isDark ? 'rgba(106, 155, 204, 0.15)' : 'rgba(106, 155, 204, 0.1)',
-                color: isDark ? '#6a9bcc' : '#4d7ea9',
-                borderColor: isDark ? 'rgba(106, 155, 204, 0.3)' : 'rgba(106, 155, 204, 0.3)',
-                icon: MinusCircle
-            };
-        }
-        if (importance === "Low") {
-            return {
-                bg: isDark ? 'rgba(120, 140, 93, 0.15)' : 'rgba(120, 140, 93, 0.1)',
-                color: isDark ? '#788c5d' : '#5d7045',
-                borderColor: isDark ? 'rgba(120, 140, 93, 0.3)' : 'rgba(120, 140, 93, 0.3)',
-                icon: CheckCircle
-            };
-        }
-        return {};
-    }
+const ResourceCard = ({ resource, viewMode, onCopy, copiedId }) => {
+  const isCopied = copiedId === resource.name;
+  const formattedUrl = formatUrlParts(resource.url);
+  const categoryStyle =
+    CATEGORY_STYLES[resource.category] || CATEGORY_STYLES.Default;
+  const categoryVars = {
+    '--category-color': categoryStyle.color,
+    '--category-bg': categoryStyle.bg,
+    '--category-border': categoryStyle.border,
+  };
 
-    const getTagClass = (tag) => {
-        const isDark = colorMode === 'dark';
-        const palettes = [
-            { c: '#7e8c9c', cd: '#5f6d7d', r: 126, g: 140, b: 156 }, // Slate
-            { c: '#b58c9c', cd: '#956f7f', r: 181, g: 140, b: 156 }, // Mauve
-            { c: '#c39665', cd: '#a87e50', r: 195, g: 150, b: 101 }, // Sand
-            { c: '#b0aea5', cd: '#8f8c85', r: 176, g: 174, b: 165 }, // Neutral
-            { c: '#a89f91', cd: '#877e71', r: 168, g: 159, b: 145 }  // Warm Grey
-        ];
-        
-        let hash = 0;
-        for (let i = 0; i < tag.length; i++) {
-            hash = tag.charCodeAt(i) + ((hash << 5) - hash);
-        }
-        
-        const palette = palettes[Math.abs(hash) % palettes.length];
-        
-        return {
-            bg: isDark ? `rgba(${palette.r}, ${palette.g}, ${palette.b}, 0.15)` : `rgba(${palette.r}, ${palette.g}, ${palette.b}, 0.1)`,
-            color: isDark ? palette.c : palette.cd,
-            border: `1px solid ${isDark ? `rgba(${palette.r}, ${palette.g}, ${palette.b}, 0.25)` : `rgba(${palette.r}, ${palette.g}, ${palette.b}, 0.25)`}`
-        };
-    }
-
-    const gridTemplateCols = "2fr 1.2fr 1fr 1.4fr 1.2fr";
-
+  if (viewMode === 'list') {
     return (
-        <Box
-          bg={colorMode === 'dark' ? '#141413' : 'rgba(250, 249, 245, 0.76)'}
-          border="1px solid"
-          borderColor={colorMode === 'dark' ? 'rgba(250, 249, 245, 0.1)' : 'rgba(20, 20, 19, 0.1)'}
-          borderRadius="20px"
-          boxShadow={colorMode === 'dark' ? '0 12px 40px rgba(0,0,0,0.4)' : '0 8px 32px rgba(0,0,0,0.05)'}
-          backdropFilter="blur(20px) saturate(150%)"
-          overflow="hidden"
-          transition="all 0.35s"
+      <motion.article
+        initial={{ opacity: 0, x: -10 }}
+        animate={{ opacity: 1, x: 0 }}
+        exit={{ opacity: 0, x: 10 }}
+        transition={{ duration: 0.2 }}
+        className='resource-list-card glass'
+      >
+        <div
+          className='resource-list-category flex items-center gap-2'
+          style={categoryVars}
         >
-            {/* Desktop Header Grid */}
-            <Grid
-                display={{ base: 'none', md: 'grid' }}
-                templateColumns={gridTemplateCols}
-                p="16px 28px"
-                bg={colorMode === 'dark' ? 'rgba(250, 249, 245, 0.03)' : 'rgba(20, 20, 19, 0.03)'}
-                borderBottom="1px solid"
-                borderColor={colorMode === 'dark' ? 'rgba(250, 249, 245, 0.1)' : 'rgba(20, 20, 19, 0.1)'}
-                gap={0}
+          <span>{resource.category}</span>
+        </div>
+
+        <div className='resource-list-main'>
+          <div className='resource-list-heading'>
+            <a
+              href={resource.url}
+              target='_blank'
+              rel='noopener noreferrer'
+              className='resource-title-link'
             >
-                 {[{icon: FileText, text: 'Resource'}, 
-                   {icon: Folder, text: 'Category'}, 
-                   {icon: BarChart2, text: 'Priority'}, 
-                   {icon: Hash, text: 'Tags'}, 
-                   {icon: LinkIcon, text: 'URL'}].map(({icon, text}) => (
-                     <Flex key={text} align="center" gap="5px" fontFamily="'Poppins', Arial, sans-serif" fontSize="0.76rem" fontWeight="600" textTransform="uppercase" letterSpacing="0.08em" color={colorMode === 'dark' ? '#b0aea5' : '#767676'}>
-                         <Icon as={icon} boxSize="13px" /> {text}
-                     </Flex>
-                 ))}
-            </Grid>
+              {resource.name}
+            </a>
+            {resource.tags.slice(0, 1).map((tag) => (
+              <span key={tag} className='resource-inline-tag'>
+                {tag}
+              </span>
+            ))}
+          </div>
 
-            <Flex flexDir="column">
-                {filtered.length === 0 ? (
-                    <Flex flexDir="column" align="center" justify="center" p="64px 24px" gap="12px" color={colorMode === 'dark' ? '#b0aea5' : '#767676'}>
-                        <Icon as={SearchX} boxSize="48px" opacity={0.3} />
-                        <Text fontSize="0.9rem">No resources match your search. Try a different query.</Text>
-                    </Flex>
-                ) : (
-                    filtered.map((res, idx) => {
-                        const badge = getBadgeStyle(res.importance);
-                        
-                        // Define interactive styles
-                        const interactiveHover = {
-                            bg: colorMode === 'dark' ? 'rgba(250, 249, 245, 0.05)' : 'rgba(20, 20, 19, 0.03)',
-                            transform: 'translateX(3px) translateY(-2px)',
-                            boxShadow: `0 6px 24px ${colorMode === 'dark' ? 'rgba(0,0,0,0.4)' : 'rgba(0,0,0,0.05)'}, inset 0 0 0 1px ${colorMode === 'dark' ? 'rgba(217, 119, 87, 0.5)' : 'rgba(217, 119, 87, 0.4)'}`,
-                            borderRadius: '12px',
-                            '& .res-title': { color: '#d97757' }
-                        };
+          <p className='resource-description resource-description-list'>
+            {resource.description}
+          </p>
+        </div>
 
-                        // Mobile Card Layout
-                        if (isMobile) {
-                            return (
-                                <MotionFlex
-                                    key={res.url + idx}
-                                    flexDir="column"
-                                    initial={{ opacity: 0, y: 8 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    transition={{ duration: 0.35, delay: idx * 0.035 }}
-                                    p="20px"
-                                    borderBottom={idx === filtered.length - 1 ? 'none' : '1px solid'}
-                                    borderColor={colorMode === 'dark' ? 'rgba(250, 249, 245, 0.1)' : 'rgba(20, 20, 19, 0.1)'}
-                                    gap="12px"
-                                    cursor="default"
-                                    position="relative"
-                                    _hover={interactiveHover}
-                                >
-                                    <Flex justify="space-between" align="flex-start" gap="12px">
-                                        <Flex flexDir="column" gap="4px" flex="1">
-                                            <Text as="a" href={res.url} target="_blank" rel="noopener noreferrer" className="res-title" fontFamily="'Poppins', Arial, sans-serif" fontSize="1.1rem" fontWeight="600" color={colorMode === 'dark' ? '#faf9f5' : '#141413'} lineHeight="1.3" transition="color 0.35s" cursor="pointer" _hover={{ textDecoration: 'underline' }}>{res.name}</Text>
-                                            <Text fontSize="0.85rem" color={colorMode === 'dark' ? '#b0aea5' : '#767676'} lineHeight="1.4">{res.description}</Text>
-                                        </Flex>
-                                        
-                                        <Flex gap="6px" flexShrink={0}>
-                                            <IconButton
-                                                icon={<Icon as={copiedUrl === res.url ? Check : Copy} boxSize="13px" />}
-                                                size="sm"
-                                                w="32px" h="32px" minW="32px"
-                                                border="1.5px solid"
-                                                borderColor={copiedUrl === res.url ? '#788c5d' : (colorMode === 'dark' ? 'rgba(250, 249, 245, 0.2)' : 'rgba(20, 20, 19, 0.2)')}
-                                                bg={copiedUrl === res.url ? 'rgba(120, 140, 93, 0.15)' : (colorMode === 'dark' ? 'rgba(250, 249, 245, 0.05)' : 'rgba(20, 20, 19, 0.05)')}
-                                                borderRadius="8px"
-                                                color={copiedUrl === res.url ? '#788c5d' : (colorMode === 'dark' ? '#b0aea5' : '#767676')}
-                                                onClick={() => handleCopy(res.url)}
-                                                aria-label="Copy link"
-                                            />
-                                            <IconButton
-                                                as="a"
-                                                href={res.url}
-                                                target="_blank"
-                                                rel="noopener noreferrer"
-                                                icon={<Icon as={ExternalLink} boxSize="13px" />}
-                                                size="sm"
-                                                w="32px" h="32px" minW="32px"
-                                                border="1.5px solid"
-                                                borderColor={colorMode === 'dark' ? 'rgba(250, 249, 245, 0.2)' : 'rgba(20, 20, 19, 0.2)'}
-                                                bg={colorMode === 'dark' ? 'rgba(250, 249, 245, 0.05)' : 'rgba(20, 20, 19, 0.05)'}
-                                                borderRadius="8px"
-                                                color={colorMode === 'dark' ? '#b0aea5' : '#767676'}
-                                                aria-label="Open resource"
-                                            />
-                                        </Flex>
-                                    </Flex>
-                                    
-                                    <Flex wrap="wrap" gap="10px" align="center" mt="4px">
-                                        <Flex align="center" fontSize="0.85rem" color={colorMode === 'dark' ? '#b0aea5' : '#767676'} fontWeight="500">
-                                             {getIconPrefix(CATEGORY_ICONS[res.category] || CATEGORY_ICONS["Default"])}
-                                             {res.category}
-                                        </Flex>
-                                        
-                                        <Box w="4px" h="4px" borderRadius="50%" bg={colorMode === 'dark' ? 'rgba(250, 249, 245, 0.3)' : 'rgba(20, 20, 19, 0.3)'} />
-                                        
-                                        <Flex align="center" gap="5px" p="4px 10px" borderRadius="999px" fontSize="0.75rem" fontWeight="600" letterSpacing="0.02em" bg={badge.bg} color={badge.color} border="1px solid" borderColor={badge.borderColor}>
-                                            <Icon as={badge.icon} boxSize="11px" sx={badge.pulse ? {
-                                                animation: 'pulse-dot 1.8s ease-in-out infinite',
-                                                '@keyframes pulse-dot': { '0%, 100%': { opacity: 1 }, '50%': { opacity: 0.4 } }
-                                            } : {}} />
-                                            {res.importance}
-                                        </Flex>
-                                    </Flex>
+        <a
+          href={resource.url}
+          target='_blank'
+          rel='noopener noreferrer'
+          className='resource-url-chip resource-url-chip-list'
+          title={resource.url}
+        >
+          <span className='resource-url-host'>{formattedUrl.hostname}</span>
+          {formattedUrl.path && (
+            <code className='resource-url-path'>{formattedUrl.path}</code>
+          )}
+        </a>
 
-                                    <Flex wrap="wrap" gap="6px" mt="2px">
-                                        {res.tags.map(t => {
-                                            const tagStyle = getTagClass(t);
-                                            return (
-                                                <Box key={t} p="4px 10px" borderRadius="6px" fontSize="0.76rem" fontWeight="500" letterSpacing="0.02em" bg={tagStyle.bg} color={tagStyle.color} border={tagStyle.border}>
-                                                    {t}
-                                                </Box>
-                                            )
-                                        })}
-                                    </Flex>
-                                </MotionFlex>
-                            );
-                        }
+        {resource.snippet && (
+          <button
+            type='button'
+            className='resource-snippet-preview'
+            onClick={() => onCopy(resource.snippet, resource.name)}
+            title='Copy snippet'
+          >
+            <code>{resource.snippet}</code>
+          </button>
+        )}
 
-                        // Desktop Grid Layout
-                        return (
-                            <MotionGrid
-                                key={res.url + idx}
-                                initial={{ opacity: 0, y: 8 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 0.35, delay: idx * 0.035 }}
-                                templateColumns={gridTemplateCols}
-                                p="22px 28px"
-                                borderBottom={idx === filtered.length - 1 ? 'none' : '1px solid'}
-                                borderColor={colorMode === 'dark' ? 'rgba(250, 249, 245, 0.1)' : 'rgba(20, 20, 19, 0.1)'}
-                                alignItems="center"
-                                gap={0}
-                                cursor="default"
-                                position="relative"
-                                _hover={interactiveHover}
-                            >
-                                <Flex flexDir="column" gap="3px" pr="16px">
-                                    <Text as="a" href={res.url} target="_blank" rel="noopener noreferrer" className="res-title" fontFamily="'Poppins', Arial, sans-serif" fontSize="1rem" fontWeight="600" color={colorMode === 'dark' ? '#faf9f5' : '#141413'} lineHeight="1.3" transition="color 0.35s" cursor="pointer" _hover={{ textDecoration: 'underline' }}>{res.name}</Text>
-                                    <Text fontSize="0.82rem" color={colorMode === 'dark' ? '#b0aea5' : '#767676'} lineHeight="1.4">{res.description}</Text>
-                                </Flex>
-                                
-                                <Flex align="center" fontSize="0.88rem" color={colorMode === 'dark' ? '#b0aea5' : '#767676'} fontWeight="500">
-                                     {getIconPrefix(CATEGORY_ICONS[res.category] || CATEGORY_ICONS["Default"])}
-                                     {res.category}
-                                </Flex>
-                                
-                                <Flex>
-                                    <Flex align="center" gap="5px" p="4px 10px" borderRadius="999px" fontSize="0.75rem" fontWeight="600" letterSpacing="0.02em" bg={badge.bg} color={badge.color} border="1px solid" borderColor={badge.borderColor} w="fit-content">
-                                        <Icon as={badge.icon} boxSize="11px" sx={badge.pulse ? {
-                                            animation: 'pulse-dot 1.8s ease-in-out infinite',
-                                            '@keyframes pulse-dot': { '0%, 100%': { opacity: 1 }, '50%': { opacity: 0.4 } }
-                                        } : {}} />
-                                        {res.importance}
-                                    </Flex>
-                                </Flex>
+        <div className='resource-actions'>
+          <button
+            type='button'
+            onClick={() =>
+              onCopy(resource.snippet || resource.url, resource.name)
+            }
+            className={`resource-icon-button ${isCopied ? 'is-copied' : ''}`}
+            title='Copy'
+          >
+            {isCopied ? (
+              <LucideIcons.Check size={16} />
+            ) : (
+              <LucideIcons.Copy size={16} />
+            )}
+          </button>
 
-                                <Flex wrap="wrap" gap="5px" pr="10px">
-                                    {res.tags.map(t => {
-                                        const tagStyle = getTagClass(t);
-                                        return (
-                                            <Box key={t} p="4px 10px" borderRadius="6px" fontSize="0.76rem" fontWeight="500" letterSpacing="0.02em" bg={tagStyle.bg} color={tagStyle.color} border={tagStyle.border}>
-                                                {t}
-                                            </Box>
-                                        )
-                                    })}
-                                </Flex>
+          <a
+            href={resource.url}
+            target='_blank'
+            rel='noopener noreferrer'
+            className='resource-icon-button'
+            title='Open link'
+          >
+            <LucideIcons.ExternalLink size={16} />
+          </a>
+        </div>
+      </motion.article>
+    );
+  }
 
-                                <Flex align="center" gap="8px">
-                                    <Text fontSize="0.75rem" color={colorMode === 'dark' ? '#b0aea5' : '#767676'} maxW="100px" overflow="hidden" textOverflow="ellipsis" whiteSpace="nowrap" title={res.url}>
-                                        {domainOf(res.url)}
-                                    </Text>
-                                    <IconButton
-                                        icon={<Icon as={copiedUrl === res.url ? Check : Copy} boxSize="13px" />}
-                                        size="sm"
-                                        w="30px" h="30px" minW="30px"
-                                        border="1.5px solid"
-                                        borderColor={copiedUrl === res.url ? '#788c5d' : (colorMode === 'dark' ? 'rgba(250, 249, 245, 0.2)' : 'rgba(20, 20, 19, 0.2)')}
-                                        bg={copiedUrl === res.url ? 'rgba(120, 140, 93, 0.15)' : (colorMode === 'dark' ? 'rgba(250, 249, 245, 0.05)' : 'rgba(20, 20, 19, 0.05)')}
-                                        borderRadius="8px"
-                                        color={copiedUrl === res.url ? '#788c5d' : (colorMode === 'dark' ? '#b0aea5' : '#767676')}
-                                        onClick={() => handleCopy(res.url)}
-                                        _hover={{
-                                            borderColor: '#d97757',
-                                            color: '#d97757',
-                                            bg: colorMode === 'dark' ? 'rgba(217, 119, 87, 0.15)' : 'rgba(217, 119, 87, 0.1)',
-                                            transform: 'scale(1.15)'
-                                        }}
-                                        aria-label="Copy link"
-                                    />
-                                    <IconButton
-                                        as="a"
-                                        href={res.url}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        icon={<Icon as={ExternalLink} boxSize="13px" />}
-                                        size="sm"
-                                        w="30px" h="30px" minW="30px"
-                                        border="1.5px solid"
-                                        borderColor={colorMode === 'dark' ? 'rgba(250, 249, 245, 0.2)' : 'rgba(20, 20, 19, 0.2)'}
-                                        bg={colorMode === 'dark' ? 'rgba(250, 249, 245, 0.05)' : 'rgba(20, 20, 19, 0.05)'}
-                                        borderRadius="8px"
-                                        color={colorMode === 'dark' ? '#b0aea5' : '#767676'}
-                                        _hover={{
-                                            borderColor: '#d97757',
-                                            color: '#d97757',
-                                            bg: colorMode === 'dark' ? 'rgba(217, 119, 87, 0.15)' : 'rgba(217, 119, 87, 0.1)',
-                                            transform: 'scale(1.15)'
-                                        }}
-                                        aria-label="Open resource"
-                                    />
-                                </Flex>
-                            </MotionGrid>
-                        );
-                    })
-                )}
-            </Flex>
-        </Box>
-    )
-}
+  return (
+    <motion.article
+      initial={{ opacity: 0, scale: 0.95 }}
+      animate={{ opacity: 1, scale: 1 }}
+      exit={{ opacity: 0, scale: 0.95 }}
+      whileHover={{ y: -4 }}
+      transition={{ duration: 0.2 }}
+      className='resource-grid-card glass'
+    >
+      <div className='resource-grid-top'>
+        <div>
+          <div
+            className='resource-category flex items-center gap-2'
+            style={categoryVars}
+          >
+            <span>{resource.category}</span>
+          </div>
+          <a
+            href={resource.url}
+            target='_blank'
+            rel='noopener noreferrer'
+            className='resource-title-link resource-title-link-grid'
+          >
+            {resource.name}
+          </a>
+        </div>
+
+        <button
+          type='button'
+          onClick={() =>
+            onCopy(resource.snippet || resource.url, resource.name)
+          }
+          className={`resource-icon-button resource-copy-button ${isCopied ? 'is-copied' : ''}`}
+          title='Copy'
+        >
+          {isCopied ? (
+            <LucideIcons.Check size={18} />
+          ) : (
+            <LucideIcons.Copy size={18} />
+          )}
+        </button>
+      </div>
+
+      <p className='resource-description'>{resource.description}</p>
+
+      <a
+        href={resource.url}
+        target='_blank'
+        rel='noopener noreferrer'
+        className='resource-url-panel'
+        title={resource.url}
+      >
+        <div className='resource-url-label'>URL</div>
+        <div className='resource-url-host'>{formattedUrl.hostname}</div>
+        {formattedUrl.path && (
+          <code className='resource-url-path resource-url-path-block'>
+            {formattedUrl.path}
+          </code>
+        )}
+      </a>
+
+      {resource.snippet && (
+        <div className='resource-snippet-box'>
+          <div className='resource-snippet-label'>
+            <LucideIcons.Terminal size={10} />
+            <span>Snippet</span>
+          </div>
+          <code>{resource.snippet}</code>
+        </div>
+      )}
+
+      <div className='resource-grid-footer'>
+        <div className='resource-tag-row'>
+          {resource.tags.slice(0, 2).map((tag) => (
+            <span key={tag} className='resource-tag'>
+              {tag}
+            </span>
+          ))}
+        </div>
+
+        <a
+          href={resource.url}
+          target='_blank'
+          rel='noopener noreferrer'
+          className='resource-icon-button'
+          title='Open link'
+        >
+          <LucideIcons.ExternalLink size={16} />
+        </a>
+      </div>
+    </motion.article>
+  );
+};
+
+const TableCard = ({ resources, viewMode }) => {
+  const [copiedId, setCopiedId] = useState(null);
+
+  const handleCopy = (text, id) => {
+    navigator.clipboard.writeText(text);
+    setCopiedId(id);
+    setTimeout(() => setCopiedId(null), 2000);
+  };
+
+  return (
+    <div className={viewMode === 'grid' ? 'resource-grid' : 'resource-list'}>
+      <AnimatePresence mode='wait' initial={false}>
+        {resources.map((resource) => (
+          <ResourceCard
+            key={resource.name}
+            resource={resource}
+            viewMode={viewMode}
+            onCopy={handleCopy}
+            copiedId={copiedId}
+          />
+        ))}
+      </AnimatePresence>
+    </div>
+  );
+};
 
 export default TableCard;

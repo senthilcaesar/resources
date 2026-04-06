@@ -179,5 +179,89 @@ export const CATEGORY_ICONS = {
   "AI Tools":      "Cpu",
   "Productivity":  "Zap",
   "Learning":      "GraduationCap",
+  "AI Workflow":   "Workflow",
+  "AI Education":  "BrainCircuit",
+  "Python":        "Code",
+  "Podcasts":      "Headphones",
+  "Tutorials":     "BookMarked",
+  "Claude Code":   "Terminal",
   "Default":       "Folder"
+};
+
+export const CATEGORY_STYLES = {
+  "All": {
+    color: "#C89B3C",
+    bg: "rgba(200, 155, 60, 0.14)",
+    border: "rgba(200, 155, 60, 0.32)"
+  },
+  "AI Workflow": {
+    color: "#D0A35B",
+    bg: "rgba(208, 163, 91, 0.14)",
+    border: "rgba(208, 163, 91, 0.32)"
+  },
+  "AI Education": {
+    color: "#6FA7C9",
+    bg: "rgba(111, 167, 201, 0.14)",
+    border: "rgba(111, 167, 201, 0.32)"
+  },
+  "Python": {
+    color: "#4E79A7",
+    bg: "rgba(78, 121, 167, 0.14)",
+    border: "rgba(78, 121, 167, 0.32)"
+  },
+  "Podcasts": {
+    color: "#A65A7A",
+    bg: "rgba(166, 90, 122, 0.14)",
+    border: "rgba(166, 90, 122, 0.32)"
+  },
+  "Tutorials": {
+    color: "#5C8A72",
+    bg: "rgba(92, 138, 114, 0.14)",
+    border: "rgba(92, 138, 114, 0.32)"
+  },
+  "Claude Code": {
+    color: "#8B6FAE",
+    bg: "rgba(139, 111, 174, 0.14)",
+    border: "rgba(139, 111, 174, 0.32)"
+  },
+  "Design": {
+    color: "#C07A3F",
+    bg: "rgba(192, 122, 63, 0.14)",
+    border: "rgba(192, 122, 63, 0.32)"
+  },
+  "Backend": {
+    color: "#4F8C88",
+    bg: "rgba(79, 140, 136, 0.14)",
+    border: "rgba(79, 140, 136, 0.32)"
+  },
+  "Deployment": {
+    color: "#5E7290",
+    bg: "rgba(94, 114, 144, 0.14)",
+    border: "rgba(94, 114, 144, 0.32)"
+  },
+  "Productivity": {
+    color: "#B59A4C",
+    bg: "rgba(181, 154, 76, 0.14)",
+    border: "rgba(181, 154, 76, 0.32)"
+  },
+  "Styling": {
+    color: "#6C9A8B",
+    bg: "rgba(108, 154, 139, 0.14)",
+    border: "rgba(108, 154, 139, 0.32)"
+  },
+  "Documentation": {
+    color: "#8E9AA7",
+    bg: "rgba(142, 154, 167, 0.14)",
+    border: "rgba(142, 154, 167, 0.32)"
+  },
+  "Learning": {
+    color: "#C28A52",
+    bg: "rgba(194, 138, 82, 0.14)",
+    border: "rgba(194, 138, 82, 0.32)"
+  },
+  "Default": {
+    color: "#C89B3C",
+    bg: "rgba(200, 155, 60, 0.14)",
+    border: "rgba(200, 155, 60, 0.32)"
+  }
 };
