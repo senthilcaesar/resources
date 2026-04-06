@@ -13,7 +13,7 @@ function App() {
   const [theme, setTheme] = useState('dark');
   const [isTechStackOpen, setIsTechStackOpen] = useState(false);
   const [viewMode, setViewMode] = useState('grid');
-  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(window.innerWidth > 1024);
 
   const { setColorMode } = useColorMode();
 
