@@ -71,23 +71,56 @@ const TableCard = ({ searchQuery, activeCategory }) => {
 
     const getBadgeStyle = (importance) => {
         const isDark = colorMode === 'dark';
-        const plainBg = isDark ? 'rgba(250, 249, 245, 0.05)' : 'rgba(20, 20, 19, 0.05)';
-        const plainColor = isDark ? '#b0aea5' : '#767676';
-        const plainBorder = isDark ? 'rgba(250, 249, 245, 0.1)' : 'rgba(20, 20, 19, 0.1)';
-        switch (importance) {
-            case "High": return { bg: plainBg, color: plainColor, borderColor: plainBorder, icon: Circle, pulse: true };
-            case "Medium": return { bg: plainBg, color: plainColor, borderColor: plainBorder, icon: MinusCircle };
-            case "Low": return { bg: plainBg, color: plainColor, borderColor: plainBorder, icon: CheckCircle };
-            default: return {};
+        if (importance === "High") {
+            return {
+                bg: isDark ? 'rgba(217, 119, 87, 0.15)' : 'rgba(217, 119, 87, 0.1)',
+                color: isDark ? '#d97757' : '#c35b3b',
+                borderColor: isDark ? 'rgba(217, 119, 87, 0.3)' : 'rgba(217, 119, 87, 0.3)',
+                icon: Circle,
+                pulse: true
+            };
         }
+        if (importance === "Medium") {
+            return {
+                bg: isDark ? 'rgba(106, 155, 204, 0.15)' : 'rgba(106, 155, 204, 0.1)',
+                color: isDark ? '#6a9bcc' : '#4d7ea9',
+                borderColor: isDark ? 'rgba(106, 155, 204, 0.3)' : 'rgba(106, 155, 204, 0.3)',
+                icon: MinusCircle
+            };
+        }
+        if (importance === "Low") {
+            return {
+                bg: isDark ? 'rgba(120, 140, 93, 0.15)' : 'rgba(120, 140, 93, 0.1)',
+                color: isDark ? '#788c5d' : '#5d7045',
+                borderColor: isDark ? 'rgba(120, 140, 93, 0.3)' : 'rgba(120, 140, 93, 0.3)',
+                icon: CheckCircle
+            };
+        }
+        return {};
     }
 
     const getTagClass = (tag) => {
         const isDark = colorMode === 'dark';
-        return {
-            bg: isDark ? 'rgba(250, 249, 245, 0.05)' : 'rgba(20, 20, 19, 0.05)',
-            color: isDark ? '#b0aea5' : '#767676'
+        const palettes = [
+            { c: '#7e8c9c', cd: '#5f6d7d', r: 126, g: 140, b: 156 }, // Slate
+            { c: '#b58c9c', cd: '#956f7f', r: 181, g: 140, b: 156 }, // Mauve
+            { c: '#c39665', cd: '#a87e50', r: 195, g: 150, b: 101 }, // Sand
+            { c: '#b0aea5', cd: '#8f8c85', r: 176, g: 174, b: 165 }, // Neutral
+            { c: '#a89f91', cd: '#877e71', r: 168, g: 159, b: 145 }  // Warm Grey
+        ];
+        
+        let hash = 0;
+        for (let i = 0; i < tag.length; i++) {
+            hash = tag.charCodeAt(i) + ((hash << 5) - hash);
         }
+        
+        const palette = palettes[Math.abs(hash) % palettes.length];
+        
+        return {
+            bg: isDark ? `rgba(${palette.r}, ${palette.g}, ${palette.b}, 0.15)` : `rgba(${palette.r}, ${palette.g}, ${palette.b}, 0.1)`,
+            color: isDark ? palette.c : palette.cd,
+            border: `1px solid ${isDark ? `rgba(${palette.r}, ${palette.g}, ${palette.b}, 0.25)` : `rgba(${palette.r}, ${palette.g}, ${palette.b}, 0.25)`}`
+        };
     }
 
     const gridTemplateCols = "2fr 1.2fr 1fr 1.4fr 1.2fr";
@@ -218,7 +251,7 @@ const TableCard = ({ searchQuery, activeCategory }) => {
                                         {res.tags.map(t => {
                                             const tagStyle = getTagClass(t);
                                             return (
-                                                <Box key={t} p="4px 10px" borderRadius="6px" fontSize="0.76rem" fontWeight="500" letterSpacing="0.02em" bg={tagStyle.bg} color={tagStyle.color}>
+                                                <Box key={t} p="4px 10px" borderRadius="6px" fontSize="0.76rem" fontWeight="500" letterSpacing="0.02em" bg={tagStyle.bg} color={tagStyle.color} border={tagStyle.border}>
                                                     {t}
                                                 </Box>
                                             )
@@ -269,7 +302,7 @@ const TableCard = ({ searchQuery, activeCategory }) => {
                                     {res.tags.map(t => {
                                         const tagStyle = getTagClass(t);
                                         return (
-                                            <Box key={t} p="4px 10px" borderRadius="6px" fontSize="0.76rem" fontWeight="500" letterSpacing="0.02em" bg={tagStyle.bg} color={tagStyle.color}>
+                                            <Box key={t} p="4px 10px" borderRadius="6px" fontSize="0.76rem" fontWeight="500" letterSpacing="0.02em" bg={tagStyle.bg} color={tagStyle.color} border={tagStyle.border}>
                                                 {t}
                                             </Box>
                                         )
