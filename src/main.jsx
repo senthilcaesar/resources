@@ -6,15 +6,15 @@ import './index.css'
 
 const theme = extendTheme({
   config: {
-    initialColorMode: 'dark',
+    initialColorMode: 'light',
     useSystemColorMode: false,
   },
   styles: {
     global: (props) => ({
       body: {
-        bg: props.colorMode === 'dark' ? '#141413' : '#faf9f5',
-        color: props.colorMode === 'dark' ? '#faf9f5' : '#141413',
-        fontFamily: "'Lora', Georgia, serif",
+        bg: 'var(--bg-main)',
+        color: 'var(--text-primary)',
+        fontFamily: 'var(--font-body)',
       },
     }),
   },

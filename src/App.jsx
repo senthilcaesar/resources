@@ -10,7 +10,7 @@ import { Terminal } from 'lucide-react';
 function App() {
   const [searchQuery, setSearchQuery] = useState('');
   const [activeCategory, setActiveCategory] = useState('All');
-  const [theme, setTheme] = useState('dark');
+  const [theme, setTheme] = useState('light');
   const [isTechStackOpen, setIsTechStackOpen] = useState(false);
   const [viewMode, setViewMode] = useState('grid');
   const [isSidebarOpen, setIsSidebarOpen] = useState(window.innerWidth > 1024);

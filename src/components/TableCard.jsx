@@ -32,14 +32,28 @@ const ResourceCard = ({ resource, viewMode, onCopy, copiedId }) => {
     '--category-border': categoryStyle.border,
   };
 
+  const hoverTransition = {
+    type: 'spring',
+    stiffness: 400,
+    damping: 25,
+  };
+
+  const whileHoverState = {
+    y: -4,
+    backgroundColor: 'var(--bg-card-hover)',
+    borderColor: 'rgba(217, 119, 87, 0.28)',
+  };
+
   if (viewMode === 'list') {
     return (
       <motion.article
+        layout
         initial={{ opacity: 0, x: -10 }}
         animate={{ opacity: 1, x: 0 }}
         exit={{ opacity: 0, x: 10 }}
-        transition={{ duration: 0.2 }}
-        className='resource-list-card glass'
+        whileHover={whileHoverState}
+        transition={hoverTransition}
+        className='resource-list-card'
       >
         <div
           className='resource-list-category flex items-center gap-2'
@@ -126,12 +140,13 @@ const ResourceCard = ({ resource, viewMode, onCopy, copiedId }) => {
 
   return (
     <motion.article
+      layout
       initial={{ opacity: 0, scale: 0.95 }}
       animate={{ opacity: 1, scale: 1 }}
       exit={{ opacity: 0, scale: 0.95 }}
-      whileHover={{ y: -4 }}
-      transition={{ duration: 0.2 }}
-      className='resource-grid-card glass'
+      whileHover={whileHoverState}
+      transition={hoverTransition}
+      className='resource-grid-card'
     >
       <div className='resource-grid-top'>
         <div>
