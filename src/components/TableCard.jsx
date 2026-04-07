@@ -40,8 +40,6 @@ const ResourceCard = ({ resource, viewMode, onCopy, copiedId }) => {
 
   const whileHoverState = {
     y: -4,
-    backgroundColor: 'var(--bg-card-hover)',
-    borderColor: 'rgba(217, 119, 87, 0.28)',
   };
 
   if (viewMode === 'list') {
