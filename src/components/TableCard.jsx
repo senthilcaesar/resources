@@ -30,6 +30,7 @@ const ResourceCard = ({ resource, viewMode, onCopy, copiedId }) => {
     '--category-color': categoryStyle.color,
     '--category-bg': categoryStyle.bg,
     '--category-border': categoryStyle.border,
+    '--resource-color': resource.color,
   };
 
   const hoverTransition = {
@@ -52,10 +53,10 @@ const ResourceCard = ({ resource, viewMode, onCopy, copiedId }) => {
         whileHover={whileHoverState}
         transition={hoverTransition}
         className='resource-list-card'
+        style={categoryVars}
       >
         <div
           className='resource-list-category flex items-center gap-2'
-          style={categoryVars}
         >
           <span>{resource.category}</span>
         </div>
@@ -145,12 +146,12 @@ const ResourceCard = ({ resource, viewMode, onCopy, copiedId }) => {
       whileHover={whileHoverState}
       transition={hoverTransition}
       className='resource-grid-card'
+      style={categoryVars}
     >
       <div className='resource-grid-top'>
         <div>
           <div
             className='resource-category flex items-center gap-2'
-            style={categoryVars}
           >
             <span>{resource.category}</span>
           </div>

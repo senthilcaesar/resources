@@ -2,10 +2,11 @@ export const RESOURCES = [
   {
     name: "Claude Code Blog",
     description: "Claude Code Blog.",
-    category: "AI Workflow",
+    category: "Claude Code",
     importance: "High",
     tags: ["ai", "claude code", "blog"],
-    url: "https://claude.com/blog"
+    url: "https://claude.com/blog",
+    color: "#D97757"
   },  
   {
     name: "A lightweight spec-driven framework",
@@ -13,7 +14,8 @@ export const RESOURCES = [
     category: "AI Workflow",
     importance: "High",
     tags: ["ai", "workflow", "spec"],
-    url: "https://openspec.dev/"
+    url: "https://openspec.dev/",
+    color: "#D97757"
   },
     {
     name: "arena.ai Leaderboard",
@@ -21,7 +23,8 @@ export const RESOURCES = [
     category: "AI Education",
     importance: "High",
     tags: ["ai", "leaderboard", "models"],
-    url: "https://arena.ai/leaderboard/"
+    url: "https://arena.ai/leaderboard/",
+    color: "#F5A623"
   },
   {
     name: "Massachusetts AI Hub",
@@ -29,7 +32,8 @@ export const RESOURCES = [
     category: "AI Education",
     importance: "High",
     tags: ["ai", "boston", "workforce", "massachusetts"],
-    url: "https://aihub.masstech.org/"
+    url: "https://aihub.masstech.org/",
+    color: "#F5A623"
   },
   {
     name: "Object-Oriented Programming in Python",
@@ -37,7 +41,8 @@ export const RESOURCES = [
     category: "Python",
     importance: "Medium",
     tags: ["python", "oop", "programming"],
-    url: "https://realpython.com/python3-object-oriented-programming/"
+    url: "https://realpython.com/python3-object-oriented-programming/",
+    color: "#3776AB"
   },
     {
     name: "Signal Awards",
@@ -45,7 +50,8 @@ export const RESOURCES = [
     category: "Podcasts",
     importance: "Medium",
     tags: ["podcasts", "awards"],
-    url: "https://signalaward.com/"
+    url: "https://signalaward.com/",
+    color: "#BD10E0"
   },
   {
     name: "Prompting guide 101",
@@ -53,7 +59,8 @@ export const RESOURCES = [
     category: "Tutorials",
     importance: "High",
     tags: ["prompts", "ai", "llm"],
-    url: "https://workspace.google.com/resources/ai/writing-effective-prompts/"
+    url: "https://workspace.google.com/resources/ai/writing-effective-prompts/",
+    color: "#7ED321"
   },
   {
     name: "Learn Prompting",
@@ -61,7 +68,8 @@ export const RESOURCES = [
     category: "Tutorials",
     importance: "High",
     tags: ["prompts", "ai", "llm"],
-    url: "https://learnprompting.org/docs/introduction"
+    url: "https://learnprompting.org/docs/introduction",
+    color: "#7ED321"
   },
    {
     name: "AI for Professionals Who Don't Code",
@@ -69,7 +77,8 @@ export const RESOURCES = [
     category: "Claude Code",
     importance: "High",
     tags: ["ai", "professional", "code"],
-    url: "https://claudeblattman.com/"
+    url: "https://claudeblattman.com/",
+    color: "#D97757"
   },
   {
     name: "Anthropic Academy",
@@ -77,7 +86,8 @@ export const RESOURCES = [
     category: "Tutorials",
     importance: "High",
     tags: ["prompts", "agents", "llm"],
-    url: "https://anthropic.skilljar.com/"
+    url: "https://anthropic.skilljar.com/",
+    color: "#7ED321"
   },
   
   {
@@ -86,7 +96,8 @@ export const RESOURCES = [
     category: "Design",
     importance: "Medium",
     tags: ["icons", "svg", "design", "ui"],
-    url: "https://lucide.dev"
+    url: "https://lucide.dev",
+    color: "#4A90E2"
   },
   {
     name: "Supabase",
@@ -94,7 +105,8 @@ export const RESOURCES = [
     category: "Backend",
     importance: "High",
     tags: ["database", "backend", "postgres", "auth"],
-    url: "https://supabase.com"
+    url: "https://supabase.com",
+    color: "#417505"
   },
   {
     name: "Vercel",
@@ -102,7 +114,8 @@ export const RESOURCES = [
     category: "Deployment",
     importance: "High",
     tags: ["hosting", "deployment", "frontend", "ci/cd"],
-    url: "https://vercel.com"
+    url: "https://vercel.com",
+    color: "#6A9BCC"
   },
   {
     name: "GitHub Copilot Docs",
@@ -110,7 +123,8 @@ export const RESOURCES = [
     category: "AI Education",
     importance: "Medium",
     tags: ["ai", "copilot", "productivity", "coding"],
-    url: "https://docs.github.com/en/copilot"
+    url: "https://docs.github.com/en/copilot",
+    color: "#F5A623"
   },
   {
     name: "Excalidraw",
@@ -118,7 +132,8 @@ export const RESOURCES = [
     category: "Productivity",
     importance: "Low",
     tags: ["design", "diagrams", "collaboration", "whiteboard"],
-    url: "https://excalidraw.com"
+    url: "https://excalidraw.com",
+    color: "#8B572A"
   },
   {
     name: "CSS Tricks — Flexbox Guide",
@@ -126,7 +141,8 @@ export const RESOURCES = [
     category: "Styling",
     importance: "Medium",
     tags: ["css", "flexbox", "layout", "reference"],
-    url: "https://css-tricks.com/snippets/css/a-guide-to-flexbox"
+    url: "https://css-tricks.com/snippets/css/a-guide-to-flexbox",
+    color: "#50E3C2"
   },
   {
     name: "Notion",
@@ -134,7 +150,8 @@ export const RESOURCES = [
     category: "Productivity",
     importance: "Medium",
     tags: ["notes", "productivity", "collaboration", "docs"],
-    url: "https://notion.so"
+    url: "https://notion.so",
+    color: "#8B572A"
   },
   {
     name: "Figma",
@@ -142,7 +159,8 @@ export const RESOURCES = [
     category: "Design",
     importance: "High",
     tags: ["design", "ui", "prototyping", "collaboration"],
-    url: "https://figma.com"
+    url: "https://figma.com",
+    color: "#4A90E2"
   },
   {
     name: "Can I Use",
@@ -150,7 +168,8 @@ export const RESOURCES = [
     category: "Documentation",
     importance: "Low",
     tags: ["css", "html", "browser", "compatibility"],
-    url: "https://caniuse.com"
+    url: "https://caniuse.com",
+    color: "#7A7872"
   },
   {
     name: "Roadmap.sh",
@@ -158,7 +177,8 @@ export const RESOURCES = [
     category: "Learning",
     importance: "Medium",
     tags: ["learning", "career", "roadmap", "guide"],
-    url: "https://roadmap.sh"
+    url: "https://roadmap.sh",
+    color: "#96A874"
   },
   {
     name: "Ray.so",
@@ -166,7 +186,8 @@ export const RESOURCES = [
     category: "Productivity",
     importance: "Low",
     tags: ["design", "screenshots", "code", "sharing"],
-    url: "https://ray.so"
+    url: "https://ray.so",
+    color: "#8B572A"
   },
   {
     name: "Firebase",
@@ -174,7 +195,8 @@ export const RESOURCES = [
     category: "Backend",
     importance: "High",
     tags: ["backend", "auth", "database", "google"],
-    url: "https://firebase.google.com"
+    url: "https://firebase.google.com",
+    color: "#417505"
   }
 ];
 

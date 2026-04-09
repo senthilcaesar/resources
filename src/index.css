@@ -604,7 +604,8 @@ button,
 
 .resource-grid-card,
 .resource-list-card {
-  background: var(--bg-card);
+  background: linear-gradient(to bottom right, color-mix(in srgb, var(--resource-color) 15%, transparent), transparent), var(--bg-card);
+  background-attachment: fixed;
   border-radius: 20px;
   border: 1px solid var(--border-subtle);
   box-shadow: var(--shadow-soft);
