@@ -604,8 +604,9 @@ button,
 
 .resource-grid-card,
 .resource-list-card {
-  background: linear-gradient(to bottom right, color-mix(in srgb, var(--resource-color) 15%, transparent), transparent), var(--bg-card);
-  background-attachment: fixed;
+  background: var(--bg-card);
+  position: relative;
+  overflow: hidden;
   border-radius: 20px;
   border: 1px solid var(--border-subtle);
   box-shadow: var(--shadow-soft);
@@ -615,6 +616,31 @@ button,
     border-color 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   min-width: 0;
 }
+
+.resource-grid-card::before,
+.resource-list-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, var(--resource-color), transparent 70%);
+  opacity: 0.22;
+  pointer-events: none;
+  z-index: 0;
+  transition: opacity 0.3s ease;
+}
+
+.resource-grid-card:hover::before,
+.resource-list-card:hover::before {
+  opacity: 0.35;
+}
+
+.resource-grid-card > *,
+.resource-list-card > * {
+  position: relative;
+  z-index: 1;
+}
+
+
 
 .resource-grid-card:hover,
 .resource-list-card:hover {
