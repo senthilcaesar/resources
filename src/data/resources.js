@@ -1,5 +1,13 @@
 export const RESOURCES = [
-    {
+  {
+    name: "Claude Code Blog",
+    description: "Claude Code Blog.",
+    category: "AI Workflow",
+    importance: "High",
+    tags: ["ai", "claude code", "blog"],
+    url: "https://claude.com/blog"
+  },  
+  {
     name: "A lightweight spec-driven framework",
     description: "A lightweight spec-driven framework by Fission AI",
     category: "AI Workflow",
