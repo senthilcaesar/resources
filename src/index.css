@@ -51,41 +51,42 @@
 }
 
 [data-theme='dark'] {
-  --bg-main: #141413;
-  --bg-sidebar: #1d1c19;
-  --bg-card: #1d1c19;
-  --bg-card-hover: #262420;
-  --accent-primary: #df8b6e;
-  --accent-secondary: #7fb0df;
-  --accent-tertiary: #96a874;
-  --accent-gradient: linear-gradient(135deg, #df8b6e 0%, #7fb0df 100%);
-  --text-primary: #f3efe4;
-  --text-secondary: #c1bbaf;
-  --text-dim: #9a9284;
-  --border-subtle: #34312c;
-  --glass-border: 1px solid rgba(255, 255, 255, 0.08);
-  --bg-hover: rgba(223, 139, 110, 0.08);
-  --modal-overlay: rgba(4, 4, 4, 0.74);
-  --bg-code: rgba(255, 255, 255, 0.04);
-  --text-code: #f3efe4;
-  --shadow-soft: 0 12px 24px -18px rgba(0, 0, 0, 0.72);
+  /* Catppuccin Frappé — official hex values from https://github.com/catppuccin/palette */
+  --bg-main: #303446;        /* base */
+  --bg-sidebar: #292c3c;     /* mantle */
+  --bg-card: #292c3c;        /* mantle */
+  --bg-card-hover: #414559;  /* surface0 */
+  --accent-primary: #ef9f76;  /* peach */
+  --accent-secondary: #85c1dc; /* sapphire */
+  --accent-tertiary: #a6d189;  /* green */
+  --accent-gradient: linear-gradient(135deg, #ef9f76 0%, #85c1dc 100%);
+  --text-primary: #c6d0f5;   /* text */
+  --text-secondary: #b5bfe2; /* subtext1 */
+  --text-dim: #a5adce;       /* subtext0 */
+  --border-subtle: #51576d;  /* surface1 */
+  --glass-border: 1px solid rgba(198, 208, 245, 0.08); /* text at low opacity */
+  --bg-hover: rgba(239, 159, 118, 0.08); /* peach at low opacity */
+  --modal-overlay: rgba(35, 38, 52, 0.80); /* crust-toned overlay */
+  --bg-code: rgba(65, 69, 89, 0.60);  /* surface0 at reduced opacity */
+  --text-code: #c6d0f5;      /* text */
+  --shadow-soft: 0 12px 24px -18px rgba(35, 38, 52, 0.80); /* crust-toned shadow */
 
-  /* Category Variables - Dark */
-  --cat-orange-text: #df8b6e;
-  --cat-orange-bg: rgba(223, 139, 110, 0.12);
-  --cat-orange-border: rgba(223, 139, 110, 0.32);
-  
-  --cat-blue-text: #7fb0df;
-  --cat-blue-bg: rgba(127, 176, 223, 0.12);
-  --cat-blue-border: rgba(127, 176, 223, 0.32);
-  
-  --cat-green-text: #96a874;
-  --cat-green-bg: rgba(150, 168, 116, 0.12);
-  --cat-green-border: rgba(150, 168, 116, 0.32);
-  
-  --cat-neutral-text: #9a9284;
-  --cat-neutral-bg: rgba(154, 146, 132, 0.12);
-  --cat-neutral-border: rgba(154, 146, 132, 0.32);
+  /* Category Variables - Dark (Catppuccin Frappé) */
+  --cat-orange-text: #ef9f76;                    /* peach */
+  --cat-orange-bg: rgba(239, 159, 118, 0.12);
+  --cat-orange-border: rgba(239, 159, 118, 0.32);
+
+  --cat-blue-text: #8caaee;                      /* blue */
+  --cat-blue-bg: rgba(140, 170, 238, 0.12);
+  --cat-blue-border: rgba(140, 170, 238, 0.32);
+
+  --cat-green-text: #a6d189;                     /* green */
+  --cat-green-bg: rgba(166, 209, 137, 0.12);
+  --cat-green-border: rgba(166, 209, 137, 0.32);
+
+  --cat-neutral-text: #a5adce;                   /* subtext0 */
+  --cat-neutral-bg: rgba(165, 173, 206, 0.12);
+  --cat-neutral-border: rgba(165, 173, 206, 0.32);
 }
 
 * {
@@ -113,6 +114,21 @@ body {
     radial-gradient(
       circle at top right,
       rgba(217, 119, 87, 0.1),
+      transparent 24%
+    );
+}
+
+[data-theme='dark'] body {
+  /* Catppuccin Frappé — sapphire + peach decorative gradients */
+  background-image:
+    radial-gradient(
+      circle at top left,
+      rgba(133, 193, 220, 0.07), /* sapphire */
+      transparent 28%
+    ),
+    radial-gradient(
+      circle at top right,
+      rgba(239, 159, 118, 0.08), /* peach */
       transparent 24%
     );
 }
