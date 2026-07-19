@@ -30,6 +30,16 @@ export const RESOURCES = [
     color: "#96A874",
   },
   {
+    name: "Neural Networks and Deep Learning",
+    description:
+      "Free online book by Michael Nielsen explaining the core ideas of neural networks and deep learning.",
+    category: "Learning",
+    importance: "High",
+    tags: ["neural networks", "deep learning", "ai", "book", "free"],
+    url: "http://neuralnetworksanddeeplearning.com/index.html",
+    color: "#96A874",
+  },
+  {
     name: "Claude Code Blog",
     description: "Claude Code Blog.",
     category: "Claude Code",
