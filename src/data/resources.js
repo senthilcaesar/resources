@@ -1,13 +1,43 @@
 export const RESOURCES = [
   {
+    name: "DataLemur SQL Tutorial",
+    description:
+      "Free interactive SQL tutorial with practice questions from real interviews.",
+    category: "Learning",
+    importance: "High",
+    tags: ["sql", "database", "interview", "practice"],
+    url: "https://datalemur.com/sql-tutorial",
+    color: "#96A874",
+  },
+  {
+    name: "The Odin Project",
+    description:
+      "Free full-stack web development curriculum with hands-on projects.",
+    category: "Learning",
+    importance: "High",
+    tags: ["web", "fullstack", "curriculum", "free"],
+    url: "https://www.theodinproject.com/",
+    color: "#96A874",
+  },
+  {
+    name: "The Missing Semester of Your CS Education",
+    description:
+      "MIT course covering the command line, Git, editors, and other essential developer tools.",
+    category: "Learning",
+    importance: "High",
+    tags: ["cli", "git", "tools", "mit"],
+    url: "https://missing.csail.mit.edu/",
+    color: "#96A874",
+  },
+  {
     name: "Claude Code Blog",
     description: "Claude Code Blog.",
     category: "Claude Code",
     importance: "High",
     tags: ["ai", "claude code", "blog"],
     url: "https://claude.com/blog",
-    color: "#D97757"
-  },  
+    color: "#D97757",
+  },
   {
     name: "A lightweight spec-driven framework",
     description: "A lightweight spec-driven framework by Fission AI",
@@ -15,25 +45,27 @@ export const RESOURCES = [
     importance: "High",
     tags: ["ai", "workflow", "spec"],
     url: "https://openspec.dev/",
-    color: "#D97757"
+    color: "#D97757",
   },
-    {
+  {
     name: "arena.ai Leaderboard",
-    description: "See how leading AI models stack up across text, image, vision, and more",
+    description:
+      "See how leading AI models stack up across text, image, vision, and more",
     category: "AI Education",
     importance: "High",
     tags: ["ai", "leaderboard", "models"],
     url: "https://arena.ai/leaderboard/",
-    color: "#F5A623"
+    color: "#F5A623",
   },
   {
     name: "Massachusetts AI Hub",
-    description: "Resources for AI training and workforce development in Massachusetts.",
+    description:
+      "Resources for AI training and workforce development in Massachusetts.",
     category: "AI Education",
     importance: "High",
     tags: ["ai", "boston", "workforce", "massachusetts"],
     url: "https://aihub.masstech.org/",
-    color: "#F5A623"
+    color: "#F5A623",
   },
   {
     name: "Object-Oriented Programming in Python",
@@ -42,16 +74,16 @@ export const RESOURCES = [
     importance: "Medium",
     tags: ["python", "oop", "programming"],
     url: "https://realpython.com/python3-object-oriented-programming/",
-    color: "#3776AB"
+    color: "#3776AB",
   },
-    {
+  {
     name: "Signal Awards",
     description: "Recognize the best podcast being made today.",
     category: "Podcasts",
     importance: "Medium",
     tags: ["podcasts", "awards"],
     url: "https://signalaward.com/",
-    color: "#BD10E0"
+    color: "#BD10E0",
   },
   {
     name: "Prompting guide 101",
@@ -60,7 +92,7 @@ export const RESOURCES = [
     importance: "High",
     tags: ["prompts", "ai", "llm"],
     url: "https://workspace.google.com/resources/ai/writing-effective-prompts/",
-    color: "#7ED321"
+    color: "#7ED321",
   },
   {
     name: "Learn Prompting",
@@ -69,16 +101,16 @@ export const RESOURCES = [
     importance: "High",
     tags: ["prompts", "ai", "llm"],
     url: "https://learnprompting.org/docs/introduction",
-    color: "#7ED321"
+    color: "#7ED321",
   },
-   {
+  {
     name: "AI for Professionals Who Don't Code",
     description: "AI for Professionals Who Don't Code.",
     category: "Claude Code",
     importance: "High",
     tags: ["ai", "professional", "code"],
     url: "https://claudeblattman.com/",
-    color: "#D97757"
+    color: "#D97757",
   },
   {
     name: "Anthropic Academy",
@@ -87,9 +119,9 @@ export const RESOURCES = [
     importance: "High",
     tags: ["prompts", "agents", "llm"],
     url: "https://anthropic.skilljar.com/",
-    color: "#7ED321"
+    color: "#7ED321",
   },
-  
+
   {
     name: "Lucide Icons",
     description: "Beautiful & consistent open-source icon set for the web.",
@@ -97,16 +129,17 @@ export const RESOURCES = [
     importance: "Medium",
     tags: ["icons", "svg", "design", "ui"],
     url: "https://lucide.dev",
-    color: "#4A90E2"
+    color: "#4A90E2",
   },
   {
     name: "Supabase",
-    description: "Open-source Firebase alternative with Postgres, auth, and storage.",
+    description:
+      "Open-source Firebase alternative with Postgres, auth, and storage.",
     category: "Backend",
     importance: "High",
     tags: ["database", "backend", "postgres", "auth"],
     url: "https://supabase.com",
-    color: "#417505"
+    color: "#417505",
   },
   {
     name: "Vercel",
@@ -115,16 +148,17 @@ export const RESOURCES = [
     importance: "High",
     tags: ["hosting", "deployment", "frontend", "ci/cd"],
     url: "https://vercel.com",
-    color: "#6A9BCC"
+    color: "#6A9BCC",
   },
   {
     name: "GitHub Copilot Docs",
-    description: "Official documentation and prompt engineering tips for Copilot.",
+    description:
+      "Official documentation and prompt engineering tips for Copilot.",
     category: "AI Education",
     importance: "Medium",
     tags: ["ai", "copilot", "productivity", "coding"],
     url: "https://docs.github.com/en/copilot",
-    color: "#F5A623"
+    color: "#F5A623",
   },
   {
     name: "Excalidraw",
@@ -133,7 +167,7 @@ export const RESOURCES = [
     importance: "Low",
     tags: ["design", "diagrams", "collaboration", "whiteboard"],
     url: "https://excalidraw.com",
-    color: "#8B572A"
+    color: "#8B572A",
   },
   {
     name: "CSS Tricks — Flexbox Guide",
@@ -142,25 +176,27 @@ export const RESOURCES = [
     importance: "Medium",
     tags: ["css", "flexbox", "layout", "reference"],
     url: "https://css-tricks.com/snippets/css/a-guide-to-flexbox",
-    color: "#50E3C2"
+    color: "#50E3C2",
   },
   {
     name: "Notion",
-    description: "All-in-one workspace for notes, docs, and project management.",
+    description:
+      "All-in-one workspace for notes, docs, and project management.",
     category: "Productivity",
     importance: "Medium",
     tags: ["notes", "productivity", "collaboration", "docs"],
     url: "https://notion.so",
-    color: "#8B572A"
+    color: "#8B572A",
   },
   {
     name: "Figma",
-    description: "Collaborative UI design tool for creating wireframes and prototypes.",
+    description:
+      "Collaborative UI design tool for creating wireframes and prototypes.",
     category: "Design",
     importance: "High",
     tags: ["design", "ui", "prototyping", "collaboration"],
     url: "https://figma.com",
-    color: "#4A90E2"
+    color: "#4A90E2",
   },
   {
     name: "Can I Use",
@@ -169,7 +205,7 @@ export const RESOURCES = [
     importance: "Low",
     tags: ["css", "html", "browser", "compatibility"],
     url: "https://caniuse.com",
-    color: "#7A7872"
+    color: "#7A7872",
   },
   {
     name: "Roadmap.sh",
@@ -178,7 +214,7 @@ export const RESOURCES = [
     importance: "Medium",
     tags: ["learning", "career", "roadmap", "guide"],
     url: "https://roadmap.sh",
-    color: "#96A874"
+    color: "#96A874",
   },
   {
     name: "Ray.so",
@@ -187,111 +223,112 @@ export const RESOURCES = [
     importance: "Low",
     tags: ["design", "screenshots", "code", "sharing"],
     url: "https://ray.so",
-    color: "#8B572A"
+    color: "#8B572A",
   },
   {
     name: "Firebase",
-    description: "Google's platform for building web and mobile apps with cloud services.",
+    description:
+      "Google's platform for building web and mobile apps with cloud services.",
     category: "Backend",
     importance: "High",
     tags: ["backend", "auth", "database", "google"],
     url: "https://firebase.google.com",
-    color: "#417505"
-  }
+    color: "#417505",
+  },
 ];
 
 export const CATEGORY_ICONS = {
-  "Documentation": "BookOpen",
-  "Styling":       "Paintbrush",
-  "Design":        "PenTool",
-  "Backend":       "Server",
-  "Deployment":    "CloudUpload",
-  "AI Tools":      "Cpu",
-  "Productivity":  "Zap",
-  "Learning":      "GraduationCap",
-  "AI Workflow":   "Workflow",
-  "AI Education":  "BrainCircuit",
-  "Python":        "Code",
-  "Podcasts":      "Headphones",
-  "Tutorials":     "BookMarked",
-  "Claude Code":   "Terminal",
-  "Default":       "Folder"
+  Documentation: "BookOpen",
+  Styling: "Paintbrush",
+  Design: "PenTool",
+  Backend: "Server",
+  Deployment: "CloudUpload",
+  "AI Tools": "Cpu",
+  Productivity: "Zap",
+  Learning: "GraduationCap",
+  "AI Workflow": "Workflow",
+  "AI Education": "BrainCircuit",
+  Python: "Code",
+  Podcasts: "Headphones",
+  Tutorials: "BookMarked",
+  "Claude Code": "Terminal",
+  Default: "Folder",
 };
 
 export const CATEGORY_STYLES = {
-  "All": {
+  All: {
     color: "var(--cat-orange-text)",
     bg: "var(--cat-orange-bg)",
-    border: "var(--cat-orange-border)"
+    border: "var(--cat-orange-border)",
   },
   "AI Workflow": {
     color: "var(--cat-orange-text)",
     bg: "var(--cat-orange-bg)",
-    border: "var(--cat-orange-border)"
+    border: "var(--cat-orange-border)",
   },
   "AI Education": {
     color: "var(--cat-orange-text)",
     bg: "var(--cat-orange-bg)",
-    border: "var(--cat-orange-border)"
+    border: "var(--cat-orange-border)",
   },
-  "Python": {
+  Python: {
     color: "var(--cat-blue-text)",
     bg: "var(--cat-blue-bg)",
-    border: "var(--cat-blue-border)"
+    border: "var(--cat-blue-border)",
   },
-  "Podcasts": {
+  Podcasts: {
     color: "var(--cat-neutral-text)",
     bg: "var(--cat-neutral-bg)",
-    border: "var(--cat-neutral-border)"
+    border: "var(--cat-neutral-border)",
   },
-  "Tutorials": {
+  Tutorials: {
     color: "var(--cat-green-text)",
     bg: "var(--cat-green-bg)",
-    border: "var(--cat-green-border)"
+    border: "var(--cat-green-border)",
   },
   "Claude Code": {
     color: "var(--cat-orange-text)",
     bg: "var(--cat-orange-bg)",
-    border: "var(--cat-orange-border)"
+    border: "var(--cat-orange-border)",
   },
-  "Design": {
+  Design: {
     color: "var(--cat-green-text)",
     bg: "var(--cat-green-bg)",
-    border: "var(--cat-green-border)"
+    border: "var(--cat-green-border)",
   },
-  "Backend": {
+  Backend: {
     color: "var(--cat-blue-text)",
     bg: "var(--cat-blue-bg)",
-    border: "var(--cat-blue-border)"
+    border: "var(--cat-blue-border)",
   },
-  "Deployment": {
+  Deployment: {
     color: "var(--cat-blue-text)",
     bg: "var(--cat-blue-bg)",
-    border: "var(--cat-blue-border)"
+    border: "var(--cat-blue-border)",
   },
-  "Productivity": {
+  Productivity: {
     color: "var(--cat-neutral-text)",
     bg: "var(--cat-neutral-bg)",
-    border: "var(--cat-neutral-border)"
+    border: "var(--cat-neutral-border)",
   },
-  "Styling": {
+  Styling: {
     color: "var(--cat-green-text)",
     bg: "var(--cat-green-bg)",
-    border: "var(--cat-green-border)"
+    border: "var(--cat-green-border)",
   },
-  "Documentation": {
+  Documentation: {
     color: "var(--cat-neutral-text)",
     bg: "var(--cat-neutral-bg)",
-    border: "var(--cat-neutral-border)"
+    border: "var(--cat-neutral-border)",
   },
-  "Learning": {
+  Learning: {
     color: "var(--cat-green-text)",
     bg: "var(--cat-green-bg)",
-    border: "var(--cat-green-border)"
+    border: "var(--cat-green-border)",
   },
-  "Default": {
+  Default: {
     color: "var(--cat-orange-text)",
     bg: "var(--cat-orange-bg)",
-    border: "var(--cat-orange-border)"
-  }
+    border: "var(--cat-orange-border)",
+  },
 };

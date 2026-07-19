@@ -1,39 +1,48 @@
-import React, { useState, useEffect, useMemo } from 'react';
-import Sidebar from './components/Sidebar';
-import Header from './components/Header';
-import TechStackModal from './components/TechStackModal';
-import { useColorMode } from '@chakra-ui/react';
-import TableCard from './components/TableCard';
-import { RESOURCES } from './data/resources';
-import { Terminal } from 'lucide-react';
+import React, { useState, useEffect, useMemo } from "react";
+import Sidebar from "./components/Sidebar";
+import Header from "./components/Header";
+import TechStackModal from "./components/TechStackModal";
+import { useColorMode } from "@chakra-ui/react";
+import TableCard from "./components/TableCard";
+import { RESOURCES } from "./data/resources";
+import { Terminal } from "lucide-react";
 
 function App() {
-  const [searchQuery, setSearchQuery] = useState('');
-  const [activeCategory, setActiveCategory] = useState('All');
-  const [theme, setTheme] = useState('light');
+  const [searchQuery, setSearchQuery] = useState("");
+  const [activeCategory, setActiveCategory] = useState("All");
+  const [theme, setTheme] = useState("light");
   const [isTechStackOpen, setIsTechStackOpen] = useState(false);
-  const [viewMode, setViewMode] = useState('grid');
+  const [viewMode, setViewMode] = useState("list");
   const [isSidebarOpen, setIsSidebarOpen] = useState(window.innerWidth > 1024);
 
   const { setColorMode } = useColorMode();
 
   useEffect(() => {
-    document.documentElement.setAttribute('data-theme', theme);
+    document.documentElement.setAttribute("data-theme", theme);
     setColorMode(theme);
   }, [theme, setColorMode]);
 
   useEffect(() => {
-    localStorage.setItem('viewMode', viewMode);
+    localStorage.setItem("viewMode", viewMode);
   }, [viewMode]);
 
   const toggleTheme = () => {
-    setTheme((prev) => (prev === 'dark' ? 'light' : 'dark'));
+    setTheme((prev) => (prev === "dark" ? "light" : "dark"));
   };
 
   const filteredResources = useMemo(() => {
+    // Group cards by category, with Learning always first; other
+    // categories follow their first appearance in RESOURCES.
+    const categoryRank = new Map([["Learning", 0]]);
+    RESOURCES.forEach((res) => {
+      if (!categoryRank.has(res.category)) {
+        categoryRank.set(res.category, categoryRank.size);
+      }
+    });
+
     return RESOURCES.filter((res) => {
       const matchesCategory =
-        activeCategory === 'All' || res.category === activeCategory;
+        activeCategory === "All" || res.category === activeCategory;
       const matchesSearch =
         res.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
         res.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -41,7 +50,9 @@ function App() {
           t.toLowerCase().includes(searchQuery.toLowerCase()),
         );
       return matchesCategory && matchesSearch;
-    });
+    }).sort(
+      (a, b) => categoryRank.get(a.category) - categoryRank.get(b.category),
+    );
   }, [activeCategory, searchQuery]);
 
   // Handle closing sidebar on mobile when category changes
@@ -52,11 +63,11 @@ function App() {
   }, [activeCategory]);
 
   return (
-    <div className='app-container'>
+    <div className="app-container">
       {/* Mobile Backdrop */}
       {isSidebarOpen && (
         <div
-          className='sidebar-backdrop'
+          className="sidebar-backdrop"
           onClick={() => setIsSidebarOpen(false)}
         />
       )}
@@ -69,7 +80,7 @@ function App() {
         onClose={() => setIsSidebarOpen(false)}
       />
 
-      <div className='main-content'>
+      <div className="main-content">
         <Header
           searchQuery={searchQuery}
           setSearchQuery={setSearchQuery}
@@ -83,10 +94,10 @@ function App() {
           resourceCount={filteredResources.length}
         />
 
-        <main className='content-area'>
-          <div className='mb-10 animate-in fade-in slide-in-from-bottom-4 duration-700'>
-            {activeCategory !== 'All' && (
-              <h2 className='text-3xl font-bold text-primary mb-2 tracking-tight'>
+        <main className="content-area">
+          <div className="mb-10 animate-in fade-in slide-in-from-bottom-4 duration-700">
+            {activeCategory !== "All" && (
+              <h2 className="text-3xl font-bold text-primary mb-2 tracking-tight">
                 {activeCategory}
               </h2>
             )}
@@ -95,22 +106,22 @@ function App() {
           {filteredResources.length > 0 ? (
             <TableCard resources={filteredResources} viewMode={viewMode} />
           ) : (
-            <div className='flex flex-col items-center justify-center py-40 text-center glass rounded-[40px] border-dashed'>
-              <div className='p-6 bg-white/5 rounded-full mb-6'>
-                <Terminal size={48} className='text-dim opacity-30' />
+            <div className="flex flex-col items-center justify-center py-40 text-center glass rounded-[40px] border-dashed">
+              <div className="p-6 bg-white/5 rounded-full mb-6">
+                <Terminal size={48} className="text-dim opacity-30" />
               </div>
-              <h3 className='text-xl font-bold text-primary mb-2'>
+              <h3 className="text-xl font-bold text-primary mb-2">
                 No matches found
               </h3>
-              <p className='text-dim text-sm max-w-sm'>
+              <p className="text-dim text-sm max-w-sm">
                 Try a different search term or category to find your resource.
               </p>
               <button
                 onClick={() => {
-                  setSearchQuery('');
-                  setActiveCategory('All');
+                  setSearchQuery("");
+                  setActiveCategory("All");
                 }}
-                className='mt-8 text-accent-primary font-semibold hover:underline'
+                className="mt-8 text-accent-primary font-semibold hover:underline"
               >
                 Reset Filters
               </button>
