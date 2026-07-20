@@ -236,6 +236,16 @@ export const RESOURCES = [
     color: "#8B572A",
   },
   {
+    name: "MarkItDown",
+    description:
+      "Microsoft's Python utility for converting files (PDF, Office docs, images, audio) to Markdown for LLM pipelines.",
+    category: "AI Tools",
+    importance: "High",
+    tags: ["ai", "markdown", "converter", "python", "llm"],
+    url: "https://github.com/microsoft/markitdown",
+    color: "#D97757",
+  },
+  {
     name: "Firebase",
     description:
       "Google's platform for building web and mobile apps with cloud services.",
@@ -297,6 +307,11 @@ export const CATEGORY_STYLES = {
     border: "var(--cat-green-border)",
   },
   "Claude Code": {
+    color: "var(--cat-orange-text)",
+    bg: "var(--cat-orange-bg)",
+    border: "var(--cat-orange-border)",
+  },
+  "AI Tools": {
     color: "var(--cat-orange-text)",
     bg: "var(--cat-orange-bg)",
     border: "var(--cat-orange-border)",
