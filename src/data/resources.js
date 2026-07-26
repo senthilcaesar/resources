@@ -255,6 +255,16 @@ export const RESOURCES = [
     url: "https://firebase.google.com",
     color: "#417505",
   },
+  {
+    name: "Git Tutorial",
+    description:
+      "Official tutorial introducing the fundamental concepts and commands of Git version control.",
+    category: "Tutorials",
+    importance: "High",
+    tags: ["git", "vcs", "version control", "cli", "tutorial"],
+    url: "https://git-scm.com/docs/gittutorial",
+    color: "#7ED321",
+  },
 ];
 
 export const CATEGORY_ICONS = {
