@@ -265,6 +265,16 @@ export const RESOURCES = [
     url: "https://git-scm.com/docs/gittutorial",
     color: "#7ED321",
   },
+  {
+    name: "Machine Learning from scratch",
+    description:
+      "Free online book implementing core machine learning algorithms from scratch in Python.",
+    category: "Learning",
+    importance: "High",
+    tags: ["machine learning", "python", "book", "free"],
+    url: "https://dafriedman97.github.io/mlbook/content/introduction.html",
+    color: "#96A874",
+  },
 ];
 
 export const CATEGORY_ICONS = {
