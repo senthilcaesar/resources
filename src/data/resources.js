@@ -244,6 +244,8 @@ export const RESOURCES = [
     tags: ["ai", "markdown", "converter", "python", "llm"],
     url: "https://github.com/microsoft/markitdown",
     color: "#D97757",
+    installation: "pip install markitdown",
+    snippet: "from markitdown import MarkItDown\n\nmd = MarkItDown()\nresult = md.convert('document.pdf')\nprint(result.text_content)",
   },
   {
     name: "Firebase",
@@ -254,6 +256,8 @@ export const RESOURCES = [
     tags: ["backend", "auth", "database", "google"],
     url: "https://firebase.google.com",
     color: "#417505",
+    installation: "npm install firebase",
+    snippet: "import { initializeApp } from 'firebase/app';\nconst app = initializeApp({ apiKey: '...' });",
   },
   {
     name: "Git Tutorial",
@@ -264,6 +268,8 @@ export const RESOURCES = [
     tags: ["git", "vcs", "version control", "cli", "tutorial"],
     url: "https://git-scm.com/docs/gittutorial",
     color: "#7ED321",
+    installation: "git --version",
+    snippet: "git init\ngit add .\ngit commit -m 'Initial commit'\ngit status",
   },
   {
     name: "Machine Learning from scratch",
@@ -274,6 +280,19 @@ export const RESOURCES = [
     tags: ["machine learning", "python", "book", "free"],
     url: "https://dafriedman97.github.io/mlbook/content/introduction.html",
     color: "#96A874",
+    snippet: "# Linear Regression from scratch\nimport numpy as np\n\ndef fit(X, y):\n    return np.linalg.inv(X.T @ X) @ X.T @ y",
+  },
+  {
+    name: "GraphRAG",
+    description:
+      "Microsoft's graph-based Retrieval-Augmented Generation system for extracting structured knowledge graphs from unstructured text.",
+    category: "AI Tools",
+    importance: "High",
+    tags: ["ai", "rag", "graphrag", "knowledge-graph", "llm"],
+    url: "https://microsoft.github.io/graphrag/",
+    color: "#D97757",
+    installation: "pip install graphrag",
+    snippet: "python -m graphrag.init --root ./rag_demo\npython -m graphrag.index --root ./rag_demo\npython -m graphrag.query --root ./rag_demo --method global 'What is GraphRAG?'",
   },
 ];
 

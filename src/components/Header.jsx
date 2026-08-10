@@ -49,8 +49,10 @@ const Header = ({ searchQuery, setSearchQuery, theme, toggleTheme, onOpenTechSta
             />
             <Search size={18} className="search-icon-fixed" />
             <div className="search-controls">
+              {!searchQuery && <div className="cmd-k-hint">⌘K</div>}
               {searchQuery && (
                 <button 
+                  type="button"
                   onClick={() => setSearchQuery('')}
                   className="search-clear-btn"
                   title="Clear Search"
@@ -58,7 +60,6 @@ const Header = ({ searchQuery, setSearchQuery, theme, toggleTheme, onOpenTechSta
                   <X size={14} />
                 </button>
               )}
-              <div className="cmd-k-hint">⌘K</div>
             </div>
           </div>
         </div>

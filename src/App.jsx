@@ -2,16 +2,19 @@ import React, { useState, useEffect, useMemo } from "react";
 import Sidebar from "./components/Sidebar";
 import Header from "./components/Header";
 import TechStackModal from "./components/TechStackModal";
+import QuickPreviewModal from "./components/QuickPreviewModal";
 import { useColorMode } from "@chakra-ui/react";
 import TableCard from "./components/TableCard";
 import { RESOURCES } from "./data/resources";
 import { Terminal } from "lucide-react";
+import { AnimatePresence } from "framer-motion";
 
 function App() {
   const [searchQuery, setSearchQuery] = useState("");
   const [activeCategory, setActiveCategory] = useState("All");
   const [theme, setTheme] = useState("light");
   const [isTechStackOpen, setIsTechStackOpen] = useState(false);
+  const [selectedResource, setSelectedResource] = useState(null);
   const [viewMode, setViewMode] = useState("list");
   const [isSidebarOpen, setIsSidebarOpen] = useState(window.innerWidth > 1024);
 
@@ -104,7 +107,11 @@ function App() {
           </div>
 
           {filteredResources.length > 0 ? (
-            <TableCard resources={filteredResources} viewMode={viewMode} />
+            <TableCard
+              resources={filteredResources}
+              viewMode={viewMode}
+              onSelectResource={setSelectedResource}
+            />
           ) : (
             <div className="flex flex-col items-center justify-center py-40 text-center glass rounded-[40px] border-dashed">
               <div className="p-6 bg-white/5 rounded-full mb-6">
@@ -133,6 +140,15 @@ function App() {
           isOpen={isTechStackOpen}
           onClose={() => setIsTechStackOpen(false)}
         />
+
+        <AnimatePresence>
+          {selectedResource && (
+            <QuickPreviewModal
+              resource={selectedResource}
+              onClose={() => setSelectedResource(null)}
+            />
+          )}
+        </AnimatePresence>
       </div>
     </div>
   );

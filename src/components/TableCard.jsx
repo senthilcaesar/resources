@@ -21,7 +21,7 @@ const formatUrlParts = (rawUrl) => {
   }
 };
 
-const ResourceCard = ({ resource, viewMode, onCopy, copiedId }) => {
+const ResourceCard = ({ resource, viewMode, onCopy, copiedId, onSelectResource }) => {
   const isCopied = copiedId === resource.name;
   const formattedUrl = formatUrlParts(resource.url);
   const categoryStyle =
@@ -96,18 +96,16 @@ const ResourceCard = ({ resource, viewMode, onCopy, copiedId }) => {
           )}
         </a>
 
-        {resource.snippet && (
+        <div className='resource-actions'>
           <button
             type='button'
-            className='resource-snippet-preview'
-            onClick={() => onCopy(resource.snippet, resource.name)}
-            title='Copy snippet'
+            onClick={() => onSelectResource?.(resource)}
+            className='resource-icon-button'
+            title='Quick Preview & Code'
           >
-            <code>{resource.snippet}</code>
+            <LucideIcons.Eye size={16} />
           </button>
-        )}
 
-        <div className='resource-actions'>
           <button
             type='button'
             onClick={() =>
@@ -165,20 +163,31 @@ const ResourceCard = ({ resource, viewMode, onCopy, copiedId }) => {
           </a>
         </div>
 
-        <button
-          type='button'
-          onClick={() =>
-            onCopy(resource.snippet || resource.url, resource.name)
-          }
-          className={`resource-icon-button resource-copy-button ${isCopied ? 'is-copied' : ''}`}
-          title='Copy'
-        >
-          {isCopied ? (
-            <LucideIcons.Check size={18} />
-          ) : (
-            <LucideIcons.Copy size={18} />
-          )}
-        </button>
+        <div className='flex items-center gap-1'>
+          <button
+            type='button'
+            onClick={() => onSelectResource?.(resource)}
+            className='resource-icon-button'
+            title='Quick Preview & Code'
+          >
+            <LucideIcons.Eye size={16} />
+          </button>
+
+          <button
+            type='button'
+            onClick={() =>
+              onCopy(resource.snippet || resource.url, resource.name)
+            }
+            className={`resource-icon-button resource-copy-button ${isCopied ? 'is-copied' : ''}`}
+            title='Copy'
+          >
+            {isCopied ? (
+              <LucideIcons.Check size={18} />
+            ) : (
+              <LucideIcons.Copy size={18} />
+            )}
+          </button>
+        </div>
       </div>
 
       <p className='resource-description'>{resource.description}</p>
@@ -199,16 +208,6 @@ const ResourceCard = ({ resource, viewMode, onCopy, copiedId }) => {
         )}
       </a>
 
-      {resource.snippet && (
-        <div className='resource-snippet-box'>
-          <div className='resource-snippet-label'>
-            <LucideIcons.Terminal size={10} />
-            <span>Snippet</span>
-          </div>
-          <code>{resource.snippet}</code>
-        </div>
-      )}
-
       <div className='resource-grid-footer'>
         <div className='resource-tag-row'>
           {resource.tags.slice(0, 2).map((tag) => (
@@ -218,21 +217,23 @@ const ResourceCard = ({ resource, viewMode, onCopy, copiedId }) => {
           ))}
         </div>
 
-        <a
-          href={resource.url}
-          target='_blank'
-          rel='noopener noreferrer'
-          className='resource-icon-button'
-          title='Open link'
-        >
-          <LucideIcons.ExternalLink size={16} />
-        </a>
+        <div className='flex items-center gap-1'>
+          <a
+            href={resource.url}
+            target='_blank'
+            rel='noopener noreferrer'
+            className='resource-icon-button'
+            title='Open link'
+          >
+            <LucideIcons.ExternalLink size={16} />
+          </a>
+        </div>
       </div>
     </motion.article>
   );
 };
 
-const TableCard = ({ resources, viewMode }) => {
+const TableCard = ({ resources, viewMode, onSelectResource }) => {
   const [copiedId, setCopiedId] = useState(null);
 
   const handleCopy = (text, id) => {
@@ -251,6 +252,7 @@ const TableCard = ({ resources, viewMode }) => {
             viewMode={viewMode}
             onCopy={handleCopy}
             copiedId={copiedId}
+            onSelectResource={onSelectResource}
           />
         ))}
       </AnimatePresence>
@@ -259,3 +261,4 @@ const TableCard = ({ resources, viewMode }) => {
 };
 
 export default TableCard;
+
