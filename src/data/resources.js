@@ -294,6 +294,19 @@ export const RESOURCES = [
     installation: "pip install graphrag",
     snippet: "python -m graphrag.init --root ./rag_demo\npython -m graphrag.index --root ./rag_demo\npython -m graphrag.query --root ./rag_demo --method global 'What is GraphRAG?'",
   },
+  {
+    name: "SerpApi",
+    description:
+      "Real-time API to access search engine results from Google, Bing, Baidu, Yahoo, and more.",
+    category: "AI Tools",
+    importance: "High",
+    tags: ["api", "search", "scraping", "google", "serp", "ai"],
+    url: "https://serpapi.com/",
+    color: "#D97757",
+    installation: "pip install google-search-results",
+    snippet:
+      "from serpapi import GoogleSearch\n\nsearch = GoogleSearch({\"q\": \"Coffee\", \"api_key\": \"SECRET_KEY\"})\nresults = search.get_dict()",
+  },
 ];
 
 export const CATEGORY_ICONS = {
