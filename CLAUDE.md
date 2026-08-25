@@ -1,108 +1,64 @@
-# My Resources — Developer Guide
+# HyperVault Resources — Developer Guide
+
+HyperVault is a developer and AI resource knowledge hub built with React 18, Vite, Framer Motion, and custom CSS design tokens.
 
 ## Project Structure
 
 ```
 resources/
-├── index.html   # Single-file app (all HTML, CSS, and JS in one file)
-└── CLAUDE.md    # This guide
+├── src/
+│   ├── components/
+│   │   ├── BentoView.jsx            # 3D interactive bento cards with cursor spotlight
+│   │   ├── TerminalView.jsx         # Keyboard-first developer HUD telemetry mode
+│   │   ├── DenseTableView.jsx       # Sortable high-density data matrix
+│   │   ├── CommandPalette.jsx       # ⌘K / Ctrl+K Spotlight command modal
+│   │   ├── ResourceRouletteModal.jsx# Serendipitous tool discovery rolling dice
+│   │   ├── QuickPreviewModal.jsx    # Slide-over drawer with code snippets & related links
+│   │   ├── Header.jsx               # Sticky frosted navbar with view switcher & filters
+│   │   ├── Sidebar.jsx              # Category, priority, and multi-tag filter panel
+│   │   └── TechStackModal.jsx       # Project architecture information modal
+│   ├── data/
+│   │   └── resources.js             # Resources dataset, categories, icons, and helper methods
+│   ├── hooks/
+│   │   ├── useBackpack.js           # Bookmarks persistence (localStorage)
+│   │   └── useSoundEffects.js       # Web Audio API synthesizer chimes & sound toggles
+│   ├── App.jsx                      # Main application orchestrator and state machine
+│   ├── index.css                    # Design tokens for Cyber Nebula, Nordic, and Emerald themes
+│   └── main.jsx                     # Entry mount point
+├── index.html                       # HTML root with typography fonts
+└── package.json                     # Dependencies and scripts
 ```
 
-Everything lives in `index.html`. There are no build steps, dependencies to install, or servers to run. Open `index.html` directly in any modern browser.
+---
+
+## Interactive View Modes
+
+HyperVault features 3 switchable interactive views:
+1. **⚡ Bento Matrix (`viewMode: 'bento'`)**: Dynamic cards with interactive cursor spotlight glow, category accent halos, inline code indicators, and 1-click bookmarking.
+2. **💻 Terminal HUD (`viewMode: 'terminal'`)**: Developer HUD with full keyboard navigation (`j`/`k` to navigate, `Enter` to open, `Space` to inspect, `c` to copy, `b` to bookmark).
+3. **📊 Dense Data Table (`viewMode: 'table'`)**: High-density sortable table with multi-column sorting (Name, Category, Priority, Starred).
 
 ---
 
-## How to Update the RESOURCES Array
+## Key Shortcuts & Interactions
 
-The data source is the `RESOURCES` array near the top of the `<script>` block in `index.html`. Each entry is a JavaScript object:
+- **⌘K / Ctrl+K**: Open Spotlight Command Palette
+- **Roulette Button**: Roll the dice for a random tool discovery
+- **Backpack / Pin Star**: 1-click save to personal collection (persisted in `localStorage`)
+- **Sound Toggle**: Enable/disable subtle Web Audio synthesizer chimes
+- **Theme Switcher**: Cycle between *Cyber Nebula*, *Nordic Editorial*, and *Emerald Matrix*
 
-```js
-{
-  name:        "MDN Web Docs",           // Display title (string, required)
-  description: "The definitive ref…",   // Short 1-sentence blurb (string, required)
-  category:    "Documentation",          // Category string — used for filter pills
-  importance:  "High",                   // "High" | "Medium" | "Low" (case-sensitive)
-  tags:        ["html", "css", "js"],    // Array of lowercase tag strings
-  url:         "https://developer.mozilla.org"  // Full URL (https://...)
-}
+---
+
+## Development Scripts
+
+```bash
+# Start local development server
+npm run dev
+
+# Build production bundle
+npm run build
+
+# Preview production build
+npm run preview
 ```
-
-### Adding a Resource
-
-1. Open `index.html` in any text editor.
-2. Locate the `const RESOURCES = [` declaration inside the `<script>` tag.
-3. Append a new object inside the array, following the format above.
-4. Save the file and refresh the browser.
-
-### Adding a New Category
-
-Just use a new string in the `category` field. The filter pill will appear automatically.
-
-To assign a custom icon to a new category, add an entry to `CATEGORY_ICONS` (just below `RESOURCES`):
-
-```js
-const CATEGORY_ICONS = {
-  "My New Category": "star",   // Any Lucide icon name
-  ...
-};
-```
-
-Browse available icons at [lucide.dev](https://lucide.dev).
-
----
-
-## Color-Coding Logic
-
-### Importance Badges
-
-| Value    | Appearance                          | Icon         |
-|----------|-------------------------------------|--------------|
-| `High`   | Soft red background · dark red text | Pulsing dot  |
-| `Medium` | Soft amber background · brown text  | Minus circle |
-| `Low`    | Soft emerald background · green text| Check circle |
-
-Styles are defined by the CSS classes `.badge-high`, `.badge-medium`, and `.badge-low` in the `<style>` block. Both light and dark mode variants are included.
-
-### Tag Pills
-
-Tags cycle through 8 muted color slots (`tag-0` … `tag-7`), each defined with a low-saturation pastel background and matching text color. Once a tag is assigned a color slot, it stays consistent throughout the session (tracked via the `tagColorMap` object in JS).
-
-Colors used (light/dark variants for each):
-| Slot | Hue      |
-|------|----------|
-| 0    | Indigo   |
-| 1    | Emerald  |
-| 2    | Amber    |
-| 3    | Red      |
-| 4    | Violet   |
-| 5    | Sky      |
-| 6    | Pink     |
-| 7    | Orange   |
-
----
-
-## Search Logic
-
-The search bar uses a **multi-word fuzzy match** implementation:
-
-- Input is split by whitespace into individual words.
-- Every word must be present (as a substring) in a combined haystack of `name + description + category + tags`.
-- Matching is case-insensitive.
-- Results update in real-time on every keystroke.
-
----
-
-## Dark Mode
-
-Dark mode is toggled by the Sun/Moon button in the header. The preference is saved to `localStorage` and respected on the next page load. The OS-level `prefers-color-scheme` setting is used as the default when no preference has been saved yet.
-
----
-
-## Tech Stack
-
-| Technology     | Purpose                        | Source      |
-|----------------|--------------------------------|-------------|
-| Vanilla HTML/CSS/JS | UI, logic, styling       | Inline      |
-| Lucide Icons   | Icon set                       | CDN (`unpkg`) |
-| Inter Font     | Typography                     | Google Fonts |
-| CSS Custom Properties | Theming (light/dark)  | Inline `:root` |

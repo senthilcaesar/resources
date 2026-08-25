@@ -11,10 +11,26 @@ import {
   Sparkles,
   Layers,
   Code2,
+  Star,
+  ArrowRight,
+  Share2,
 } from 'lucide-react';
-import { CATEGORY_STYLES } from '../data/resources';
+import {
+  CATEGORY_STYLES,
+  getRelatedResources,
+  RESOURCES,
+} from '../data/resources';
 
-const QuickPreviewModal = ({ resource, onClose }) => {
+const QuickPreviewModal = ({
+  resource,
+  onClose,
+  onSelectResource,
+  isBookmarked,
+  onToggleBookmark,
+  onTagClick,
+  playClick,
+  playSuccess,
+}) => {
   const [activeTab, setActiveTab] = useState('snippet');
   const [copiedField, setCopiedField] = useState(null);
 
@@ -30,6 +46,9 @@ const QuickPreviewModal = ({ resource, onClose }) => {
 
   if (!resource) return null;
 
+  const isPinned = isBookmarked ? isBookmarked(resource.name) : false;
+  const related = getRelatedResources(resource, RESOURCES, 3);
+
   const categoryStyle =
     CATEGORY_STYLES[resource.category] || CATEGORY_STYLES.Default;
   const categoryVars = {
@@ -41,6 +60,7 @@ const QuickPreviewModal = ({ resource, onClose }) => {
   const handleCopy = (text, fieldName) => {
     navigator.clipboard.writeText(text);
     setCopiedField(fieldName);
+    if (playSuccess) playSuccess();
     setTimeout(() => setCopiedField(null), 2000);
   };
 
@@ -49,14 +69,14 @@ const QuickPreviewModal = ({ resource, onClose }) => {
     `// ${resource.name}\n// ${resource.description}\n\n// Visit: ${resource.url}`;
 
   return (
-    <div className="drawer-overlay-wrapper">
+    <div className='drawer-overlay-wrapper'>
       {/* Backdrop */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
         transition={{ duration: 0.2 }}
-        className="drawer-backdrop"
+        className='drawer-backdrop'
         onClick={onClose}
       />
 
@@ -65,44 +85,55 @@ const QuickPreviewModal = ({ resource, onClose }) => {
         initial={{ x: '100%' }}
         animate={{ x: 0 }}
         exit={{ x: '100%' }}
-        transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-        className="drawer-panel"
+        transition={{ type: 'spring', damping: 28, stiffness: 300 }}
+        className='drawer-panel'
         style={categoryVars}
       >
         {/* Header */}
-        <div className="drawer-header">
-          <div className="drawer-header-content">
-            <div className="flex items-center gap-2 mb-2">
-              <span className="drawer-category-pill">
-                {resource.category}
-              </span>
-              <span
-                className={`drawer-importance-pill badge-${(
-                  resource.importance || 'medium'
-                ).toLowerCase()}`}
-              >
-                {resource.importance || 'Medium'} Priority
-              </span>
+        <div className='drawer-header'>
+          <div className='drawer-header-content'>
+            <div className='flex items-center gap-2 mb-2'>
+              <span className='drawer-category-pill'>{resource.category}</span>
             </div>
-            <h2 className="drawer-title">{resource.name}</h2>
+            <h2 className='drawer-title'>{resource.name}</h2>
           </div>
-          <button
-            onClick={onClose}
-            className="drawer-close-button"
-            title="Close (Esc)"
-            type="button"
-          >
-            <X size={20} />
-          </button>
+
+          <div className='flex items-center gap-1.5'>
+            {onToggleBookmark && (
+              <button
+                type='button'
+                onClick={() => {
+                  onToggleBookmark(resource.name);
+                  if (playClick) playClick();
+                }}
+                className={`drawer-icon-btn ${isPinned ? 'is-active' : ''}`}
+                title={isPinned ? 'Remove from Backpack' : 'Add to Backpack'}
+              >
+                <Star
+                  size={18}
+                  className={isPinned ? 'fill-amber-400 text-amber-400' : ''}
+                />
+              </button>
+            )}
+
+            <button
+              onClick={onClose}
+              className='drawer-close-button'
+              title='Close (Esc)'
+              type='button'
+            >
+              <X size={20} />
+            </button>
+          </div>
         </div>
 
         {/* Quick Info Bar */}
-        <div className="drawer-url-bar">
+        <div className='drawer-url-bar'>
           <a
             href={resource.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="drawer-url-link"
+            target='_blank'
+            rel='noopener noreferrer'
+            className='drawer-url-link'
           >
             <span>{resource.url}</span>
             <ExternalLink size={14} />
@@ -110,44 +141,50 @@ const QuickPreviewModal = ({ resource, onClose }) => {
         </div>
 
         {/* Navigation Tabs */}
-        <div className="drawer-tabs">
+        <div className='drawer-tabs'>
           <button
-            type="button"
+            type='button'
             className={`drawer-tab ${activeTab === 'snippet' ? 'is-active' : ''}`}
-            onClick={() => setActiveTab('snippet')}
+            onClick={() => {
+              setActiveTab('snippet');
+              if (playClick) playClick();
+            }}
           >
             <Code2 size={15} />
-            <span>Quick Code</span>
+            <span>Code & Snippet</span>
           </button>
           <button
-            type="button"
+            type='button'
             className={`drawer-tab ${activeTab === 'overview' ? 'is-active' : ''}`}
-            onClick={() => setActiveTab('overview')}
+            onClick={() => {
+              setActiveTab('overview');
+              if (playClick) playClick();
+            }}
           >
             <BookOpen size={15} />
-            <span>Overview</span>
+            <span>Details & Related</span>
           </button>
         </div>
 
         {/* Body Content */}
-        <div className="drawer-body">
+        <div className='drawer-body'>
           {activeTab === 'snippet' && (
-            <div className="drawer-tab-content">
+            <div className='drawer-tab-content'>
               {resource.installation && (
-                <div className="snippet-section">
-                  <div className="snippet-section-header">
+                <div className='snippet-section'>
+                  <div className='snippet-section-header'>
                     <Terminal size={14} />
-                    <span>Installation</span>
+                    <span>CLI Command / Package</span>
                     <button
-                      type="button"
+                      type='button'
                       onClick={() =>
                         handleCopy(resource.installation, 'install')
                       }
-                      className="snippet-copy-btn"
+                      className='snippet-copy-btn'
                     >
                       {copiedField === 'install' ? (
                         <>
-                          <Check size={13} />
+                          <Check size={13} className='text-emerald-400' />
                           <span>Copied</span>
                         </>
                       ) : (
@@ -158,24 +195,24 @@ const QuickPreviewModal = ({ resource, onClose }) => {
                       )}
                     </button>
                   </div>
-                  <pre className="snippet-code-block">
+                  <pre className='snippet-code-block'>
                     <code>{resource.installation}</code>
                   </pre>
                 </div>
               )}
 
-              <div className="snippet-section">
-                <div className="snippet-section-header">
+              <div className='snippet-section'>
+                <div className='snippet-section-header'>
                   <Sparkles size={14} />
-                  <span>Quick Code & Usage</span>
+                  <span>Code Synopsis & Example</span>
                   <button
-                    type="button"
+                    type='button'
                     onClick={() => handleCopy(codeSnippetText, 'snippet')}
-                    className="snippet-copy-btn"
+                    className='snippet-copy-btn'
                   >
                     {copiedField === 'snippet' ? (
                       <>
-                        <Check size={13} />
+                        <Check size={13} className='text-emerald-400' />
                         <span>Copied</span>
                       </>
                     ) : (
@@ -186,7 +223,7 @@ const QuickPreviewModal = ({ resource, onClose }) => {
                     )}
                   </button>
                 </div>
-                <pre className="snippet-code-block">
+                <pre className='snippet-code-block'>
                   <code>{codeSnippetText}</code>
                 </pre>
               </div>
@@ -194,66 +231,79 @@ const QuickPreviewModal = ({ resource, onClose }) => {
           )}
 
           {activeTab === 'overview' && (
-            <div className="drawer-tab-content">
-              <div className="overview-section">
-                <h4 className="overview-subtitle">Description</h4>
-                <p className="overview-description">{resource.description}</p>
+            <div className='drawer-tab-content'>
+              <div className='overview-section'>
+                <h4 className='overview-subtitle'>About this Resource</h4>
+                <p className='overview-description'>{resource.description}</p>
               </div>
 
-              <div className="overview-section">
-                <h4 className="overview-subtitle flex items-center gap-1.5">
+              <div className='overview-section'>
+                <h4 className='overview-subtitle flex items-center gap-1.5'>
                   <Tag size={14} />
-                  <span>Tags</span>
+                  <span>Tags & Topics</span>
                 </h4>
-                <div className="drawer-tags-container">
+                <div className='drawer-tags-container'>
                   {resource.tags.map((tag) => (
-                    <span key={tag} className="drawer-tag-chip">
+                    <button
+                      key={tag}
+                      type='button'
+                      onClick={() => {
+                        onTagClick?.(tag);
+                        onClose();
+                      }}
+                      className='drawer-tag-chip clickable'
+                    >
                       #{tag}
-                    </span>
+                    </button>
                   ))}
                 </div>
               </div>
 
-              <div className="overview-section">
-                <h4 className="overview-subtitle flex items-center gap-1.5">
-                  <Layers size={14} />
-                  <span>Resource Details</span>
-                </h4>
-                <div className="drawer-meta-grid">
-                  <div className="drawer-meta-item">
-                    <span className="drawer-meta-label">Category</span>
-                    <span className="drawer-meta-value">
-                      {resource.category}
-                    </span>
-                  </div>
-                  <div className="drawer-meta-item">
-                    <span className="drawer-meta-label">Importance</span>
-                    <span className="drawer-meta-value">
-                      {resource.importance || 'Medium'}
-                    </span>
-                  </div>
-                  <div className="drawer-meta-item">
-                    <span className="drawer-meta-label">Target URL</span>
-                    <span className="drawer-meta-value text-ellipsis overflow-hidden">
-                      {resource.url}
-                    </span>
+              {/* Related Resources Network */}
+              {related.length > 0 && (
+                <div className='overview-section'>
+                  <h4 className='overview-subtitle flex items-center gap-1.5'>
+                    <Sparkles size={14} className='text-accent' />
+                    <span>Related Discoveries in Vault</span>
+                  </h4>
+                  <div className='drawer-related-list'>
+                    {related.map((item) => (
+                      <div
+                        key={item.name}
+                        onClick={() => {
+                          onSelectResource?.(item);
+                          if (playClick) playClick();
+                        }}
+                        className='drawer-related-card'
+                      >
+                        <div className='flex items-center justify-between gap-1 mb-1'>
+                          <span className='drawer-related-title'>
+                            {item.name}
+                          </span>
+                          <ArrowRight size={13} className='text-dim' />
+                        </div>
+                        <p className='drawer-related-desc'>
+                          {item.description}
+                        </p>
+                      </div>
+                    ))}
                   </div>
                 </div>
-              </div>
+              )}
             </div>
           )}
         </div>
 
         {/* Footer Actions */}
-        <div className="drawer-footer">
+        <div className='drawer-footer'>
           <button
-            type="button"
+            type='button'
             onClick={() => handleCopy(resource.url, 'url')}
-            className="drawer-footer-btn secondary"
+            className='drawer-footer-btn secondary'
           >
             {copiedField === 'url' ? (
               <>
-                <Check size={16} />
+                <Check size={16} className='text-emerald-400' />
                 <span>Link Copied</span>
               </>
             ) : (
@@ -266,11 +316,11 @@ const QuickPreviewModal = ({ resource, onClose }) => {
 
           <a
             href={resource.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="drawer-footer-btn primary"
+            target='_blank'
+            rel='noopener noreferrer'
+            className='drawer-footer-btn primary'
           >
-            <span>Visit Resource</span>
+            <span>Launch External</span>
             <ExternalLink size={16} />
           </a>
         </div>
