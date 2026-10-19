@@ -286,6 +286,16 @@ export const RESOURCES = [
       '# Linear Regression from scratch\nimport numpy as np\n\ndef fit(X, y):\n    return np.linalg.inv(X.T @ X) @ X.T @ y',
   },
   {
+    name: 'HBS Best-Selling Case Studies',
+    description:
+      'Harvard Business Publishing collection of best-selling business case studies across disciplines.',
+    category: 'Learning',
+    importance: 'High',
+    tags: ['business', 'case studies', 'harvard', 'management', 'strategy'],
+    url: 'https://www.hbsp.harvard.edu/catalog/collections/best-selling-cases-across-disciplines',
+    color: '#96A874',
+  },
+  {
     name: 'GraphRAG',
     description:
       "Microsoft's graph-based Retrieval-Augmented Generation system for extracting structured knowledge graphs from unstructured text.",
