@@ -296,6 +296,16 @@ export const RESOURCES = [
     color: '#96A874',
   },
   {
+    name: 'WALLET-RX',
+    description:
+      'Enterprise B2B sales field guide: curated books, episodes, talks and practitioners for complex enterprise selling.',
+    category: 'Learning',
+    importance: 'High',
+    tags: ['sales', 'b2b', 'enterprise', 'business', 'field guide'],
+    url: 'https://wallet-rx.tarentoinitiatives.com/',
+    color: '#96A874',
+  },
+  {
     name: 'GraphRAG',
     description:
       "Microsoft's graph-based Retrieval-Augmented Generation system for extracting structured knowledge graphs from unstructured text.",
