@@ -49,6 +49,36 @@ export const RESOURCES = [
     color: '#D97757',
   },
   {
+    name: 'Claude Articles',
+    description:
+      'News, announcements, and stories from Anthropic about Claude and the people building with it.',
+    category: 'Claude Code',
+    importance: 'High',
+    tags: ['ai', 'claude', 'anthropic', 'articles'],
+    url: 'https://claude.com/resources/articles',
+    color: '#D97757',
+  },
+  {
+    name: 'claude.dev Blog',
+    description:
+      "Articles, videos, and build logs from Anthropic's developers on building with Claude and Claude Code.",
+    category: 'Claude Code',
+    importance: 'High',
+    tags: ['ai', 'claude code', 'blog', 'developers'],
+    url: 'https://claude.dev/',
+    color: '#D97757',
+  },
+  {
+    name: 'LangChain Blog',
+    description:
+      'Posts from the LangChain team on building LLM apps and agents with LangChain and LangGraph.',
+    category: 'AI Workflow',
+    importance: 'High',
+    tags: ['ai', 'langchain', 'agents', 'llm', 'blog'],
+    url: 'https://www.langchain.com/blog',
+    color: '#D97757',
+  },
+  {
     name: 'A lightweight spec-driven framework',
     description: 'A lightweight spec-driven framework by Fission AI',
     category: 'AI Workflow',
