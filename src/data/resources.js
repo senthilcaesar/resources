@@ -108,6 +108,16 @@ export const RESOURCES = [
     color: '#F5A623',
   },
   {
+    name: 'Stanford Law AI Initiative',
+    description:
+      'Stanford Law School research, teaching, and policy work on AI, law, and governance.',
+    category: 'AI Education',
+    importance: 'High',
+    tags: ['ai', 'law', 'stanford', 'policy', 'governance'],
+    url: 'https://law.stanford.edu/ai-initiative/',
+    color: '#F5A623',
+  },
+  {
     name: 'Object-Oriented Programming in Python',
     description: 'Object-Oriented Programming in Python.',
     category: 'Python',
