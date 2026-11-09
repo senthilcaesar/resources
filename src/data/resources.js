@@ -336,6 +336,16 @@ export const RESOURCES = [
     color: '#96A874',
   },
   {
+    name: 'Harvard University Press',
+    description:
+      'The scholarly publishing house of Harvard University, with a catalog of academic and general-interest books.',
+    category: 'Learning',
+    importance: 'High',
+    tags: ['books', 'harvard', 'academic', 'publishing', 'research'],
+    url: 'https://www.hup.harvard.edu/',
+    color: '#96A874',
+  },
+  {
     name: 'WALLET-RX',
     description:
       'Enterprise B2B sales field guide: curated books, episodes, talks and practitioners for complex enterprise selling.',
