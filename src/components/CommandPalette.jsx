@@ -8,7 +8,6 @@ import {
   Moon,
   Sun,
   Compass,
-  Terminal,
   LayoutGrid,
   Table,
   ExternalLink,
@@ -64,17 +63,6 @@ export default function CommandPalette({
       icon: LayoutGrid,
       action: () => {
         setActiveView('bento');
-        onClose();
-      },
-    },
-    {
-      id: 'view-terminal',
-      type: 'action',
-      title: 'Switch to Terminal HUD Mode',
-      subtitle: 'Keyboard-first hacker telemetry view',
-      icon: Terminal,
-      action: () => {
-        setActiveView('terminal');
         onClose();
       },
     },

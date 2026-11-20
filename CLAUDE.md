@@ -9,7 +9,6 @@ resources/
 ├── src/
 │   ├── components/
 │   │   ├── BentoView.jsx            # 3D interactive bento cards with cursor spotlight
-│   │   ├── TerminalView.jsx         # Keyboard-first developer HUD telemetry mode
 │   │   ├── DenseTableView.jsx       # Sortable high-density data matrix
 │   │   ├── CommandPalette.jsx       # ⌘K / Ctrl+K Spotlight command modal
 │   │   ├── ResourceRouletteModal.jsx# Serendipitous tool discovery rolling dice
@@ -23,7 +22,7 @@ resources/
 │   │   ├── useBackpack.js           # Bookmarks persistence (localStorage)
 │   │   └── useSoundEffects.js       # Web Audio API synthesizer chimes & sound toggles
 │   ├── App.jsx                      # Main application orchestrator and state machine
-│   ├── index.css                    # Design tokens for Cyber Nebula, Nordic, and Emerald themes
+│   ├── index.css                    # Design tokens for the Dark, Nordic (light), and Emerald themes
 │   └── main.jsx                     # Entry mount point
 ├── index.html                       # HTML root with typography fonts
 └── package.json                     # Dependencies and scripts
@@ -33,20 +32,18 @@ resources/
 
 ## Interactive View Modes
 
-HyperVault features 3 switchable interactive views:
+HyperVault features 2 switchable interactive views:
 1. **⚡ Bento Matrix (`viewMode: 'bento'`)**: Dynamic cards with interactive cursor spotlight glow, category accent halos, inline code indicators, and 1-click bookmarking.
-2. **💻 Terminal HUD (`viewMode: 'terminal'`)**: Developer HUD with full keyboard navigation (`j`/`k` to navigate, `Enter` to open, `Space` to inspect, `c` to copy, `b` to bookmark).
-3. **📊 Dense Data Table (`viewMode: 'table'`)**: High-density sortable table with multi-column sorting (Name, Category, Priority, Starred).
+2. **📊 Dense Data Table (`viewMode: 'table'`)**: High-density sortable table with multi-column sorting (Name, Category, Priority, Starred).
 
 ---
 
 ## Key Shortcuts & Interactions
 
 - **⌘K / Ctrl+K**: Open Spotlight Command Palette
-- **Roulette Button**: Roll the dice for a random tool discovery
+- **Resource Roulette**: Roll the dice for a random tool discovery (from the ⌘K palette)
 - **Backpack / Pin Star**: 1-click save to personal collection (persisted in `localStorage`)
-- **Sound Toggle**: Enable/disable subtle Web Audio synthesizer chimes
-- **Theme Switcher**: Cycle between *Cyber Nebula*, *Nordic Editorial*, and *Emerald Matrix*
+- **Theme Toggle**: Switch between *Dark* (charcoal and cyan, matching knowledgelab) and *Light* (*Nordic Editorial*)
 
 ---
 

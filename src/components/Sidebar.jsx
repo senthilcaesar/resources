@@ -4,9 +4,9 @@ import {
   Tag,
   Filter,
   RotateCcw,
-  Star,
   CheckCircle2,
   Sparkles,
+  ChevronLeft,
 } from 'lucide-react';
 import * as LucideIcons from 'lucide-react';
 import { CATEGORY_ICONS, CATEGORY_STYLES } from '../data/resources';
@@ -21,7 +21,6 @@ const Sidebar = ({
   setSelectedTags,
   showOnlyBookmarks,
   setShowOnlyBookmarks,
-  bookmarkCount,
   isOpen,
   onClose,
   onHomeClick,
@@ -111,35 +110,21 @@ const Sidebar = ({
               <span>Reset</span>
             </button>
           )}
+          <button
+            type='button'
+            onClick={() => {
+              onClose();
+              if (playClick) playClick();
+            }}
+            className='sidebar-collapse-btn'
+            aria-label='Collapse Filter Sidebar'
+            title='Collapse Filter Sidebar'
+          >
+            <ChevronLeft size={16} />
+          </button>
         </div>
 
         <div className='sidebar-scroll-area'>
-          {/* Bookmarks Quick Tab */}
-          <div className='sidebar-section'>
-            <div
-              className={`nav-item bookmark-tab ${showOnlyBookmarks ? 'active' : ''}`}
-              onClick={() => {
-                setShowOnlyBookmarks(!showOnlyBookmarks);
-                if (playClick) playClick();
-              }}
-            >
-              <div className='nav-item-icon'>
-                <Star
-                  size={16}
-                  className={
-                    showOnlyBookmarks || bookmarkCount > 0
-                      ? 'fill-amber-400 text-amber-400'
-                      : ''
-                  }
-                />
-              </div>
-              <span className='nav-item-text font-medium'>
-                My Backpack / Pinned
-              </span>
-              <span className='nav-item-count'>{bookmarkCount}</span>
-            </div>
-          </div>
-
           {/* Categories Section */}
           <div className='sidebar-section'>
             <div className='nav-label'>Categories</div>

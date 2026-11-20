@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
-  Eye,
   Copy,
   Check,
   ExternalLink,
@@ -110,19 +109,6 @@ function BentoCard({
               size={16}
               className={isPinned ? 'fill-amber-400 text-amber-400' : ''}
             />
-          </button>
-
-          <button
-            type='button'
-            onClick={(e) => {
-              e.stopPropagation();
-              onSelectResource(resource);
-              if (playClick) playClick();
-            }}
-            className='bento-icon-btn'
-            title='Inspect Details & Code'
-          >
-            <Eye size={16} />
           </button>
         </div>
       </div>

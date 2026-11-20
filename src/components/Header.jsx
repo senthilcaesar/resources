@@ -6,14 +6,9 @@ import {
   Sparkles,
   LayoutGrid,
   Table,
-  Terminal,
   Compass,
-  Dice5,
   Star,
-  Volume2,
-  VolumeX,
   Settings,
-  ChevronLeft,
   ChevronRight,
   X,
   Palette,
@@ -29,14 +24,10 @@ const Header = ({
   setViewMode,
   onToggleSidebar,
   isSidebarOpen,
-  resourceCount,
-  onOpenRoulette,
   onOpenCommandPalette,
   bookmarkCount,
   showOnlyBookmarks,
   setShowOnlyBookmarks,
-  soundEnabled,
-  toggleSound,
   playClick,
 }) => {
   const searchInputRef = useRef(null);
@@ -44,24 +35,22 @@ const Header = ({
   return (
     <header className='header'>
       <div className='header-left'>
-        <button
-          onClick={() => {
-            onToggleSidebar();
-            if (playClick) playClick();
-          }}
-          className='header-action-btn'
-          aria-label='Toggle Sidebar'
-          title={
-            isSidebarOpen ? 'Collapse Filter Sidebar' : 'Expand Filter Sidebar'
-          }
-        >
-          {isSidebarOpen ? (
-            <ChevronLeft size={18} />
-          ) : (
+        {!isSidebarOpen && (
+          <button
+            onClick={() => {
+              onToggleSidebar();
+              if (playClick) playClick();
+            }}
+            className='header-action-btn'
+            aria-label='Expand Filter Sidebar'
+            title='Expand Filter Sidebar'
+          >
             <ChevronRight size={18} />
-          )}
-        </button>
+          </button>
+        )}
+      </div>
 
+      <div className='header-center'>
         {/* Global Search Bar */}
         <div className='search-container'>
           <div className='search-input-wrapper'>
@@ -98,12 +87,6 @@ const Header = ({
             </div>
           </div>
         </div>
-
-        {/* Active Resource Count Pill */}
-        <div className='header-count-badge' title='Matching Resources'>
-          <span className='header-count-num'>{resourceCount}</span>
-          <span className='header-count-text hidden-mobile'>Items</span>
-        </div>
       </div>
 
       <div className='header-right'>
@@ -123,18 +106,6 @@ const Header = ({
 
           <button
             onClick={() => {
-              setViewMode('terminal');
-              if (playClick) playClick();
-            }}
-            className={`view-mode-pill ${viewMode === 'terminal' ? 'active' : ''}`}
-            title='Developer HUD / Keyboard Terminal'
-          >
-            <Terminal size={15} />
-            <span className='hidden-tablet'>Terminal</span>
-          </button>
-
-          <button
-            onClick={() => {
               setViewMode('table');
               if (playClick) playClick();
             }}
@@ -145,19 +116,6 @@ const Header = ({
             <span className='hidden-tablet'>Table</span>
           </button>
         </div>
-
-        {/* Serendipity Roulette Button */}
-        <button
-          onClick={() => {
-            onOpenRoulette();
-            if (playClick) playClick();
-          }}
-          className='header-roulette-btn'
-          title='Resource Roulette: Discover a Random Gem'
-        >
-          <Dice5 size={17} className='text-accent' />
-          <span className='hidden-mobile font-medium text-xs'>Roulette</span>
-        </button>
 
         {/* Saved Backpack Filter Toggle */}
         <button
@@ -177,24 +135,6 @@ const Header = ({
             }
           />
           <span className='header-backpack-count'>{bookmarkCount}</span>
-        </button>
-
-        {/* Sound FX Toggle */}
-        <button
-          onClick={() => {
-            toggleSound();
-            if (playClick) playClick();
-          }}
-          className='header-action-btn'
-          title={
-            soundEnabled ? 'Audio Effects: Enabled' : 'Audio Effects: Muted'
-          }
-        >
-          {soundEnabled ? (
-            <Volume2 size={17} className='text-accent' />
-          ) : (
-            <VolumeX size={17} className='text-dim' />
-          )}
         </button>
 
         {/* Theme Toggle */}

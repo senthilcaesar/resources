@@ -1,26 +1,11 @@
-import { useState, useEffect, useCallback, useRef } from 'react';
-
-const SOUND_ENABLED_KEY = 'hypervault_sound_enabled';
+import { useState, useCallback, useRef } from 'react';
 
 export function useSoundEffects() {
-  const [soundEnabled, setSoundEnabled] = useState(() => {
-    try {
-      const saved = localStorage.getItem(SOUND_ENABLED_KEY);
-      return saved !== null ? JSON.parse(saved) : true;
-    } catch {
-      return true;
-    }
-  });
+  // Sound effects are off: the header no longer has a mute toggle, so they
+  // would otherwise play for every visitor with no way to silence them.
+  const [soundEnabled, setSoundEnabled] = useState(false);
 
   const audioCtxRef = useRef(null);
-
-  useEffect(() => {
-    try {
-      localStorage.setItem(SOUND_ENABLED_KEY, JSON.stringify(soundEnabled));
-    } catch {
-      // ignore
-    }
-  }, [soundEnabled]);
 
   const getAudioContext = useCallback(() => {
     if (!audioCtxRef.current && typeof window !== 'undefined') {

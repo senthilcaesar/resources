@@ -3,7 +3,7 @@ export const RESOURCES = [
     name: 'Forward Deployed Engineer',
     description:
       "Anthropic's partner learning path for forward deployed engineers building and shipping Claude solutions with customers.",
-    category: 'Tutorials',
+    category: 'Claude & Anthropic',
     importance: 'High',
     tags: ['claude', 'anthropic', 'fde', 'partners', 'learning path'],
     url: 'https://anthropic-partners.skilljar.com/path/claude-fde',
@@ -13,7 +13,7 @@ export const RESOURCES = [
     name: 'DataLemur SQL Tutorial',
     description:
       'Free interactive SQL tutorial with practice questions from real interviews.',
-    category: 'Learning',
+    category: 'Programming',
     importance: 'High',
     tags: ['sql', 'database', 'interview', 'practice'],
     url: 'https://datalemur.com/sql-tutorial',
@@ -23,7 +23,7 @@ export const RESOURCES = [
     name: 'The Odin Project',
     description:
       'Free full-stack web development curriculum with hands-on projects.',
-    category: 'Learning',
+    category: 'Programming',
     importance: 'High',
     tags: ['web', 'fullstack', 'curriculum', 'free'],
     url: 'https://www.theodinproject.com/',
@@ -33,7 +33,7 @@ export const RESOURCES = [
     name: 'The Missing Semester of Your CS Education',
     description:
       'MIT course covering the command line, Git, editors, and other essential developer tools.',
-    category: 'Learning',
+    category: 'Programming',
     importance: 'High',
     tags: ['cli', 'git', 'tools', 'mit'],
     url: 'https://missing.csail.mit.edu/',
@@ -43,26 +43,17 @@ export const RESOURCES = [
     name: 'Neural Networks and Deep Learning',
     description:
       'Free online book by Michael Nielsen explaining the core ideas of neural networks and deep learning.',
-    category: 'Learning',
+    category: 'AI & Machine Learning',
     importance: 'High',
     tags: ['neural networks', 'deep learning', 'ai', 'book', 'free'],
     url: 'http://neuralnetworksanddeeplearning.com/index.html',
     color: '#96A874',
   },
   {
-    name: 'Claude Code Blog',
-    description: 'Claude Code Blog.',
-    category: 'Claude Code',
-    importance: 'High',
-    tags: ['ai', 'claude code', 'blog'],
-    url: 'https://claude.com/blog',
-    color: '#D97757',
-  },
-  {
     name: 'Claude Articles',
     description:
       'News, announcements, and stories from Anthropic about Claude and the people building with it.',
-    category: 'Claude Code',
+    category: 'Claude & Anthropic',
     importance: 'High',
     tags: ['ai', 'claude', 'anthropic', 'articles'],
     url: 'https://claude.com/resources/articles',
@@ -72,7 +63,7 @@ export const RESOURCES = [
     name: 'claude.dev Blog',
     description:
       "Articles, videos, and build logs from Anthropic's developers on building with Claude and Claude Code.",
-    category: 'Claude Code',
+    category: 'Claude & Anthropic',
     importance: 'High',
     tags: ['ai', 'claude code', 'blog', 'developers'],
     url: 'https://claude.dev/',
@@ -82,7 +73,7 @@ export const RESOURCES = [
     name: 'LangChain Blog',
     description:
       'Posts from the LangChain team on building LLM apps and agents with LangChain and LangGraph.',
-    category: 'AI Workflow',
+    category: 'AI & Machine Learning',
     importance: 'High',
     tags: ['ai', 'langchain', 'agents', 'llm', 'blog'],
     url: 'https://www.langchain.com/blog',
@@ -91,7 +82,7 @@ export const RESOURCES = [
   {
     name: 'A lightweight spec-driven framework',
     description: 'A lightweight spec-driven framework by Fission AI',
-    category: 'AI Workflow',
+    category: 'AI & Machine Learning',
     importance: 'High',
     tags: ['ai', 'workflow', 'spec'],
     url: 'https://openspec.dev/',
@@ -101,7 +92,7 @@ export const RESOURCES = [
     name: 'arena.ai Leaderboard',
     description:
       'See how leading AI models stack up across text, image, vision, and more',
-    category: 'AI Education',
+    category: 'AI & Machine Learning',
     importance: 'High',
     tags: ['ai', 'leaderboard', 'models'],
     url: 'https://arena.ai/leaderboard/',
@@ -111,7 +102,7 @@ export const RESOURCES = [
     name: 'Massachusetts AI Hub',
     description:
       'Resources for AI training and workforce development in Massachusetts.',
-    category: 'AI Education',
+    category: 'AI & Machine Learning',
     importance: 'High',
     tags: ['ai', 'boston', 'workforce', 'massachusetts'],
     url: 'https://aihub.masstech.org/',
@@ -121,7 +112,7 @@ export const RESOURCES = [
     name: 'Stanford Law AI Initiative',
     description:
       'Stanford Law School research, teaching, and policy work on AI, law, and governance.',
-    category: 'AI Education',
+    category: 'AI & Machine Learning',
     importance: 'High',
     tags: ['ai', 'law', 'stanford', 'policy', 'governance'],
     url: 'https://law.stanford.edu/ai-initiative/',
@@ -130,7 +121,7 @@ export const RESOURCES = [
   {
     name: 'Object-Oriented Programming in Python',
     description: 'Object-Oriented Programming in Python.',
-    category: 'Python',
+    category: 'Programming',
     importance: 'Medium',
     tags: ['python', 'oop', 'programming'],
     url: 'https://realpython.com/python3-object-oriented-programming/',
@@ -139,7 +130,7 @@ export const RESOURCES = [
   {
     name: 'Signal Awards',
     description: 'Recognize the best podcast being made today.',
-    category: 'Podcasts',
+    category: 'Business & Media',
     importance: 'Medium',
     tags: ['podcasts', 'awards'],
     url: 'https://signalaward.com/',
@@ -148,7 +139,7 @@ export const RESOURCES = [
   {
     name: 'Prompting guide 101',
     description: 'How to write effective prompts.',
-    category: 'Tutorials',
+    category: 'AI & Machine Learning',
     importance: 'High',
     tags: ['prompts', 'ai', 'llm'],
     url: 'https://workspace.google.com/resources/ai/writing-effective-prompts/',
@@ -157,7 +148,7 @@ export const RESOURCES = [
   {
     name: 'Learn Prompting',
     description: 'Prompt Engineering Guide.',
-    category: 'Tutorials',
+    category: 'AI & Machine Learning',
     importance: 'High',
     tags: ['prompts', 'ai', 'llm'],
     url: 'https://learnprompting.org/docs/introduction',
@@ -166,7 +157,7 @@ export const RESOURCES = [
   {
     name: "AI for Professionals Who Don't Code",
     description: "AI for Professionals Who Don't Code.",
-    category: 'Claude Code',
+    category: 'Claude & Anthropic',
     importance: 'High',
     tags: ['ai', 'professional', 'code'],
     url: 'https://claudeblattman.com/',
@@ -175,7 +166,7 @@ export const RESOURCES = [
   {
     name: 'Anthropic Academy',
     description: 'Learn about Claude and how to use it effectively.',
-    category: 'Tutorials',
+    category: 'Claude & Anthropic',
     importance: 'High',
     tags: ['prompts', 'agents', 'llm'],
     url: 'https://anthropic.skilljar.com/',
@@ -185,7 +176,7 @@ export const RESOURCES = [
   {
     name: 'Lucide Icons',
     description: 'Beautiful & consistent open-source icon set for the web.',
-    category: 'Design',
+    category: 'Dev & Design Tools',
     importance: 'Medium',
     tags: ['icons', 'svg', 'design', 'ui'],
     url: 'https://lucide.dev',
@@ -195,7 +186,7 @@ export const RESOURCES = [
     name: 'Supabase',
     description:
       'Open-source Firebase alternative with Postgres, auth, and storage.',
-    category: 'Backend',
+    category: 'Dev & Design Tools',
     importance: 'High',
     tags: ['database', 'backend', 'postgres', 'auth'],
     url: 'https://supabase.com',
@@ -204,7 +195,7 @@ export const RESOURCES = [
   {
     name: 'Vercel',
     description: 'Deploy frontend projects instantly with zero configuration.',
-    category: 'Deployment',
+    category: 'Dev & Design Tools',
     importance: 'High',
     tags: ['hosting', 'deployment', 'frontend', 'ci/cd'],
     url: 'https://vercel.com',
@@ -214,7 +205,7 @@ export const RESOURCES = [
     name: 'GitHub Copilot Docs',
     description:
       'Official documentation and prompt engineering tips for Copilot.',
-    category: 'AI Education',
+    category: 'AI & Machine Learning',
     importance: 'Medium',
     tags: ['ai', 'copilot', 'productivity', 'coding'],
     url: 'https://docs.github.com/en/copilot',
@@ -223,7 +214,7 @@ export const RESOURCES = [
   {
     name: 'Excalidraw',
     description: 'Virtual whiteboard for sketching hand-drawn-like diagrams.',
-    category: 'Productivity',
+    category: 'Dev & Design Tools',
     importance: 'Low',
     tags: ['design', 'diagrams', 'collaboration', 'whiteboard'],
     url: 'https://excalidraw.com',
@@ -232,7 +223,7 @@ export const RESOURCES = [
   {
     name: 'CSS Tricks — Flexbox Guide',
     description: 'Complete visual guide to CSS Flexbox layout.',
-    category: 'Styling',
+    category: 'Programming',
     importance: 'Medium',
     tags: ['css', 'flexbox', 'layout', 'reference'],
     url: 'https://css-tricks.com/snippets/css/a-guide-to-flexbox',
@@ -242,7 +233,7 @@ export const RESOURCES = [
     name: 'Notion',
     description:
       'All-in-one workspace for notes, docs, and project management.',
-    category: 'Productivity',
+    category: 'Dev & Design Tools',
     importance: 'Medium',
     tags: ['notes', 'productivity', 'collaboration', 'docs'],
     url: 'https://notion.so',
@@ -252,7 +243,7 @@ export const RESOURCES = [
     name: 'Figma',
     description:
       'Collaborative UI design tool for creating wireframes and prototypes.',
-    category: 'Design',
+    category: 'Dev & Design Tools',
     importance: 'High',
     tags: ['design', 'ui', 'prototyping', 'collaboration'],
     url: 'https://figma.com',
@@ -261,7 +252,7 @@ export const RESOURCES = [
   {
     name: 'Can I Use',
     description: 'Check browser support tables for frontend web technologies.',
-    category: 'Documentation',
+    category: 'Programming',
     importance: 'Low',
     tags: ['css', 'html', 'browser', 'compatibility'],
     url: 'https://caniuse.com',
@@ -270,7 +261,7 @@ export const RESOURCES = [
   {
     name: 'Roadmap.sh',
     description: 'Community-driven interactive roadmaps for developers.',
-    category: 'Learning',
+    category: 'Programming',
     importance: 'Medium',
     tags: ['learning', 'career', 'roadmap', 'guide'],
     url: 'https://roadmap.sh',
@@ -279,7 +270,7 @@ export const RESOURCES = [
   {
     name: 'Ray.so',
     description: 'Create beautiful images of your code snippets for sharing.',
-    category: 'Productivity',
+    category: 'Dev & Design Tools',
     importance: 'Low',
     tags: ['design', 'screenshots', 'code', 'sharing'],
     url: 'https://ray.so',
@@ -289,7 +280,7 @@ export const RESOURCES = [
     name: 'MarkItDown',
     description:
       "Microsoft's Python utility for converting files (PDF, Office docs, images, audio) to Markdown for LLM pipelines.",
-    category: 'AI Tools',
+    category: 'AI & Machine Learning',
     importance: 'High',
     tags: ['ai', 'markdown', 'converter', 'python', 'llm'],
     url: 'https://github.com/microsoft/markitdown',
@@ -302,7 +293,7 @@ export const RESOURCES = [
     name: 'Firebase',
     description:
       "Google's platform for building web and mobile apps with cloud services.",
-    category: 'Backend',
+    category: 'Dev & Design Tools',
     importance: 'High',
     tags: ['backend', 'auth', 'database', 'google'],
     url: 'https://firebase.google.com',
@@ -315,7 +306,7 @@ export const RESOURCES = [
     name: 'Git Tutorial',
     description:
       'Official tutorial introducing the fundamental concepts and commands of Git version control.',
-    category: 'Tutorials',
+    category: 'Programming',
     importance: 'High',
     tags: ['git', 'vcs', 'version control', 'cli', 'tutorial'],
     url: 'https://git-scm.com/docs/gittutorial',
@@ -327,7 +318,7 @@ export const RESOURCES = [
     name: 'Machine Learning from scratch',
     description:
       'Free online book implementing core machine learning algorithms from scratch in Python.',
-    category: 'Learning',
+    category: 'AI & Machine Learning',
     importance: 'High',
     tags: ['machine learning', 'python', 'book', 'free'],
     url: 'https://dafriedman97.github.io/mlbook/content/introduction.html',
@@ -339,7 +330,7 @@ export const RESOURCES = [
     name: 'HBS Best-Selling Case Studies',
     description:
       'Harvard Business Publishing collection of best-selling business case studies across disciplines.',
-    category: 'Learning',
+    category: 'Business & Media',
     importance: 'High',
     tags: ['business', 'case studies', 'harvard', 'management', 'strategy'],
     url: 'https://www.hbsp.harvard.edu/catalog/collections/best-selling-cases-across-disciplines',
@@ -349,7 +340,7 @@ export const RESOURCES = [
     name: 'Harvard University Press',
     description:
       'The scholarly publishing house of Harvard University, with a catalog of academic and general-interest books.',
-    category: 'Learning',
+    category: 'Business & Media',
     importance: 'High',
     tags: ['books', 'harvard', 'academic', 'publishing', 'research'],
     url: 'https://www.hup.harvard.edu/',
@@ -359,7 +350,7 @@ export const RESOURCES = [
     name: 'WALLET-RX',
     description:
       'Enterprise B2B sales field guide: curated books, episodes, talks and practitioners for complex enterprise selling.',
-    category: 'Learning',
+    category: 'Business & Media',
     importance: 'High',
     tags: ['sales', 'b2b', 'enterprise', 'business', 'field guide'],
     url: 'https://wallet-rx.tarentoinitiatives.com/',
@@ -369,7 +360,7 @@ export const RESOURCES = [
     name: 'GraphRAG',
     description:
       "Microsoft's graph-based Retrieval-Augmented Generation system for extracting structured knowledge graphs from unstructured text.",
-    category: 'AI Tools',
+    category: 'AI & Machine Learning',
     importance: 'High',
     tags: ['ai', 'rag', 'graphrag', 'knowledge-graph', 'llm'],
     url: 'https://microsoft.github.io/graphrag/',
@@ -382,7 +373,7 @@ export const RESOURCES = [
     name: 'SerpApi',
     description:
       'Real-time API to access search engine results from Google, Bing, Baidu, Yahoo, and more.',
-    category: 'AI Tools',
+    category: 'AI & Machine Learning',
     importance: 'High',
     tags: ['api', 'search', 'scraping', 'google', 'serp', 'ai'],
     url: 'https://serpapi.com/',
@@ -394,98 +385,44 @@ export const RESOURCES = [
 ];
 
 export const CATEGORY_ICONS = {
-  Documentation: 'BookOpen',
-  Styling: 'Paintbrush',
-  Design: 'PenTool',
-  Backend: 'Server',
-  Deployment: 'CloudUpload',
-  'AI Tools': 'Cpu',
-  Productivity: 'Zap',
-  Learning: 'GraduationCap',
-  'AI Workflow': 'Workflow',
-  'AI Education': 'BrainCircuit',
-  Python: 'Code',
-  Podcasts: 'Headphones',
-  Tutorials: 'BookMarked',
-  'Claude Code': 'Terminal',
+  'Claude & Anthropic': 'Sparkles',
+  'AI & Machine Learning': 'BrainCircuit',
+  Programming: 'Code',
+  'Dev & Design Tools': 'Wrench',
+  'Business & Media': 'Briefcase',
   Default: 'Folder',
 };
 
 export const CATEGORY_STYLES = {
   All: {
+    color: 'var(--accent-primary)',
+    bg: 'var(--bg-hover)',
+    border: 'var(--border-active)',
+  },
+  'Claude & Anthropic': {
     color: 'var(--cat-orange-text)',
     bg: 'var(--cat-orange-bg)',
     border: 'var(--cat-orange-border)',
   },
-  'AI Workflow': {
-    color: 'var(--cat-orange-text)',
-    bg: 'var(--cat-orange-bg)',
-    border: 'var(--cat-orange-border)',
-  },
-  'AI Education': {
-    color: 'var(--cat-orange-text)',
-    bg: 'var(--cat-orange-bg)',
-    border: 'var(--cat-orange-border)',
-  },
-  Python: {
+  'AI & Machine Learning': {
     color: 'var(--cat-blue-text)',
     bg: 'var(--cat-blue-bg)',
     border: 'var(--cat-blue-border)',
   },
-  Podcasts: {
+  Programming: {
+    color: 'var(--cat-green-text)',
+    bg: 'var(--cat-green-bg)',
+    border: 'var(--cat-green-border)',
+  },
+  'Dev & Design Tools': {
     color: 'var(--cat-neutral-text)',
     bg: 'var(--cat-neutral-bg)',
     border: 'var(--cat-neutral-border)',
   },
-  Tutorials: {
-    color: 'var(--cat-green-text)',
-    bg: 'var(--cat-green-bg)',
-    border: 'var(--cat-green-border)',
-  },
-  'Claude Code': {
-    color: 'var(--cat-orange-text)',
-    bg: 'var(--cat-orange-bg)',
-    border: 'var(--cat-orange-border)',
-  },
-  'AI Tools': {
-    color: 'var(--cat-orange-text)',
-    bg: 'var(--cat-orange-bg)',
-    border: 'var(--cat-orange-border)',
-  },
-  Design: {
-    color: 'var(--cat-green-text)',
-    bg: 'var(--cat-green-bg)',
-    border: 'var(--cat-green-border)',
-  },
-  Backend: {
-    color: 'var(--cat-blue-text)',
-    bg: 'var(--cat-blue-bg)',
-    border: 'var(--cat-blue-border)',
-  },
-  Deployment: {
-    color: 'var(--cat-blue-text)',
-    bg: 'var(--cat-blue-bg)',
-    border: 'var(--cat-blue-border)',
-  },
-  Productivity: {
+  'Business & Media': {
     color: 'var(--cat-neutral-text)',
     bg: 'var(--cat-neutral-bg)',
     border: 'var(--cat-neutral-border)',
-  },
-  Styling: {
-    color: 'var(--cat-green-text)',
-    bg: 'var(--cat-green-bg)',
-    border: 'var(--cat-green-border)',
-  },
-  Documentation: {
-    color: 'var(--cat-neutral-text)',
-    bg: 'var(--cat-neutral-bg)',
-    border: 'var(--cat-neutral-border)',
-  },
-  Learning: {
-    color: 'var(--cat-green-text)',
-    bg: 'var(--cat-green-bg)',
-    border: 'var(--cat-green-border)',
   },
   Default: {
     color: 'var(--cat-orange-text)',
@@ -646,7 +583,7 @@ export const ROADMAPS = [
       },
       {
         id: 'wf-step-2',
-        resourceName: 'Claude Code Blog',
+        resourceName: 'claude.dev Blog',
         stage: 'Stage 2: Agentic Coding Workflows',
         takeaway:
           'Pair programming with AI terminal agents for lightning refactors.',

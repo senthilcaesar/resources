@@ -1,360 +1,204 @@
 import React, { useState } from 'react';
-import {
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalBody,
-  ModalFooter,
-  Box,
-  Text,
-  Button,
-  IconButton,
-  VStack,
-  HStack,
-} from '@chakra-ui/react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { Modal, ModalOverlay, ModalContent } from '@chakra-ui/react';
 import {
   X,
-  Code2,
-  Cpu,
-  Palette,
-  Terminal,
-  Box as BoxIcon,
+  Atom,
   Zap,
-  Volume2,
+  Box,
+  Shapes,
+  Palette,
   Database,
   Search,
-  Sparkles,
-  Layers,
+  HardDrive,
+  Rocket,
   Check,
   Copy,
 } from 'lucide-react';
+import { RESOURCES } from '../data/resources';
 
-const MotionBox = motion(Box);
+const LINK_COUNT = RESOURCES.length;
+const CATEGORY_COUNT = new Set(RESOURCES.map((r) => r.category)).size;
 
-const TECH_STACK_ITEMS = [
+// Each tile's `size` maps to a grid span in index.css (.tech-tile--hero etc.).
+const TILES = [
   {
-    category: 'Core Engine',
-    items: [
-      {
-        icon: Code2,
-        iconColor: '#61dafb',
-        iconBg: 'rgba(97, 218, 251, 0.12)',
-        title: 'React 18 & Vite 5',
-        badge: 'v18.3 / v5.3',
-        description:
-          'Modern component architecture with concurrent rendering and instant Rollup/HMR bundling.',
-      },
-      {
-        icon: Zap,
-        iconColor: '#ff0080',
-        iconBg: 'rgba(255, 0, 128, 0.12)',
-        title: 'Framer Motion 11',
-        badge: '60fps Spring',
-        description:
-          'Hardware-accelerated layout transitions, drawer slide-overs, and popLayout animations.',
-      },
+    size: 'hero',
+    icon: Atom,
+    label: 'Core',
+    title: 'React 18 + Vite 8',
+    meta: 'react 18.3 · vite 8.3',
+    text: 'Component UI rendered by React, bundled and served with hot reload by Vite.',
+  },
+  {
+    size: 'wide',
+    icon: Zap,
+    label: 'Motion',
+    title: 'Framer Motion 11',
+    text: 'Card hover, layout and drawer transitions.',
+  },
+  {
+    size: 'small',
+    icon: Box,
+    label: 'Dialogs',
+    title: 'Chakra UI 2',
+    text: 'Accessible modals, styled with Emotion.',
+  },
+  {
+    size: 'small',
+    icon: Shapes,
+    label: 'Icons',
+    title: 'Lucide',
+    text: 'Stroke SVG icons.',
+  },
+  {
+    size: 'wide',
+    icon: Palette,
+    label: 'Theming',
+    title: 'CSS design tokens',
+    text: 'Custom properties drive a charcoal-and-cyan dark theme and a Nordic light theme.',
+    swatches: [
+      'var(--bg-main)',
+      'var(--bg-card)',
+      'var(--text-primary)',
+      'var(--accent-primary)',
+      'var(--accent-secondary)',
     ],
   },
   {
-    category: 'Design & Component System',
-    items: [
-      {
-        icon: BoxIcon,
-        iconColor: '#319795',
-        iconBg: 'rgba(49, 151, 149, 0.12)',
-        title: 'Chakra UI & Emotion',
-        badge: '@emotion/styled',
-        description:
-          'Accessible component primitives and dynamic style injection for modal dialogs.',
-      },
-      {
-        icon: Palette,
-        iconColor: '#ff7a59',
-        iconBg: 'rgba(255, 122, 89, 0.12)',
-        title: 'Multi-Theme Token Architecture',
-        badge: '3 Palettes',
-        description:
-          'CSS custom properties powering Cyber Nebula, Nordic Editorial, and Emerald Matrix modes.',
-      },
-      {
-        icon: Layers,
-        iconColor: '#a78bfa',
-        iconBg: 'rgba(167, 139, 250, 0.12)',
-        title: 'Lucide React Iconography',
-        badge: 'SVG Vectors',
-        description:
-          'Clean, consistent stroke-based vector icons for category indexing and interface actions.',
-      },
+    size: 'wide',
+    icon: Database,
+    label: 'Data',
+    stats: [
+      { value: LINK_COUNT, unit: 'links' },
+      { value: CATEGORY_COUNT, unit: 'categories' },
     ],
+    text: 'One static file, src/data/resources.js. No backend.',
   },
   {
-    category: 'Audio & Data Storage',
-    items: [
-      {
-        icon: Volume2,
-        iconColor: '#38bdf8',
-        iconBg: 'rgba(56, 189, 248, 0.12)',
-        title: 'Web Audio API Synthesizer',
-        badge: 'Zero Assets',
-        description:
-          'Real-time audio frequency synthesis for tactile roulette spins, clicks, and bookmark feedback.',
-      },
-      {
-        icon: Database,
-        iconColor: '#f59e0b',
-        iconBg: 'rgba(245, 158, 11, 0.12)',
-        title: 'LocalStorage Persistence Engine',
-        badge: 'Client Cache',
-        description:
-          'Real-time persistence for bookmarks/backpack collection, theme preferences, and active view.',
-      },
-      {
-        icon: Search,
-        iconColor: '#10b981',
-        iconBg: 'rgba(16, 185, 129, 0.12)',
-        title: 'Multi-Attribute Search & Tag Matrix',
-        badge: 'Fuzzy Index',
-        description:
-          'Sub-millisecond filtering across resource titles, descriptions, categories, and tags.',
-      },
-    ],
+    size: 'wide',
+    icon: Search,
+    label: 'Search & filters',
+    title: 'In-memory filtering',
+    text: 'Text, category, priority and tag filters run in the browser on every keystroke.',
+  },
+  {
+    size: 'small',
+    icon: HardDrive,
+    label: 'Storage',
+    title: 'localStorage',
+    text: 'Bookmarks, theme, view.',
+  },
+  {
+    size: 'small',
+    icon: Rocket,
+    label: 'Deploy',
+    title: 'GitHub Pages',
+    text: 'Built by Actions on push to main.',
   },
 ];
 
-const TechStackModal = ({ isOpen, onClose }) => {
-  const [copiedSpec, setCopiedSpec] = useState(false);
+const SPEC_SUMMARY = [
+  'Study Links: architecture',
+  '- UI: React 18 + Vite 8',
+  '- Motion: Framer Motion 11',
+  '- Dialogs: Chakra UI 2 + Emotion',
+  '- Icons: Lucide React',
+  '- Theming: CSS custom properties (dark + light)',
+  `- Data: static resources.js (${LINK_COUNT} links, ${CATEGORY_COUNT} categories)`,
+  '- Search: in-memory text, category, priority and tag filters',
+  '- Storage: localStorage (bookmarks, theme, view)',
+  '- Deploy: GitHub Pages via GitHub Actions',
+].join('\n');
 
-  const copyBlueprintSummary = () => {
-    const summary = `HyperVault Architecture:\n- Frontend: React 18 + Vite 5\n- Styling: Chakra UI + Custom CSS Tokens + Emotion\n- Animation: Framer Motion 11\n- Icons: Lucide React\n- Audio: Web Audio API Synthesizer\n- Storage: LocalStorage Cache Engine`;
-    navigator.clipboard.writeText(summary);
-    setCopiedSpec(true);
-    setTimeout(() => setCopiedSpec(false), 2000);
+const TechStackModal = ({ isOpen, onClose }) => {
+  const [copied, setCopied] = useState(false);
+
+  const copySpec = async () => {
+    try {
+      await navigator.clipboard.writeText(SPEC_SUMMARY);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      // Clipboard can be blocked (e.g. insecure context); nothing to do.
+    }
   };
 
   return (
-    <Modal
-      isOpen={isOpen}
-      onClose={onClose}
-      isCentered
-      motionPreset='slideInBottom'
-    >
-      <ModalOverlay backdropFilter='blur(12px)' bg='rgba(5, 7, 12, 0.85)' />
+    <Modal isOpen={isOpen} onClose={onClose} isCentered>
+      <ModalOverlay bg='var(--modal-overlay)' backdropFilter='blur(8px)' />
       <ModalContent
+        className='tech-modal'
         bg='var(--bg-sidebar)'
-        border='1px solid'
-        borderColor='var(--border-subtle)'
-        borderRadius='28px'
-        boxShadow='0 24px 64px rgba(0, 0, 0, 0.7)'
-        p={2}
-        maxW='640px'
-        maxH='88vh'
-        overflow='hidden'
-        display='flex'
-        flexDirection='column'
+        border='1px solid var(--border-subtle)'
+        borderRadius='20px'
+        boxShadow='var(--shadow-card)'
+        w='calc(100vw - 32px)'
+        maxW='56rem'
+        mx='auto'
       >
-        {/* Header */}
-        <ModalHeader
-          p={5}
-          pb={3}
-          borderBottom='1px solid'
-          borderColor='var(--border-subtle)'
-        >
-          <HStack spacing={3} align='center'>
-            <Box
-              w='44px'
-              h='44px'
-              borderRadius='14px'
-              bg='var(--bg-hover)'
-              color='var(--accent-primary)'
-              display='flex'
-              alignItems='center'
-              justifyContent='center'
-              boxShadow='0 0 16px var(--accent-glow)'
-            >
-              <Cpu size={22} />
-            </Box>
-            <VStack align='start' spacing={0} flex={1}>
-              <HStack spacing={2}>
-                <Text
-                  fontSize='1.15rem'
-                  fontWeight='800'
-                  color='var(--text-primary)'
-                  fontFamily='var(--font-heading)'
-                >
-                  Project Blueprint & Architecture
-                </Text>
-              </HStack>
-              <Text fontSize='0.75rem' color='var(--text-dim)'>
-                Underlying frameworks, libraries & runtime capabilities
-              </Text>
-            </VStack>
-            <IconButton
-              aria-label='Close'
-              icon={<X size={18} />}
-              variant='ghost'
-              borderRadius='full'
-              color='var(--text-dim)'
-              _hover={{ bg: 'var(--bg-hover)', color: 'var(--text-primary)' }}
-              onClick={onClose}
-              size='sm'
-            />
-          </HStack>
-        </ModalHeader>
+        <div className='tech-modal-header'>
+          <div>
+            <h2 className='tech-modal-title'>Project Blueprint & Architecture</h2>
+            <p className='tech-modal-subtitle'>What this site is built with</p>
+          </div>
+          <button
+            type='button'
+            className='tech-modal-close'
+            onClick={onClose}
+            aria-label='Close'
+          >
+            <X size={16} />
+          </button>
+        </div>
 
-        {/* Scrollable Body */}
-        <ModalBody px={5} py={4} overflowY='auto' maxH='calc(88vh - 150px)'>
-          <VStack spacing={5} align='stretch'>
-            {TECH_STACK_ITEMS.map((group, groupIdx) => (
-              <Box key={group.category}>
-                <Text
-                  fontSize='0.72rem'
-                  fontWeight='700'
-                  textTransform='uppercase'
-                  letterSpacing='0.08em'
-                  color='var(--text-dim)'
-                  mb={2.5}
-                  pl={1}
-                >
-                  {group.category}
-                </Text>
-                <VStack spacing={2.5} align='stretch'>
-                  {group.items.map((item, itemIdx) => {
-                    const IconComp = item.icon;
-                    const overallIndex = groupIdx * 3 + itemIdx;
-                    return (
-                      <MotionBox
-                        key={item.title}
-                        initial={{ opacity: 0, y: 10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{
-                          delay: 0.05 + overallIndex * 0.04,
-                          duration: 0.25,
-                        }}
-                        display='flex'
-                        alignItems='flex-start'
-                        gap={3.5}
-                        p={3.5}
-                        borderRadius='16px'
-                        bg='var(--bg-card)'
-                        border='1px solid'
-                        borderColor='var(--border-subtle)'
-                        _hover={{
-                          borderColor: 'var(--border-active)',
-                          bg: 'var(--bg-card-hover)',
-                          transform: 'translateY(-1px)',
-                          boxShadow: 'var(--shadow-soft)',
-                        }}
-                        cursor='default'
-                      >
-                        <Box
-                          w='38px'
-                          h='38px'
-                          borderRadius='12px'
-                          bg={item.iconBg}
-                          display='flex'
-                          alignItems='center'
-                          justifyContent='center'
-                          color={item.iconColor}
-                          flexShrink={0}
-                          mt={0.5}
-                        >
-                          <IconComp size={19} />
-                        </Box>
-                        <VStack align='start' spacing={1} flex={1}>
-                          <HStack justify='space-between' w='full'>
-                            <Text
-                              fontSize='0.88rem'
-                              fontWeight='700'
-                              color='var(--text-primary)'
-                            >
-                              {item.title}
-                            </Text>
-                            <Box
-                              fontSize='0.68rem'
-                              fontFamily='var(--font-mono)'
-                              fontWeight='600'
-                              color={item.iconColor}
-                              bg={item.iconBg}
-                              px={2}
-                              py={0.5}
-                              borderRadius='6px'
-                            >
-                              {item.badge}
-                            </Box>
-                          </HStack>
-                          <Text
-                            fontSize='0.76rem'
-                            color='var(--text-secondary)'
-                            lineHeight='1.4'
-                          >
-                            {item.description}
-                          </Text>
-                        </VStack>
-                      </MotionBox>
-                    );
-                  })}
-                </VStack>
-              </Box>
-            ))}
-          </VStack>
-        </ModalBody>
+        <div className='tech-bento'>
+          {TILES.map((tile) => {
+            const Icon = tile.icon;
+            return (
+              <div
+                key={tile.label}
+                className={`tech-tile tech-tile--${tile.size}`}
+              >
+                <div className='tech-tile-label'>
+                  <Icon size={14} />
+                  <span>{tile.label}</span>
+                </div>
 
-        {/* Footer Actions */}
-        <ModalFooter
-          px={5}
-          py={3.5}
-          borderTop='1px solid'
-          borderColor='var(--border-subtle)'
-          bg='var(--bg-input)'
-        >
-          <HStack w='full' spacing={3}>
-            <Button
-              flex={1}
-              h='40px'
-              variant='outline'
-              borderColor='var(--border-subtle)'
-              color='var(--text-secondary)'
-              borderRadius='12px'
-              fontSize='0.82rem'
-              fontWeight='600'
-              leftIcon={
-                copiedSpec ? (
-                  <Check size={14} className='text-emerald-400' />
-                ) : (
-                  <Copy size={14} />
-                )
-              }
-              _hover={{
-                bg: 'var(--bg-hover)',
-                color: 'var(--text-primary)',
-                borderColor: 'var(--border-active)',
-              }}
-              onClick={copyBlueprintSummary}
-            >
-              {copiedSpec ? 'Blueprint Copied!' : 'Copy Tech Spec'}
-            </Button>
-            <Button
-              flex={1}
-              h='40px'
-              bg='var(--accent-primary)'
-              color='white'
-              borderRadius='12px'
-              fontSize='0.82rem'
-              fontWeight='700'
-              _hover={{
-                filter: 'brightness(1.1)',
-                transform: 'translateY(-1px)',
-              }}
-              _active={{ transform: 'translateY(0)' }}
-              boxShadow='0 2px 10px var(--accent-glow)'
-              onClick={onClose}
-            >
-              Close Blueprint
-            </Button>
-          </HStack>
-        </ModalFooter>
+                {tile.title && <h3 className='tech-tile-title'>{tile.title}</h3>}
+
+                {tile.stats && (
+                  <div className='tech-tile-stats'>
+                    {tile.stats.map((s) => (
+                      <div key={s.unit}>
+                        <span className='tech-stat-value'>{s.value}</span>
+                        <span className='tech-stat-unit'>{s.unit}</span>
+                      </div>
+                    ))}
+                  </div>
+                )}
+
+                <p className='tech-tile-text'>{tile.text}</p>
+
+                {tile.swatches && (
+                  <div className='tech-swatches' aria-hidden='true'>
+                    {tile.swatches.map((c) => (
+                      <span key={c} style={{ background: c }} />
+                    ))}
+                  </div>
+                )}
+
+                {tile.meta && <code className='tech-tile-meta'>{tile.meta}</code>}
+              </div>
+            );
+          })}
+        </div>
+
+        <div className='tech-modal-footer'>
+          <button type='button' className='tech-copy-btn' onClick={copySpec}>
+            {copied ? <Check size={14} /> : <Copy size={14} />}
+            <span>{copied ? 'Copied' : 'Copy tech spec'}</span>
+          </button>
+        </div>
       </ModalContent>
     </Modal>
   );

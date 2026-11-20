@@ -2,7 +2,6 @@ import React, { useState, useEffect, useMemo } from 'react';
 import Sidebar from './components/Sidebar';
 import Header from './components/Header';
 import BentoView from './components/BentoView';
-import TerminalView from './components/TerminalView';
 import DenseTableView from './components/DenseTableView';
 import TechStackModal from './components/TechStackModal';
 import QuickPreviewModal from './components/QuickPreviewModal';
@@ -27,7 +26,7 @@ function App() {
 
   const [viewMode, setViewMode] = useState(() => {
     const saved = localStorage.getItem('hypervault_viewMode');
-    if (saved === 'bento' || saved === 'terminal' || saved === 'table') {
+    if (saved === 'bento' || saved === 'table') {
       return saved;
     }
     return 'bento';
@@ -51,8 +50,6 @@ function App() {
   } = useBackpack();
 
   const {
-    soundEnabled,
-    toggleSound,
     playClick,
     playHover,
     playSuccess,
@@ -182,7 +179,6 @@ function App() {
         setSelectedTags={setSelectedTags}
         showOnlyBookmarks={showOnlyBookmarks}
         setShowOnlyBookmarks={setShowOnlyBookmarks}
-        bookmarkCount={bookmarkCount}
         isOpen={isSidebarOpen}
         onClose={() => setIsSidebarOpen(false)}
         onHomeClick={handleHomeClick}
@@ -201,14 +197,10 @@ function App() {
           setViewMode={setViewMode}
           onToggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)}
           isSidebarOpen={isSidebarOpen}
-          resourceCount={filteredResources.length}
-          onOpenRoulette={() => setIsRouletteOpen(true)}
           onOpenCommandPalette={() => setIsCommandPaletteOpen(true)}
           bookmarkCount={bookmarkCount}
           showOnlyBookmarks={showOnlyBookmarks}
           setShowOnlyBookmarks={setShowOnlyBookmarks}
-          soundEnabled={soundEnabled}
-          toggleSound={toggleSound}
           playClick={playClick}
         />
 
@@ -275,17 +267,6 @@ function App() {
                   isBookmarked={isBookmarked}
                   onToggleBookmark={toggleBookmark}
                   onTagClick={handleTagClick}
-                  playClick={playClick}
-                  playSuccess={playSuccess}
-                />
-              )}
-
-              {viewMode === 'terminal' && (
-                <TerminalView
-                  resources={filteredResources}
-                  onSelectResource={setSelectedResource}
-                  isBookmarked={isBookmarked}
-                  onToggleBookmark={toggleBookmark}
                   playClick={playClick}
                   playSuccess={playSuccess}
                 />
