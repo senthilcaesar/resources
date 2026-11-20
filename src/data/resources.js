@@ -1,5 +1,15 @@
 export const RESOURCES = [
   {
+    name: 'Forward Deployed Engineer',
+    description:
+      "Anthropic's partner learning path for forward deployed engineers building and shipping Claude solutions with customers.",
+    category: 'Tutorials',
+    importance: 'High',
+    tags: ['claude', 'anthropic', 'fde', 'partners', 'learning path'],
+    url: 'https://anthropic-partners.skilljar.com/path/claude-fde',
+    color: '#7ED321',
+  },
+  {
     name: 'DataLemur SQL Tutorial',
     description:
       'Free interactive SQL tutorial with practice questions from real interviews.',
